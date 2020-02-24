@@ -22,14 +22,15 @@ resource "aws_internet_gateway" "igw" {
 }
 
 resource "aws_subnet" "public_subnet" {
+  count  = length(var.public_subnets)
   vpc_id = aws_vpc.vpc.id
 
   map_public_ip_on_launch = "true"
-  availability_zone       = "eu-west-1a"
-  cidr_block              = var.public_subnet_cidr
+  availability_zone       = element(var.azs, count.index)
+  cidr_block              = element(var.public_subnets, count.index)
 
   tags = {
-    "Name"            = format("%s-Public", local.name)
+    "Name"            = format("%s-Public-%d", local.name, count.index + 1)
     "EnvironmentType" = var.environment_type
     "Managed by"      = "Terraform"
   }
@@ -59,7 +60,11 @@ resource "aws_route_table" "public" {
 }
 
 resource "aws_route_table_association" "public" {
-  subnet_id      = aws_subnet.public_subnet.id
+  ### OPTIONAL
+  #   count = length(aws_subnet.public_subnets[*].id)
+  count = length(var.public_subnets)
+
+  subnet_id      = aws_subnet.public_subnet[count.index].id
   route_table_id = aws_route_table.public.id
 }
 
