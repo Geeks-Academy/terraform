@@ -1,13 +1,3 @@
-variable "aws_region" {
-  type        = string
-  description = "AWS Region"
-}
-
-variable "profile_name" {
-  type        = string
-  description = "AWS profile name"
-}
-
 variable "owner" {
   type        = string
   description = "Owner name"
@@ -37,4 +27,3 @@ variable "azs" {
   type        = list
   description = "Availability zones"
 }
-
