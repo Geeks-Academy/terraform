@@ -43,3 +43,7 @@ module "ec2" {
   ec2_sg_id = module.sg.ec2_sg_id
   prefix    = "codebazar"
 }
+
+output "instance_profile_name" {
+  value = terraform_remote_state.project-iam.instance_profile_ec2
+}
