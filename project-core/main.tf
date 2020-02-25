@@ -1,3 +1,11 @@
+terraform {
+  backend "s3" {
+    bucket = "codebazar-states"
+    region = "eu-west-1"
+    key    = "states/core/terraform.tfstate"
+  }
+}
+
 module "vpc" {
   source = "./vpc"
 
