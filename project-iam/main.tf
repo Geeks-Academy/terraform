@@ -38,3 +38,7 @@ resource "aws_iam_role" "role" {
 }
 EOF
 }
+
+output "instance_profile_ec2" {
+  value = aws_iam_instance_profile.ec2.name
+}
