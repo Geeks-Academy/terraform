@@ -9,7 +9,7 @@ terraform {
 
 data "terraform_remote_state" "project-iam" {
   backend = "s3"
-  config {
+  config = {
     bucket  = "codebazar-states"
     region  = "eu-west-1"
     profile = "irland"
