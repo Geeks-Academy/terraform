@@ -7,6 +7,16 @@ terraform {
   }
 }
 
+data "terraform_remote_state" "project-iam" {
+  backend = "s3"
+  config {
+    bucket  = "codebazar-states"
+    region  = "eu-west-1"
+    profile = "irland"
+    key     = "states/core/terraform.tfstate"
+  }
+}
+
 module "vpc" {
   source = "./vpc"
 
