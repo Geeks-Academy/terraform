@@ -5,7 +5,7 @@ resource "tls_private_key" "rsa_main" {
 
 resource "aws_key_pair" "deployer" {
   key_name   = "deployer-key"
-  public_key = tls_private_key.public_key_openssh
+  public_key = tls_private_key.rsa_main.public_key_openssh
 }
 
 output "rsa_main_private_pem" {
