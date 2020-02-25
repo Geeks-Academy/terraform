@@ -22,3 +22,11 @@ variable "prefix" {
   type        = string
   description = "Instance name prefix"
 }
+
+variable "tags" {
+  type = map
+
+  default = {
+    owner = "bartek"
+  }
+}
