@@ -20,7 +20,7 @@ module "ec2" {
 
   type      = "t3.micro"
   ssh_key   = aws_key_pair.deployer.key_name
-  subnet    = module.vpc.public_subnet_id
+  subnet    = module.vpc.public_subnet_1_id
   ec2_sg_id = module.sg.ec2_sg_id
   prefix    = "codebazar"
 }
