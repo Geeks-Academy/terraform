@@ -14,7 +14,7 @@ resource "aws_security_group_rule" "ec2_allow_ssh" {
 }
 
 resource "aws_security_group_rule" "ec2_egress_all" {
-  type        = "engress"
+  type        = "egress"
   from_port   = 0
   to_port     = 0
   protocol    = "-1"
