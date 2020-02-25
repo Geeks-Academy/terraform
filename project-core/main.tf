@@ -45,5 +45,5 @@ module "ec2" {
 }
 
 output "instance_profile_name" {
-  value = data.terraform_remote_state.project-iam.instance_profile_ec2
+  value = data.terraform_remote_state.project-iam.outputs.instance_profile_ec2
 }
