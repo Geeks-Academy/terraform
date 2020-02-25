@@ -13,7 +13,7 @@ data "terraform_remote_state" "project-iam" {
     bucket  = "codebazar-states"
     region  = "eu-west-1"
     profile = "irland"
-    key     = "states/core/terraform.tfstate"
+    key     = "states/iam/terraform.tfstate"
   }
 }
 
