@@ -44,7 +44,7 @@ resource "aws_launch_configuration" "programmers_only" {
   name_prefix                 = "programmers-only"
   image_id                    = data.aws_ami.amazon_linux.id
   instance_type               = "t3.micro"
-  spot_price                  = "0.4"
+#  spot_price                  = "0.008"
   user_data                   = data.template_cloudinit_config.config.rendered
   key_name                    = var.key_name
   iam_instance_profile        = var.iam_instance_profile
