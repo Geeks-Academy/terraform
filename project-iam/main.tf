@@ -58,8 +58,8 @@ resource "aws_iam_policy" "policy" {
 
 resource "aws_iam_policy_attachment" "ec2toecs" {
   name       = "EC2-to-ECS"
-  roles      = ["${aws_iam_role.role.name}"]
-  policy_arn = "${aws_iam_policy.policy.arn}"
+  roles      = [aws_iam_role.role.name]
+  policy_arn = aws_iam_policy.policy.arn
 }
 
 output "instance_profile_ec2" {
