@@ -48,7 +48,7 @@ resource "aws_launch_configuration" "programmers_only" {
   user_data            = data.template_cloudinit_config.config.rendered
   key_name             = var.key_name
   iam_instance_profile = var.iam_instance_profile
-  security_groups      = [var.security_groups]
+  security_groups      = var.security_groups
 
   lifecycle {
     create_before_destroy = true
