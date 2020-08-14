@@ -1,7 +1,7 @@
 locals {
   tags = merge(
     map(
-      "Layer", "EC2",
+      "Layer", "ECS",
     ),
     var.tags
   )

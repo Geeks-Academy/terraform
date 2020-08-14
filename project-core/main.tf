@@ -17,7 +17,7 @@ data "terraform_remote_state" "project-iam" {
   }
 }
 
-module "vpc" {
+module "vpc_common" {
   source = "./vpc"
 
   owner               = var.owner
@@ -28,22 +28,14 @@ module "vpc" {
   azs                 = var.azs
 }
 
-module "sg" {
-  source = "./security"
-
-  vpc_id = module.vpc.vpc_id
+output "key_name" {
+  value = aws_key_pair.deployer.key_name
 }
 
-module "ec2" {
-  source = "./ec2"
-
-  type      = "t3.micro"
-  ssh_key   = aws_key_pair.deployer.key_name
-  subnet    = module.vpc.public_subnet_1_id
-  ec2_sg_id = module.sg.ec2_sg_id
-  prefix    = "codebazar"
+output "subnets" {
+  value = module.vpc_common.public_subnets
 }
 
-output "instance_profile_name" {
-  value = data.terraform_remote_state.project-iam.outputs.instance_profile_ec2
+output "vpc_common_id" {
+  value = module.vpc_common.vpc_id
 }
