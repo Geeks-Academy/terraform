@@ -41,14 +41,15 @@ data "template_cloudinit_config" "config" {
 }
 
 resource "aws_launch_configuration" "programmers_only" {
-  name_prefix          = "programmers-only"
-  image_id             = data.aws_ami.amazon_linux.id
-  instance_type        = "t3.micro"
-  spot_price           = "0.4"
-  user_data            = data.template_cloudinit_config.config.rendered
-  key_name             = var.key_name
-  iam_instance_profile = var.iam_instance_profile
-  security_groups      = var.security_groups
+  name_prefix                 = "programmers-only"
+  image_id                    = data.aws_ami.amazon_linux.id
+  instance_type               = "t3.micro"
+  spot_price                  = "0.4"
+  user_data                   = data.template_cloudinit_config.config.rendered
+  key_name                    = var.key_name
+  iam_instance_profile        = var.iam_instance_profile
+  security_groups             = var.security_groups
+  associate_public_ip_address = true
 
   lifecycle {
     create_before_destroy = true
@@ -71,20 +72,20 @@ resource "aws_autoscaling_group" "programmers_only" {
 
   tags = [
     {
-      "key" = "Name"
-      "value" = format("%s-ecs", var.prefix)
+      "key"                 = "Name"
+      "value"               = format("%s-ecs", var.prefix)
       "propagate_at_launch" = true
     },
     {
-      "key" = "Environment"
-      "value" = "dev"
+      "key"                 = "Environment"
+      "value"               = "dev"
       "propagate_at_launch" = true
     }
   ]
 
   lifecycle {
     create_before_destroy = true
-    ignore_changes = [desired_capacity]
+    ignore_changes        = [desired_capacity]
   }
 
 }
