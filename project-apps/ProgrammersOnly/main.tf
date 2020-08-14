@@ -73,7 +73,7 @@ resource "aws_autoscaling_group" "programmers_only" {
       "key" = "Name"
       "value" = format("%s-ecs", var.prefix)
       "propagate_at_launch" = true
-    }
+    },
     {
       "key" = "Environment"
       "value" = "dev"
