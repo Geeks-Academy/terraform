@@ -1,3 +1,5 @@
+
+//TODO: Change bucket and region (eu-central-1 - it is closer to Poland) for all terraform states once new account and bucket will be created
 terraform {
   backend "s3" {
     profile = "irland"
