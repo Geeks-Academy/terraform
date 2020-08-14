@@ -68,11 +68,18 @@ resource "aws_autoscaling_group" "programmers_only" {
   min_size             = 0
   max_size             = 2
 
-  tags = merge(
-    map("Name", format("%s-ecs", var.prefix)),
-    map("propagate_at_launch", true),
-    local.tags
-  )
+  tags = [
+    {
+      "key" = "Name"
+      "value" = format("%s-ecs", var.prefix)
+      "propagate_at_launch" = true
+    }
+    {
+      "key" = "Environment"
+      "value" = "dev"
+      "propagate_at_launch" = true
+    }
+  ]
 
   lifecycle {
     create_before_destroy = true
