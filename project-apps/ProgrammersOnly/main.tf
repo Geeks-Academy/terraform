@@ -85,6 +85,12 @@ data "template_file" "nginx" {
   template = "${file("ProgrammersOnly/task_definitions/nginx_task_definition.json")}"
 }
 
+resource "aws_ecs_task_definition" "nginx" {
+  family                = "nginx"
+  container_definitions = file("ProgrammersOnly/task_definitions/nginx_task_definition.json")
+}
+
+
 resource "aws_ecs_service" "nginx" {
   name                               = "nginx"
   cluster                            = aws_ecs_cluster.programmers_only.id
