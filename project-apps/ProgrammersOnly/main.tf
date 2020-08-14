@@ -67,6 +67,7 @@ resource "aws_autoscaling_group" "programmers_only" {
   launch_configuration = aws_launch_configuration.programmers_only.name
   min_size             = 0
   max_size             = 2
+  desired_capacity     = 0
 
   tags = [
     {
@@ -84,6 +85,8 @@ resource "aws_autoscaling_group" "programmers_only" {
   lifecycle {
     create_before_destroy = true
   }
+
+  ignore_changes = ["desired_capacity"]
 }
 
 ### ECS SERVICES
