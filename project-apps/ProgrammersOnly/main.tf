@@ -56,7 +56,7 @@ resource "aws_launch_configuration" "programmers_only" {
 
   ebs_block_device {
     device_name = "/dev/xvdcz"
-    volume_size = 20
+    volume_size = 22
   }
 }
 
