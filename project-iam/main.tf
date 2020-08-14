@@ -15,7 +15,7 @@ provider "aws" {
 
 resource "aws_iam_instance_profile" "ec2" {
   name = "ec2_profile"
-  role = "${aws_iam_role.role.name}"
+  role = aws_iam_role.role.name
 }
 
 resource "aws_iam_role" "role" {
