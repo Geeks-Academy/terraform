@@ -1,2 +1,2 @@
-# practice-template-02-2020
-My practice template_02_2020
+# Infrastructure as Code
+This repository continas our AWS cloud infrastructure described in Terraform.
