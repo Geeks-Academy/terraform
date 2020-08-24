@@ -1,8 +1,8 @@
 terraform {
   backend "s3" {
     profile = "irland"
-    bucket  = "codebazar-states"
-    region  = "eu-west-1"
+    bucket  = "programmers-only-states"
+    region  = "eu-central-1"
     key     = "states/core/terraform.tfstate"
   }
 }
@@ -10,8 +10,8 @@ terraform {
 data "terraform_remote_state" "project-iam" {
   backend = "s3"
   config = {
-    bucket  = "codebazar-states"
-    region  = "eu-west-1"
+    bucket  = "programmers-only-states"
+    region  = "eu-central-1"
     profile = "irland"
     key     = "states/iam/terraform.tfstate"
   }
