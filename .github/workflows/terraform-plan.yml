@@ -24,4 +24,5 @@ jobs:
     - name: Run a one-line script
       run: |
         cd ./project-iam
+        terraform init
         terraform plan
