@@ -6,7 +6,7 @@ resource "aws_iam_user" "aleks" {
 }
 
 resource "aws_iam_user_login_profile" "aleks" {
-  user    = aws_iam_user.example.name
+  user    = aws_iam_user.aleks.name
   pgp_key = "keybase:terraform"
 }
 
