@@ -1,6 +1,5 @@
 terraform {
   backend "s3" {
-    profile = "irland"
     bucket  = "programmers-only-states"
     region  = "eu-central-1"
     key     = "states/core/terraform.tfstate"
@@ -12,7 +11,6 @@ data "terraform_remote_state" "project-iam" {
   config = {
     bucket  = "programmers-only-states"
     region  = "eu-central-1"
-    profile = "irland"
     key     = "states/iam/terraform.tfstate"
   }
 }
