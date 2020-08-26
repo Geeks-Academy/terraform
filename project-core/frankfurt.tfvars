@@ -1,5 +1,5 @@
 aws_region          = "eu-central-1"
-profile_name        = "frankfurt"
+profile_name        = "default"
 owner               = "bwieckow"
 environment_type    = "dev"
 vpc_cidr            = "10.0.0.0/16"

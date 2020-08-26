@@ -21,7 +21,7 @@ jobs:
     - uses: actions/checkout@v2
 
     # Runs a `terraform plan` command for project-iam using the runners shell
-    - name: Run a one-line script
+    - name: Run terraform PLAN for project-iam
       run: |
         cd ./project-iam
         terraform init
