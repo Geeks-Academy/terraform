@@ -1,8 +1,8 @@
-# This is a basic workflow to help you get started with Actions
+# This is a workflow to see what will be affected with upcoming changes
 
 name: Terraform PLAN
 
-# Controls when the action will run. Triggers the workflow on push or pull request
+# Controls when the action will run. Triggers the workflow on pull request
 # events but only for the master branch
 on:
   pull_request:
@@ -20,6 +20,8 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    # Runs a single command using the runners shell
+    # Runs a `terraform plan` command for project-iam using the runners shell
     - name: Run a one-line script
-      run: terraform plan
+      run: |
+        cd ./project-iam
+        terraform plan
