@@ -25,4 +25,4 @@ jobs:
       run: |
         cd ./project-iam
         terraform init
-        terraform plan
+        terraform plan -var-file=frankfurt.tfvars
