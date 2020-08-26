@@ -1,0 +1,28 @@
+# This is a workflow to see what will be affected with upcoming changes
+
+name: Terraform PLAN
+
+# Controls when the action will run. Triggers the workflow on pull request
+# events but only for the master branch
+on:
+  pull_request:
+    branches: [ master ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "plan"
+  plan:
+    # The type of runner that the job will run on
+    runs-on: self-hosted
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+
+    # Runs a `terraform plan` command for project-iam using the runners shell
+    - name: Run terraform PLAN for project-iam
+      run: |
+        cd ./project-iam
+        terraform init
+        terraform plan -var-file=frankfurt.tfvars
