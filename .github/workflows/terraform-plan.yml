@@ -20,9 +20,16 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    # Runs a `terraform plan` command for project-iam using the runners shell
+    # Runs a `terraform plan` command for project-* using the runners shell
     - name: Run terraform PLAN for project-iam
       run: |
         cd ./project-iam
+        terraform init
+        terraform plan -var-file=frankfurt.tfvars
+
+    # Should be commented out on first deployment
+    - name: Run terraform PLAN for project-core
+      run: |
+        cd ./project-core
         terraform init
         terraform plan -var-file=frankfurt.tfvars
