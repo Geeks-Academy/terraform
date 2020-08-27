@@ -6,7 +6,7 @@ name: Terraform APPLY
 # events but only for the master branch
 on:
   workflow_dispatch:
-    input:
+    inputs:
       project_name:
         description: 'Project on which to APPLY changes.'
         required: true
