@@ -40,7 +40,7 @@ resource "aws_subnet" "private_subnet" {
   vpc_id = aws_vpc.vpc.id
 
   map_public_ip_on_launch = "false"
-  availability_zone       = "eu-west-1b"
+  availability_zone       = "eu-central-1b"
   cidr_block              = var.private_subnet_cidr
 
   tags = {
