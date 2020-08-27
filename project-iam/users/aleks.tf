@@ -1,4 +1,3 @@
-### TODO create user for Aleks
 resource "aws_iam_user" "aleks" {
   name          = "Aleks"
   path          = "/"
