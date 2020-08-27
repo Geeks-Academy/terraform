@@ -5,12 +5,12 @@ name: Terraform APPLY
 # Controls when the action will run. Triggers the workflow on pull request
 # events but only for the master branch
 on:
-    workflow_dispatch:
-        input:
-            project_name:
-                description: 'Project on which to APPLY changes.'
-                required: true
-                default: 'project-iam'
+  workflow_dispatch:
+    input:
+      project_name:
+        description: 'Project on which to APPLY changes.'
+        required: true
+        default: 'project-iam'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
