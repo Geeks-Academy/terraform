@@ -61,6 +61,10 @@ resource "aws_iam_policy_attachment" "ec2toecs" {
   policy_arn = aws_iam_policy.policy.arn
 }
 
+module "users" {
+  source = "./users"  
+}
+
 output "instance_profile_ec2" {
   value = aws_iam_instance_profile.ec2.name
 }
