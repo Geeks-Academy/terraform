@@ -29,4 +29,6 @@ jobs:
 
     - name: Run terraform PLAN for project-core
       run: |
-        echo `pwd`
+        cd ./project-core
+        terraform init
+        terraform plan -var-file=frankfurt.tfvars
