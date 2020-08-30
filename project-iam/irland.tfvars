@@ -1,2 +1,2 @@
-aws_region          = "eu-west-1"
-profile_name        = "irland"
+aws_region   = "eu-west-1"
+profile_name = "irland"
