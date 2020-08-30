@@ -1,10 +1,10 @@
 resource "aws_iam_instance_profile" "ec2" {
-  name = "ec2_profile"
+  name = "ecs_ec2_profile"
   role = aws_iam_role.role.name
 }
 
 resource "aws_iam_role" "role" {
-  name = "ec2_role"
+  name = "ecs_ec2_role"
   path = "/"
 
   assume_role_policy = <<EOF
@@ -25,7 +25,7 @@ EOF
 }
 
 resource "aws_iam_policy" "policy" {
-  name        = "EC2-to-ECS"
+  name        = "ECS_EC2"
   description = ""
   policy      = <<POLICY
 {
@@ -42,7 +42,7 @@ resource "aws_iam_policy" "policy" {
 }
 
 resource "aws_iam_policy_attachment" "ec2toecs" {
-  name       = "EC2-to-ECS"
+  name       = "ECS_EC2"
   roles      = [aws_iam_role.role.name]
   policy_arn = aws_iam_policy.policy.arn
 }
