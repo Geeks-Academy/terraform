@@ -33,3 +33,10 @@ jobs:
         cd ./project-core
         terraform init
         terraform plan -var-file=frankfurt.tfvars
+
+    # Should be commented out on first and second deployment
+    - name: Run terraform PLAN for project-apps
+      run: |
+        cd ./project-apps
+        terraform init
+        terraform plan -var-file=frankfurt.tfvars
