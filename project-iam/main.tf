@@ -17,7 +17,7 @@ module "users" {
 }
 
 module "roles" {
-  source = ./roles
+  source = "./roles"
 }
 
 output "instance_profile_ec2" {
