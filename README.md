@@ -37,7 +37,7 @@ PLAN and APPLY jobs should have been run in following order:
 
 1. project-iam
 2. project-core
-3. project-apps
+3. project-apps-*
 
 
 ### Run ```terraform plan```
