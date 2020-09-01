@@ -100,6 +100,11 @@ resource "aws_ecs_task_definition" "nginx" {
   container_definitions = file("ProgrammersOnly/task_definitions/nginx_task_definition.json")
 }
 
+data "aws_ecs_task_definition" "nginx" {
+  task_definition = aws_ecs_task_definition.nginx.family
+  depends_on      = [aws_ecs_task_definition.nginx]
+}
+
 resource "aws_ecr_repository" "nginx" {
   name = "nginx"
 }
@@ -140,7 +145,7 @@ EOF
 resource "aws_ecs_service" "nginx" {
   name                               = "nginx"
   cluster                            = aws_ecs_cluster.programmers_only.id
-  task_definition                    = aws_ecs_task_definition.nginx.arn
+  task_definition                    = "nginx:${data.aws_ecs_task_definition.nginx.revision}"
   desired_count                      = 1
   deployment_minimum_healthy_percent = 100
 }
