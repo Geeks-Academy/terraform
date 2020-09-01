@@ -8,8 +8,7 @@ variable "group_membership" {
   type        = string
 }
 
-variable "allow_password_change_without_mfa" {
-  description = "Allow changing the user password without MFA"
-  type        = bool
-  default     = false
+variable "force_mfa_policy_arn" {
+  description = "Force MFA set up"
+  type        = string
 }
