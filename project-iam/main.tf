@@ -14,8 +14,6 @@ provider "aws" {
 
 module "users" {
   source = "./users"
-
-  force_mfa_policy = module.roles.force_mfa_policy_arn
 }
 
 module "roles" {
