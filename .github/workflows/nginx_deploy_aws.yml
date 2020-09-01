@@ -25,11 +25,10 @@
 
 on:
   workflow_dispatch:
-    # inputs:
-    #   project_name:
-    #     description: 'Project on which to APPLY changes.'
-    #     required: true
-    #     default: 'project-iam'
+    inputs:
+      home:
+        description: 'location'
+        required: false
   
   name: Deploy to Amazon ECS
   
