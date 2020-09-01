@@ -5,6 +5,7 @@ module "Damklis" {
 
   username         = "Damklis"
   group_membership = "administrator"
+  force_mfa_policy_arn = module.roles.force_mfa_policy_arn
 }
 
 module "Kuba" {
@@ -12,6 +13,7 @@ module "Kuba" {
 
   username         = "Kuba"
   group_membership = "administrator"
+  force_mfa_policy_arn = module.roles.force_mfa_policy_arn
 }
 
 module "Aleks_J" {
@@ -19,6 +21,7 @@ module "Aleks_J" {
 
   username         = "AleksJ"
   group_membership = "administrator"
+  force_mfa_policy_arn = module.roles.force_mfa_policy_arn
 }
 
 ### GROUPS
