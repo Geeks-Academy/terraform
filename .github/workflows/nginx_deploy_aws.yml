@@ -87,4 +87,4 @@ jobs:
 
     - name: Update service
       run: |
-        aws ecs update-service --service nginx --force-new-deployment
+        aws ecs update-service --cluster ProgrammersOnly --service nginx --force-new-deployment
