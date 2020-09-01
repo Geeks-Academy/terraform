@@ -85,6 +85,7 @@ jobs:
         cluster: ProgrammersOnly
         wait-for-service-stability: false
 
+    #TODO can be deleted once we will use Application Load Balancers and dynamic ports
     - name: Stop current task
       run: |
         #!/bin/bash
