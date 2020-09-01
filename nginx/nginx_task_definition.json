@@ -1,5 +1,5 @@
 {
-    "family": "",
+    "family": "nginx",
     "containerDefinitions": [
         {
             "name": "nginx",
