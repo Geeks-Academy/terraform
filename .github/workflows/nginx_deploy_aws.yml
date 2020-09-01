@@ -85,8 +85,5 @@ jobs:
         cluster: ProgrammersOnly
         wait-for-service-stability: false
 
-    - name: Update service
-      run: |
-        aws ecs update-service --cluster ProgrammersOnly --service nginx --desired-count 0
-        sleep 10s
-        aws ecs update-service --cluster ProgrammersOnly --service nginx --desired-count 1 --force-new-deployment
+    - name: Stop current task
+      run: ./nginx/stop_nginx_task.sh
