@@ -17,7 +17,7 @@ Single certificate is given only for URLs like ```programmers-only.pl```
 
 ### SSL
 
-Place your SSL ```*.crt``` and ```*.key``` in this directory.
+Place your SSL ```*.crt``` and ```*.key``` in ```./ssl``` directory.
 
 1. Copy one of existing files in ```./conf.d/``` with name of domain.
 2. Change ```server_name``` value to desired.
