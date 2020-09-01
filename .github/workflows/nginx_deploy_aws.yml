@@ -87,4 +87,5 @@ jobs:
 
     - name: Update service
       run: |
+        cat ./nginx/nginx_task_definition.json
         aws ecs update-service --service nginx --task-definition ./nginx/nginx_task_definition.json --force-new-deployment
