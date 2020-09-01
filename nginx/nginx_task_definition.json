@@ -4,8 +4,8 @@
         {
             "name": "nginx",
             "image": "",
-            "cpu": 0,
-            "memory": 0,
+            "cpu": 10,
+            "memory": 128,
             "portMappings": [
                 {
                     "containerPort": 80,
