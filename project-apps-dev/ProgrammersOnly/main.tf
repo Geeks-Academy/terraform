@@ -43,8 +43,7 @@ data "template_cloudinit_config" "config" {
 resource "aws_launch_configuration" "programmers_only" {
   name_prefix                 = "programmers-only"
   image_id                    = data.aws_ami.amazon_linux.id
-  instance_type               = "t3.micro"
-#  spot_price                  = "0.008"
+  instance_type               = "t2.micro"
   user_data                   = data.template_cloudinit_config.config.rendered
   key_name                    = var.key_name
   iam_instance_profile        = var.iam_instance_profile
@@ -101,6 +100,42 @@ resource "aws_ecs_task_definition" "nginx" {
   container_definitions = file("ProgrammersOnly/task_definitions/nginx_task_definition.json")
 }
 
+resource "aws_ecr_repository" "nginx" {
+  name = "nginx"
+}
+
+resource "aws_ecr_repository_policy" "nginx" {
+  repository = aws_ecr_repository.nginx.name
+
+  policy = <<EOF
+{
+    "Version": "2008-10-17",
+    "Statement": [
+        {
+            "Sid": "NGINX_ECR",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": [
+                "ecr:GetDownloadUrlForLayer",
+                "ecr:BatchGetImage",
+                "ecr:BatchCheckLayerAvailability",
+                "ecr:PutImage",
+                "ecr:InitiateLayerUpload",
+                "ecr:UploadLayerPart",
+                "ecr:CompleteLayerUpload",
+                "ecr:DescribeRepositories",
+                "ecr:GetRepositoryPolicy",
+                "ecr:ListImages",
+                "ecr:DeleteRepository",
+                "ecr:BatchDeleteImage",
+                "ecr:SetRepositoryPolicy",
+                "ecr:DeleteRepositoryPolicy"
+            ]
+        }
+    ]
+}
+EOF
+}
 
 resource "aws_ecs_service" "nginx" {
   name                               = "nginx"
