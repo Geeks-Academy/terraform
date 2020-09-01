@@ -88,6 +88,5 @@ jobs:
     - name: Update service
       run: |
         aws ecs update-service --cluster ProgrammersOnly --service nginx --desired-count 0
-        PID=$!
-        wait $PID
+        sleep 10s
         aws ecs update-service --cluster ProgrammersOnly --service nginx --desired-count 1 --force-new-deployment
