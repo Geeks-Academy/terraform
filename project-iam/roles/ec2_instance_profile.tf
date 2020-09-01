@@ -33,7 +33,10 @@ resource "aws_iam_policy" "policy" {
     "Statement": [
         {
             "Effect": "Allow",
-            "Action": "ecs:*",
+            "Action": [
+              "ecs:*",
+              "ecr:*"
+            ],
             "Resource": "*"
         }
     ]
