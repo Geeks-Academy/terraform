@@ -30,5 +30,5 @@ resource "aws_iam_user_group_membership" "group_membership" {
 }
 
 output "password" {
-  value = aws_iam_user_login_profile.user.encrypted_password
+  value = aws_iam_user_login_profile.user.[0].encrypted_password
 }
