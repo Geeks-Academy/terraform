@@ -8,7 +8,20 @@ variable "group_membership" {
   type        = string
 }
 
-variable "force_mfa_policy_arn" {
-  description = "Force MFA set up"
+variable "policy_attachement_arn" {
+  description = "Policy ARN to be attached"
   type        = string
+  default     = ""
+}
+
+variable "console_access" {
+  description = "If user have console access"
+  type        = bool
+  default     = false
+}
+
+variable "programmatic_access" {
+  description = "If user have console access"
+  type        = bool
+  default     = false
 }

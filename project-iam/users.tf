@@ -5,7 +5,8 @@ module "Damklis" {
 
   username         = "Damklis"
   group_membership = "administrator"
-  force_mfa_policy_arn = module.roles.force_mfa_policy_arn
+  policy_attachement_arn = module.roles.force_mfa_policy_arn
+  console_access = true
 }
 
 module "Kuba" {
@@ -13,7 +14,8 @@ module "Kuba" {
 
   username         = "Kuba"
   group_membership = "administrator"
-  force_mfa_policy_arn = module.roles.force_mfa_policy_arn
+  policy_attachement_arn = module.roles.force_mfa_policy_arn
+  console_access = true
 }
 
 module "Aleks_J" {
@@ -21,11 +23,21 @@ module "Aleks_J" {
 
   username         = "AleksJ"
   group_membership = "administrator"
-  force_mfa_policy_arn = module.roles.force_mfa_policy_arn
+  policy_attachement_arn = module.roles.force_mfa_policy_arn
+  console_access = true
+}
+
+module "ECS_Deployer" {
+  source = "../modules/user"
+
+  username         = "ecs_deployer"
+  group_membership = "deployer"
+  programmatic_access = true
 }
 
 ### GROUPS
 
+#ADMINISTRATOR
 resource "aws_iam_group" "administrator" {
   name = "administrator"
 }
@@ -35,6 +47,7 @@ resource "aws_iam_group_policy_attachment" "attachment" {
   policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
 
+#DEPLOYER
 resource "aws_iam_group" "deployer" {
   name = "deployer"
 }
