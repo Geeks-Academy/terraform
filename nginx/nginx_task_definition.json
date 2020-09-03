@@ -1,5 +1,6 @@
 {
     "family": "nginx",
+    "networkMode": "awsvpc",
     "containerDefinitions": [
         {
             "name": "nginx",
