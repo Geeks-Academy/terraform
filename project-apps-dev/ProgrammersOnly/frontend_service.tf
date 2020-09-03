@@ -6,6 +6,7 @@ data "template_file" "frontend" {
 
 resource "aws_ecs_task_definition" "frontend" {
   family                = "frontend"
+  network_mode          = "bridge"
   container_definitions = file("ProgrammersOnly/task_definitions/frontend_task_definition.json")
 }
 
@@ -58,11 +59,11 @@ resource "aws_service_discovery_service" "frontend" {
     namespace_id = aws_service_discovery_private_dns_namespace.programmers_only.id
 
     dns_records {
-      ttl  = 10
+      ttl  = 60
       type = "A"
     }
 
-    routing_policy = "WEIGHTED"
+    routing_policy = "MULTIVALUE"
   }
 
   health_check_custom_config {
