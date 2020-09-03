@@ -57,4 +57,10 @@ resource "aws_ecs_service" "frontend" {
   task_definition                    = "frontend:${data.aws_ecs_task_definition.frontend.revision}"
   desired_count                      = 1
   deployment_minimum_healthy_percent = 0
+
+  service_registries {
+    registry_arn   = aws_service_discovery_service.programmers_only.arn
+    container_port = 3000
+    container_name = "frontend"
+  }
 }

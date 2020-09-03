@@ -57,4 +57,16 @@ resource "aws_ecs_service" "nginx" {
   task_definition                    = "nginx:${data.aws_ecs_task_definition.nginx.revision}"
   desired_count                      = 1
   deployment_minimum_healthy_percent = 0
+
+  service_registries {
+    registry_arn   = aws_service_discovery_service.programmers_only.arn
+    container_port = 80
+    container_name = "nginx"
+  }
+  
+  service_registries {
+    registry_arn   = aws_service_discovery_service.programmers_only.arn
+    container_port = 443
+    container_name = "ssl-nginx"
+  }
 }
