@@ -6,7 +6,7 @@ data "template_file" "nginx" {
 
 resource "aws_ecs_task_definition" "nginx" {
   family                = "nginx"
-  network_mode          = "bridge"
+  network_mode          = "awsvpc"
   container_definitions = file("ProgrammersOnly/task_definitions/nginx_task_definition.json")
 }
 
