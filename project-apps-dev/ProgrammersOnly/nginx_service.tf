@@ -80,7 +80,6 @@ resource "aws_ecs_service" "nginx" {
 
   service_registries {
     registry_arn   = aws_service_discovery_service.nginx.arn
-    container_port = 80
     container_name = "nginx"
   }
 }

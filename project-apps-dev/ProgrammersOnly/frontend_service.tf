@@ -80,7 +80,6 @@ resource "aws_ecs_service" "frontend" {
 
   service_registries {
     registry_arn   = aws_service_discovery_service.frontend.arn
-    container_port = 3000
     container_name = "frontend"
   }
 }
