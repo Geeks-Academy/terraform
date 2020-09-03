@@ -1,7 +1,7 @@
 [
     {
-        "name": "nginx",
-        "image": "nginx:latest",
+        "name": "frontend",
+        "image": "nodejscn/node:latest",
         "cpu": 10,
         "memory": 256,
         "portMappings": [
