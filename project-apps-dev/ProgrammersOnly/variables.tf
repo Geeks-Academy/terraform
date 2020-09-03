@@ -18,7 +18,7 @@ variable "subnets" {
 
 variable "vpc_id" {
   description = "VPC ID"
-  type        = "string"
+  type        = string
 }
 
 variable "tags" {
