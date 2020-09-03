@@ -91,26 +91,7 @@ resource "aws_autoscaling_group" "programmers_only" {
 
 ### SERVICE DISCOVERY
 resource "aws_service_discovery_private_dns_namespace" "programmers_only" {
-  name        = "programmers_only.in"
+  name        = "internal"
   description = "Service Discovery"
   vpc         = var.vpc_id
-}
-
-resource "aws_service_discovery_service" "programmers_only" {
-  name = "programmers_only"
-
-  dns_config {
-    namespace_id = aws_service_discovery_private_dns_namespace.programmers_only.id
-
-    dns_records {
-      ttl  = 60
-      type = "SRV"
-    }
-
-    routing_policy = "WEIGHTED"
-  }
-
-  health_check_custom_config {
-    failure_threshold = 3
-  }
 }

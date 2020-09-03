@@ -51,6 +51,25 @@ resource "aws_ecr_repository_policy" "frontend" {
 EOF
 }
 
+resource "aws_service_discovery_service" "frontend" {
+  name = "frontend"
+
+  dns_config {
+    namespace_id = aws_service_discovery_private_dns_namespace.programmers_only.id
+
+    dns_records {
+      ttl  = 10
+      type = "A"
+    }
+
+    routing_policy = "WEIGHTED"
+  }
+
+  health_check_custom_config {
+    failure_threshold = 3
+  }
+}
+
 resource "aws_ecs_service" "frontend" {
   name                               = "frontend"
   cluster                            = aws_ecs_cluster.programmers_only.id
@@ -59,7 +78,7 @@ resource "aws_ecs_service" "frontend" {
   deployment_minimum_healthy_percent = 0
 
   service_registries {
-    registry_arn   = aws_service_discovery_service.programmers_only.arn
+    registry_arn   = aws_service_discovery_service.frontend.arn
     container_port = 3000
     container_name = "frontend"
   }
