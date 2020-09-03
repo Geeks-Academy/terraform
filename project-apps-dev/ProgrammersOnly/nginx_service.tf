@@ -85,5 +85,6 @@ resource "aws_ecs_service" "nginx" {
 
   network_configuration {
     subnets = var.subnets
+    security_groups = var.security_groups
   }
 }
