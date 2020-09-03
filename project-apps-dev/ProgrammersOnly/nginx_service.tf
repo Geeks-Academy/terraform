@@ -82,4 +82,8 @@ resource "aws_ecs_service" "nginx" {
     registry_arn   = aws_service_discovery_service.nginx.arn
     container_name = "nginx"
   }
+
+  network_configuration {
+    subnets = var.subnets
+  }
 }

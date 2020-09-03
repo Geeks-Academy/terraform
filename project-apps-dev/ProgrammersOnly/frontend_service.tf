@@ -82,4 +82,8 @@ resource "aws_ecs_service" "frontend" {
     registry_arn   = aws_service_discovery_service.frontend.arn
     container_name = "frontend"
   }
+
+  network_configuration {
+    subnets = var.subnets
+  }
 }
