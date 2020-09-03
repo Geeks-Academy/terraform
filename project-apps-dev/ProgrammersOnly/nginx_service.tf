@@ -63,10 +63,4 @@ resource "aws_ecs_service" "nginx" {
     container_port = 80
     container_name = "nginx"
   }
-  
-  service_registries {
-    registry_arn   = aws_service_discovery_service.programmers_only.arn
-    container_port = 443
-    container_name = "ssl-nginx"
-  }
 }
