@@ -55,7 +55,7 @@ resource "aws_service_discovery_service" "frontend" {
   name = "frontend"
 
   dns_config {
-    namespace_id = aws_service_discovery_private_dns_namespace.frontend.id
+    namespace_id = aws_service_discovery_private_dns_namespace.programmers_only.id
 
     dns_records {
       ttl  = 10

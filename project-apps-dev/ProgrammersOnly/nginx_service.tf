@@ -55,7 +55,7 @@ resource "aws_service_discovery_service" "nginx" {
   name = "nginx"
 
   dns_config {
-    namespace_id = aws_service_discovery_private_dns_namespace.nginx.id
+    namespace_id = aws_service_discovery_private_dns_namespace.programmers_only.id
 
     dns_records {
       ttl  = 10
