@@ -6,7 +6,7 @@ data "template_file" "frontend" {
 
 resource "aws_ecs_task_definition" "frontend" {
   family                = "frontend"
-  network_mode          = "bridge"
+  network_mode          = "awsvpc"
   container_definitions = file("ProgrammersOnly/task_definitions/frontend_task_definition.json")
 }
 
