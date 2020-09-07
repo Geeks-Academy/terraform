@@ -1,0 +1,8 @@
+[
+    {
+        "name": "auth",
+        "image": "nodejscn/node:latest",
+        "cpu": 10,
+        "memory": 256
+    }
+]
