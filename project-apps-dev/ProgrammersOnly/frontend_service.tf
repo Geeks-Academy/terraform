@@ -6,7 +6,6 @@ data "template_file" "frontend" {
 
 resource "aws_ecs_task_definition" "frontend" {
   family                = "frontend"
-  network_mode          = "awsvpc"
   container_definitions = file("ProgrammersOnly/task_definitions/frontend_task_definition.json")
 }
 
@@ -52,38 +51,10 @@ resource "aws_ecr_repository_policy" "frontend" {
 EOF
 }
 
-resource "aws_service_discovery_service" "frontend" {
-  name = "frontend"
-
-  dns_config {
-    namespace_id = aws_service_discovery_private_dns_namespace.programmers_only.id
-
-    dns_records {
-      ttl  = 60
-      type = "A"
-    }
-
-    routing_policy = "MULTIVALUE"
-  }
-
-  health_check_custom_config {
-    failure_threshold = 3
-  }
-}
-
 resource "aws_ecs_service" "frontend" {
   name                               = "frontend"
   cluster                            = aws_ecs_cluster.programmers_only.id
   task_definition                    = "frontend:${data.aws_ecs_task_definition.frontend.revision}"
   desired_count                      = 1
   deployment_minimum_healthy_percent = 0
-
-  service_registries {
-    registry_arn   = aws_service_discovery_service.frontend.arn
-    container_name = "frontend"
-  }
-
-  network_configuration {
-    subnets = var.subnets
-  }
 }

@@ -40,5 +40,4 @@ module "ProgrammersOnly" {
   iam_instance_profile = data.terraform_remote_state.project-iam.outputs.instance_profile_ec2
   security_groups      = [module.sg.ecs_sg_id]
   subnets              = data.terraform_remote_state.project-core.outputs.subnets
-  vpc_id               = data.terraform_remote_state.project-core.outputs.vpc_common_id
 }

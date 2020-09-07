@@ -3,6 +3,13 @@
         "name": "auth",
         "image": "nodejscn/node:latest",
         "cpu": 10,
-        "memory": 256
+        "memory": 256,
+        "portMappings": [
+            {
+                "containerPort": 3000,
+                "hostPort": 3030,
+                "protocol": "tcp"
+            }
+        ]
     }
 ]
