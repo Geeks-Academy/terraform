@@ -88,10 +88,3 @@ resource "aws_autoscaling_group" "programmers_only" {
   }
 
 }
-
-### SERVICE DISCOVERY
-resource "aws_service_discovery_private_dns_namespace" "programmers_only" {
-  name        = "internal"
-  description = "Service Discovery"
-  vpc         = var.vpc_id
-}
