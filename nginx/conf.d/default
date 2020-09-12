@@ -1,22 +1,21 @@
 server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
+    listen 80;
+    server_name _;
+    charset utf-8;
 
-        # root /var/www/html;
-        # index index.html index.htm index.nginx-debian.html;
+    access_log /var/log/nginx/nginx.codebazar.access.log;
+    error_log /var/log/nginx/nginx.codebazar.error.log;
 
-        server_name _;
-        large_client_header_buffers 4 16k;
+    gzip on; # Enable gzip compression
+    gzip_comp_level 2;
 
-        location / {
-                # First attempt to serve request as file, then
-                # as directory, then fall back to displaying a 404.
-                # try_files $uri $uri/ =404;
-                proxy_pass http://52.58.100.247:3060;
-                # proxy_http_version 1.1;
-                # proxy_set_header Upgrade $http_upgrade;
-                # proxy_set_header Connection 'upgrade';
-                # proxy_set_header Host $host;
-                # proxy_cache_bypass $http_upgrade;
-        }
+
+    location / {
+        proxy_pass http://52.58.100.247:3060;
+        proxy_redirect     off;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_read_timeout 24h;
+    }
 }
