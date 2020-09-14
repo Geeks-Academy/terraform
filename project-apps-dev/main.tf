@@ -34,7 +34,7 @@ module "sg" {
 
 data "aws_route53_zone" "programmers_only" {
   name         = "programmers-only.com."
-  private_zone = true
+  private_zone = false
 }
 
 resource "aws_route53_record" "www" {
