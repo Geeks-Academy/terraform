@@ -11,18 +11,18 @@ terraform {
 data "terraform_remote_state" "project-iam" {
   backend = "s3"
   config = {
-    bucket  = "programmers-only-states"
-    region  = "eu-central-1"
-    key     = "states/iam/terraform.tfstate"
+    bucket = "programmers-only-states"
+    region = "eu-central-1"
+    key    = "states/iam/terraform.tfstate"
   }
 }
 
 data "terraform_remote_state" "project-core" {
   backend = "s3"
   config = {
-    bucket  = "programmers-only-states"
-    region  = "eu-central-1"
-    key     = "states/core/terraform.tfstate"
+    bucket = "programmers-only-states"
+    region = "eu-central-1"
+    key    = "states/core/terraform.tfstate"
   }
 }
 
@@ -30,6 +30,19 @@ module "sg" {
   source = "./security"
 
   vpc_id = data.terraform_remote_state.project-core.outputs.vpc_common_id
+}
+
+data "aws_route53_zone" "programmers_only" {
+  name         = "programmers-only.com."
+  private_zone = true
+}
+
+resource "aws_route53_record" "www" {
+  zone_id = data.aws_route53_zone.programmers_only.zone_id
+  name    = "www.programmers-only.com"
+  type    = "A"
+  ttl     = "300"
+  records = ["52.58.100.247"]
 }
 
 module "ProgrammersOnly" {
