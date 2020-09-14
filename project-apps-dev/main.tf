@@ -39,7 +39,7 @@ data "aws_route53_zone" "programmers_only" {
 
 resource "aws_route53_record" "www" {
   zone_id = data.aws_route53_zone.programmers_only.zone_id
-  name    = "www.programmers-only.com"
+  name    = "programmers-only.com"
   type    = "A"
   ttl     = "300"
   records = ["52.58.100.247"]
