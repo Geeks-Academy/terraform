@@ -32,17 +32,8 @@ module "sg" {
   vpc_id = data.terraform_remote_state.project-core.outputs.vpc_common_id
 }
 
-data "aws_route53_zone" "programmers_only" {
-  name         = "programmers-only.com."
-  private_zone = false
-}
-
-resource "aws_route53_record" "www" {
-  zone_id = data.aws_route53_zone.programmers_only.zone_id
-  name    = "programmers-only.com"
-  type    = "A"
-  ttl     = "300"
-  records = ["52.58.100.247"]
+module "route53" {
+  source = "./route53"
 }
 
 module "ProgrammersOnly" {
