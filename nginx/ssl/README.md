@@ -1,1 +1,0 @@
-Place your ssl certificates in this directory.
