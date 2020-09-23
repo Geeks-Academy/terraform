@@ -3,7 +3,7 @@
         "name": "mongo",
         "image": "mongo:latest",
         "cpu": 10,
-        "memory": 1024,
+        "memory": 256,
         "portMappings": [
             {
                 "containerPort": 27017,
