@@ -1,5 +1,5 @@
 locals {
-  mongo_env_file  = "env_files/mongo.env",
+  mongo_env_file  = "env_files/mongo.env"
   artifact_bucket = "programmers_only_artifacts" 
 }
 
