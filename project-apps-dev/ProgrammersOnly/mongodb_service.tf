@@ -1,3 +1,8 @@
+locals {
+  mongo_env_file  = "env_files/mongo.env",
+  artifact_bucket = "programmers_only_artifacts" 
+}
+
 data "template_file" "mongodb" {
   template = "${file("ProgrammersOnly/task_definitions/mongodb_task_definition.json")}"
 }
@@ -61,9 +66,9 @@ resource "aws_ecs_service" "mongodb" {
 }
 
 resource "aws_s3_bucket_object" "mongo_env_file" {
-  key    = "env_files/mongo.env"
-  bucket = "programmers_only_artifacts"
-  source = "env_files/mongo.env"
+  key    = local.mongo_env_file
+  bucket = local.artifact_bucket
+  source = local.mongo_env_file
   
   force_destroy = true
 }

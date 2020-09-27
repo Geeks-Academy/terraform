@@ -95,7 +95,7 @@ resource "aws_kms_key" "artifacts_kms_key" {
   description             = "This key is used to encrypt bucket objects"
 }
 
-resource "aws_kms_alias" "a" {
+resource "aws_kms_alias" "artifacts_kms_key_alias" {
   name          = "alias/artifacts_kms_key"
   target_key_id = aws_kms_key.artifacts_kms_key.key_id
 }
