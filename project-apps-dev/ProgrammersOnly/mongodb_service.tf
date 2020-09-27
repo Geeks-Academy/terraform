@@ -1,6 +1,6 @@
 locals {
   mongo_env_file  = "env_files/mongo.env"
-  artifact_bucket = "programmers_only_artifacts" 
+  artifacts_bucket = "programmers_only_artifacts" 
 }
 
 data "template_file" "mongodb" {
@@ -67,7 +67,7 @@ resource "aws_ecs_service" "mongodb" {
 
 resource "aws_s3_bucket_object" "mongo_env_file" {
   key    = local.mongo_env_file
-  bucket = local.artifact_bucket
+  bucket = local.artifacts_bucket
   source = local.mongo_env_file
   
   force_destroy = true

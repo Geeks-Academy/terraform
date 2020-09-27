@@ -17,6 +17,6 @@
                 "value": "arn:aws:s3:::programmers_only_artifacts/env_files/mongo.env",
                 "type": "s3"
             }
-        ],
+        ]
     }
 ]
