@@ -41,7 +41,10 @@ resource "aws_ecr_repository_policy" "mongodb" {
                 "ecr:DeleteRepository",
                 "ecr:BatchDeleteImage",
                 "ecr:SetRepositoryPolicy",
-                "ecr:DeleteRepositoryPolicy"
+                "ecr:DeleteRepositoryPolicy",
+                "s3:GetObject",
+                "s3:GetBucketLocation",
+                "kms:*"
             ]
         }
     ]
@@ -55,4 +58,12 @@ resource "aws_ecs_service" "mongodb" {
   task_definition                    = "mongodb:${data.aws_ecs_task_definition.mongodb.revision}"
   desired_count                      = 1
   deployment_minimum_healthy_percent = 0
+}
+
+resource "aws_s3_bucket_object" "mongo_env_file" {
+  key    = "env_files/mongo.env"
+  bucket = "programmers_only_artifacts"
+  source = "env_files/mongo.env"
+  
+  force_destroy = true
 }
