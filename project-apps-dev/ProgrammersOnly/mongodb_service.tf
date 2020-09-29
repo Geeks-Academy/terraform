@@ -7,11 +7,6 @@ resource "aws_ecs_task_definition" "mongodb" {
   container_definitions = file("ProgrammersOnly/task_definitions/mongodb_task_definition.json")
 }
 
-data "aws_ecs_task_definition" "mongodb" {
-  task_definition = aws_ecs_task_definition.mongodb.family
-  depends_on      = [aws_ecs_task_definition.mongodb]
-}
-
 resource "aws_ecr_repository" "mongodb" {
   name = "mongodb"
 }
@@ -52,7 +47,7 @@ EOF
 resource "aws_ecs_service" "mongodb" {
   name                               = "mongodb"
   cluster                            = aws_ecs_cluster.programmers_only.id
-  task_definition                    = "mongodb:${data.aws_ecs_task_definition.mongodb.revision}"
+  task_definition                    = aws_ecs_task_definition.mongodb.arn
   desired_count                      = 1
   deployment_minimum_healthy_percent = 0
 }
