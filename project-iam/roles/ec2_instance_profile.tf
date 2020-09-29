@@ -35,9 +35,21 @@ resource "aws_iam_policy" "policy" {
             "Effect": "Allow",
             "Action": [
               "ecs:*",
-              "ecr:*"
+              "ecr:*",
+              "kms:*"
             ],
             "Resource": "*"
+        },
+          {
+            "Effect": "Allow",
+            "Action": [
+              "s3:GetObject",
+              "s3:GetBucketLocation"
+            ],
+            "Resource": [
+                "arn:aws:s3:::programmers-only-artifacts/*",
+                "arn:aws:s3:::programmers-only-artifacts"
+            ]
         }
     ]
 }
