@@ -101,7 +101,7 @@ resource "aws_kms_alias" "artifacts_kms_key_alias" {
 }
 
 resource "aws_s3_bucket" "programmers_only_artifacts" {
-  bucket = "programmers_only_artifacts"
+  bucket = "programmers-only-artifacts"
   acl    = "private"
 
   server_side_encryption_configuration {

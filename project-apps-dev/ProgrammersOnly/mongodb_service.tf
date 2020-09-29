@@ -1,8 +1,3 @@
-locals {
-  mongo_env_file  = "env_files/mongo.env"
-  artifacts_bucket = "programmers_only_artifacts" 
-}
-
 data "template_file" "mongodb" {
   template = "${file("ProgrammersOnly/task_definitions/mongodb_task_definition.json")}"
 }
@@ -46,10 +41,7 @@ resource "aws_ecr_repository_policy" "mongodb" {
                 "ecr:DeleteRepository",
                 "ecr:BatchDeleteImage",
                 "ecr:SetRepositoryPolicy",
-                "ecr:DeleteRepositoryPolicy",
-                "s3:GetObject",
-                "s3:GetBucketLocation",
-                "kms:*"
+                "ecr:DeleteRepositoryPolicy"
             ]
         }
     ]
@@ -63,12 +55,4 @@ resource "aws_ecs_service" "mongodb" {
   task_definition                    = "mongodb:${data.aws_ecs_task_definition.mongodb.revision}"
   desired_count                      = 1
   deployment_minimum_healthy_percent = 0
-}
-
-resource "aws_s3_bucket_object" "mongo_env_file" {
-  key    = local.mongo_env_file
-  bucket = local.artifacts_bucket
-  source = local.mongo_env_file
-  
-  force_destroy = true
 }

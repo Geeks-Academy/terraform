@@ -14,7 +14,7 @@
         "command": ["mongod", "--auth"],
         "environmentFiles": [
             {
-                "value": "arn:aws:s3:::programmers_only_artifacts/env_files/mongo.env",
+                "value": "arn:aws:s3:::programmers-only-artifacts/env-files/mongo.env",
                 "type": "s3"
             }
         ]

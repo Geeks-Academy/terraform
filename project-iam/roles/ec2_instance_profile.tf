@@ -35,7 +35,10 @@ resource "aws_iam_policy" "policy" {
             "Effect": "Allow",
             "Action": [
               "ecs:*",
-              "ecr:*"
+              "ecr:*",
+              "kms:*",
+              "s3:GetObject",
+              "s3:GetBucketLocation"
             ],
             "Resource": "*"
         }
