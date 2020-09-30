@@ -8,7 +8,7 @@ resource "aws_route53_record" "programmers_only" {
   name    = "programmers-only.com"
   type    = "A"
   ttl     = "300"
-  records = ["52.58.100.247"]
+  records = ["18.197.172.151"]
 }
 
 resource "aws_route53_record" "www_programmers_only" {
@@ -16,5 +16,5 @@ resource "aws_route53_record" "www_programmers_only" {
   name    = "www.programmers-only.com"
   type    = "A"
   ttl     = "300"
-  records = ["52.58.100.247"]
+  records = ["18.197.172.151"]
 }
