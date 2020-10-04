@@ -17,3 +17,7 @@ resource "aws_lambda_function" "update_route53" {
     }
   }
 }
+
+output "update_route53_arn" {
+  value = aws_lambda_function.update_route53.arn
+}
