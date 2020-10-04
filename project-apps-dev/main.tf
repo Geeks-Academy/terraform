@@ -50,4 +50,5 @@ module "ProgrammersOnly" {
   iam_instance_profile = data.terraform_remote_state.project-iam.outputs.instance_profile_ec2
   security_groups      = [module.sg.ecs_sg_id]
   subnets              = data.terraform_remote_state.project-core.outputs.subnets
+  asg_role             = data.terraform_remote_state.project-iam.outputs.allow_posting_to_sns_arn
 }

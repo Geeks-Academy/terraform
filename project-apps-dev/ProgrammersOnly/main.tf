@@ -89,10 +89,26 @@ resource "aws_autoscaling_group" "programmers_only" {
 
 }
 
+resource "aws_autoscaling_lifecycle_hook" "instance_added" {
+  name                   = "instance_added"
+  autoscaling_group_name = aws_autoscaling_group.programmers_only.name
+  default_result         = "CONTINUE"
+  heartbeat_timeout      = 2000
+  lifecycle_transition   = "autoscaling:EC2_INSTANCE_LAUNCHING"
+
+  notification_target_arn = aws_sns_topic.asg_events.arn
+  role_arn                = var.asg_role
+}
+
+
+resource "aws_sns_topic" "asg_events" {
+  name = "asg_events"
+}
+
 ## ARTIFACTS ON S3
 
 resource "aws_kms_key" "artifacts_kms_key" {
-  description             = "This key is used to encrypt bucket objects"
+  description = "This key is used to encrypt bucket objects"
 }
 
 resource "aws_kms_alias" "artifacts_kms_key_alias" {

@@ -28,3 +28,8 @@ variable "prefix" {
   type        = string
   description = "Instance name prefix"
 }
+
+variable "asg_role" {
+  type        = string
+  description = "ASG Role to publish to SNS"
+}
