@@ -28,11 +28,12 @@ data "aws_iam_policy_document" "update_route53" {
     ]
 
     actions = [
+      "autoscaling:CompleteLifecycleAction",
       "ec2:DescribeInstances",
       "ec2:CreateNetworkInterface",
       "ec2:AttachNetworkInterface",
       "ec2:DescribeNetworkInterfaces",
-      "autoscaling:CompleteLifecycleAction"
+      "route53:ChangeResourceRecordSets"
     ]
   }
 
