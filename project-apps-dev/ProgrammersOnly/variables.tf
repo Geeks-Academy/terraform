@@ -33,3 +33,8 @@ variable "asg_role" {
   type        = string
   description = "ASG Role to publish to SNS"
 }
+
+variable "lambda_arn" {
+  type        = string
+  description = "Lambda ARN for SNS subscription"
+}

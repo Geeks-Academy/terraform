@@ -100,9 +100,26 @@ resource "aws_autoscaling_lifecycle_hook" "instance_added" {
   role_arn                = var.asg_role
 }
 
+resource "aws_autoscaling_lifecycle_hook" "instance_deleted" {
+  name                   = "instance_deleted"
+  autoscaling_group_name = aws_autoscaling_group.programmers_only.name
+  default_result         = "CONTINUE"
+  heartbeat_timeout      = 2000
+  lifecycle_transition   = "autoscaling:EC2_INSTANCE_TERMINATING"
+
+  notification_target_arn = aws_sns_topic.asg_events.arn
+  role_arn                = var.asg_role
+}
+
 
 resource "aws_sns_topic" "asg_events" {
   name = "asg_events"
+}
+
+resource "aws_sns_topic_subscription" "user_updates_sqs_target" {
+  topic_arn = aws_sns_topic.asg_events.arn
+  protocol  = "lambda"
+  endpoint  = var.lambda_arn
 }
 
 ## ARTIFACTS ON S3
