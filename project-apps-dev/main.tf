@@ -39,7 +39,7 @@ module "route53" {
 module "lambda" {
   source = "./lambda"
 
-  iam_for_lambda_arn = data.terraform_remote_state.project-iam.iam_update_route53_arn
+  iam_for_lambda_arn = data.terraform_remote_state.project-iam.outputs.iam_update_route53_arn
 }
 
 module "ProgrammersOnly" {
