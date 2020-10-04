@@ -9,3 +9,7 @@ output "force_mfa_policy_arn" {
 output "iam_update_route53_arn" {
   value = aws_iam_role.update_route53.arn
 }
+
+output "allow_posting_to_sns_arn" {
+  value = aws_iam_role.allow_posting_to_sns.arn
+}
