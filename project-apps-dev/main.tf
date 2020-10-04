@@ -51,5 +51,5 @@ module "ProgrammersOnly" {
   security_groups      = [module.sg.ecs_sg_id]
   subnets              = data.terraform_remote_state.project-core.outputs.subnets
   asg_role             = data.terraform_remote_state.project-iam.outputs.allow_posting_to_sns_arn
-  lambda_arn           = module.lambda.update_route53_arn
+  sns_topic_arn        = module.lambda.sns_topic_arn
 }
