@@ -20,20 +20,24 @@ EOF
 
 data "aws_iam_policy_document" "update_route53" {
   statement {
-    sid = "AllowInvokingLambdas"
+    sid    = "AllowInvokingLambdas"
     effect = "Allow"
 
     resources = [
-      "arn:aws:lambda:*:*:function:*"
+      "*"
     ]
 
     actions = [
-      "lambda:InvokeFunction"
+      "ec2:DescribeInstances",
+      "ec2:CreateNetworkInterface",
+      "ec2:AttachNetworkInterface",
+      "ec2:DescribeNetworkInterfaces",
+      "autoscaling:CompleteLifecycleAction"
     ]
   }
 
   statement {
-    sid = "AllowCreatingLogGroups"
+    sid    = "AllowCreatingLogGroups"
     effect = "Allow"
 
     resources = [
@@ -41,12 +45,14 @@ data "aws_iam_policy_document" "update_route53" {
     ]
 
     actions = [
-      "logs:CreateLogGroup"
+      "logs:CreateLogGroup",
+      "logs:CreateLogStream",
+      "logs:PutLogEvents"
     ]
   }
 
   statement {
-    sid = "AllowWritingLogs"
+    sid    = "AllowWritingLogs"
     effect = "Allow"
 
     resources = [
@@ -61,11 +67,11 @@ data "aws_iam_policy_document" "update_route53" {
 }
 
 resource "aws_iam_policy" "update_route53" {
-  name = "update_route53"
+  name   = "update_route53"
   policy = data.aws_iam_policy_document.update_route53.json
 }
 
 resource "aws_iam_role_policy_attachment" "update_route53" {
   policy_arn = aws_iam_policy.update_route53.arn
-  role = aws_iam_role.update_route53.name
+  role       = aws_iam_role.update_route53.name
 }
