@@ -36,6 +36,12 @@ module "route53" {
   source = "./route53"
 }
 
+module "lambda" {
+  source = "./lambda"
+
+  iam_for_lambda_arn = data.terraform_remote_state.project-iam.iam_update_route53_arn
+}
+
 module "ProgrammersOnly" {
   source = "./ProgrammersOnly"
 

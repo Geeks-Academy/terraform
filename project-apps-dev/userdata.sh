@@ -1,5 +1,5 @@
 #!/bin/bash
-export LOCAL_IP=$(curl -s 169.254.169.254/latest/meta-data/local-ipv4)
+export LOCAL_IP=`curl -s http://169.254.169.254/latest/meta-data/local-ipv4`
 
 echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf
 echo "net.ipv6.conf.default.disable_ipv6 = 1" >> /etc/sysctl.conf
