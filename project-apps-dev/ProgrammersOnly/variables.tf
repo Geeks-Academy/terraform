@@ -34,7 +34,7 @@ variable "asg_role" {
   description = "ASG Role to publish to SNS"
 }
 
-variable "lambda_arn" {
+variable "sns_topic_arn" {
   type        = string
-  description = "Lambda ARN for SNS subscription"
+  description = "SNS ARN for ASG events"
 }

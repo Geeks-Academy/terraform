@@ -18,6 +18,24 @@ resource "aws_lambda_function" "update_route53" {
   }
 }
 
-output "update_route53_arn" {
-  value = aws_lambda_function.update_route53.arn
+resource "aws_lambda_permission" "update_route53" {
+  statement_id  = "AllowExecutionFromSNS"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.update_route53.function_name
+  principal     = "sns.amazonaws.com"
+  source_arn    = aws_sns_topic.asg_events.arn
+}
+
+resource "aws_sns_topic" "asg_events" {
+  name = "asg_events"
+}
+
+resource "aws_sns_topic_subscription" "asg_events_sqs_target" {
+  topic_arn = aws_sns_topic.asg_events.arn
+  protocol  = "lambda"
+  endpoint  = var.lambda_arn
+}
+
+output "sns_topic_arn" {
+  value = aws_sns_topic.asg_events.arn
 }
