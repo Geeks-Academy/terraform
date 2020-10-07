@@ -93,7 +93,7 @@ resource "aws_autoscaling_lifecycle_hook" "instance_added" {
   name                   = "instance_added"
   autoscaling_group_name = aws_autoscaling_group.programmers_only.name
   default_result         = "CONTINUE"
-  heartbeat_timeout      = 2000
+  heartbeat_timeout      = 30
   lifecycle_transition   = "autoscaling:EC2_INSTANCE_LAUNCHING"
 
   notification_target_arn = var.sns_topic_arn
@@ -104,7 +104,7 @@ resource "aws_autoscaling_lifecycle_hook" "instance_deleted" {
   name                   = "instance_deleted"
   autoscaling_group_name = aws_autoscaling_group.programmers_only.name
   default_result         = "CONTINUE"
-  heartbeat_timeout      = 2000
+  heartbeat_timeout      = 30
   lifecycle_transition   = "autoscaling:EC2_INSTANCE_TERMINATING"
 
   notification_target_arn = var.sns_topic_arn
