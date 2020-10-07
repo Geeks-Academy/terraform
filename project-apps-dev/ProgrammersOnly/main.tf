@@ -44,7 +44,7 @@ resource "aws_launch_configuration" "programmers_only" {
   name_prefix                 = "programmers-only"
   image_id                    = data.aws_ami.amazon_linux.id
   instance_type               = "t2.micro"
-  user_data                   = data.template_cloudinit_config.config.rendered
+  user_data                   = "${file("userdata.sh")}"
   key_name                    = var.key_name
   iam_instance_profile        = var.iam_instance_profile
   security_groups             = var.security_groups
