@@ -3,6 +3,7 @@ resource "aws_lambda_function" "update_route53" {
   function_name = "update_route53"
   role          = var.iam_for_lambda_arn
   handler       = "update_route53.lambda_handler"
+  timeout       = 9
 
   # The filebase64sha256() function is available in Terraform 0.11.12 and later
   # For Terraform 0.11.11 and earlier, use the base64sha256() function and the file() function:
@@ -15,6 +16,12 @@ resource "aws_lambda_function" "update_route53" {
     variables = {
       foo = "bar"
     }
+  }
+
+  lifecycle {
+    ignore_changes = [
+      last_modified
+    ]
   }
 }
 
