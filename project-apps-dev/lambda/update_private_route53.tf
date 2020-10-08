@@ -43,6 +43,6 @@ resource "aws_sns_topic_subscription" "discover_services_sqs_target" {
   endpoint  = aws_lambda_function.update_private_route53.arn
 }
 
-output "sns_topic_arn" {
+output "service_discovery_sns_topic_arn" {
   value = aws_sns_topic.discover_services.arn
 }
