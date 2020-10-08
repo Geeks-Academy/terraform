@@ -65,6 +65,21 @@ data "aws_iam_policy_document" "update_route53" {
       "logs:PutLogEvents",
     ]
   }
+
+  statement {
+    sid    = "AllowDescribeECS"
+    effect = "Allow"
+
+    resources = [
+      "*"
+    ]
+
+    actions = [
+      "ecs:Get*",
+      "ecs:Describe*",
+      "ecs:List*",
+    ]
+  }
 }
 
 resource "aws_iam_policy" "update_route53" {
