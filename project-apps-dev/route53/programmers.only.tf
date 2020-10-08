@@ -7,5 +7,5 @@ resource "aws_route53_zone" "private" {
 }
 
 output "private_zone_id" {
-  value = aws_route53_zone.zone_id
+  value = aws_route53_zone.private.zone_id
 }
