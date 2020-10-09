@@ -33,7 +33,8 @@ data "aws_iam_policy_document" "update_route53" {
       "ec2:CreateNetworkInterface",
       "ec2:AttachNetworkInterface",
       "ec2:DescribeNetworkInterfaces",
-      "route53:ChangeResourceRecordSets"
+      "route53:ChangeResourceRecordSets",
+      "route53:ListResourceRecordSets"
     ]
   }
 
