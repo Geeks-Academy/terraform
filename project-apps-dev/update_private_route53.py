@@ -1,53 +1,41 @@
 import boto3
+import os
+
+HOSTED_ZONE_ID = os.getenv('HOSTED_ZONE_ID')
 
 
-def setIpRecords():
-    client = boto3.client('ec2')
-    response = client.describe_instances()
+def ifExists(serviceName):
+    client = boto3.client('route53')
+    ifExists = False
+
+    response = client.list_resource_record_sets(HostedZoneId=HOSTED_ZONE_ID)
+
+    for record in response['ResourceRecordSets']:
+        if record['Type'] == "A":
+            if record['Name'] == serviceName + '.programmers.only.':
+                ifExists = True
+
+    return ifExists
+
+
+def addRecord(serviceName, ip):
+    client = boto3.client('route53')
+    record = {}
     records = []
 
-    for r in response['Reservations']:
-        for i in r['Instances']:
-            try:
-                record = {}
-                record['Value'] = i['PublicIpAddress']
-                records.append(record)
-            except:
-                print("EC2 without PublicIP")
+    record['Value'] = ip
+    records.append(record)
 
-    print(records)
-
-    return records
-
-
-def upsertRoute53(records):
-    client = boto3.client('route53')
-    zone_id = "Z04647362L8IAEEDFHM4D"
+    name = serviceName + '.programmers.only.'
 
     batch = {
         'Changes': [
             {
                 'Action': 'UPSERT',
                 'ResourceRecordSet': {
-                    'Name': 'programmers-only.com.',
+                    'Name': name,
                     'Type': 'A',
-                    'SetIdentifier': 'Inserted with lambda',
-                    'MultiValueAnswer': True,
-                    'TTL': 300,
-                    'ResourceRecords': records
-                }
-            }
-        ]
-    }
-
-    batch_www = {
-        'Changes': [
-            {
-                'Action': 'UPSERT',
-                'ResourceRecordSet': {
-                    'Name': 'www.programmers-only.com.',
-                    'Type': 'A',
-                    'SetIdentifier': 'Inserted with lambda',
+                    'SetIdentifier': 'Inserted with lambda ' + serviceName + '-' + ip,
                     'MultiValueAnswer': True,
                     'TTL': 300,
                     'ResourceRecords': records
@@ -57,13 +45,52 @@ def upsertRoute53(records):
     }
 
     response = client.change_resource_record_sets(
-        HostedZoneId=zone_id, ChangeBatch=batch)
+        HostedZoneId=HOSTED_ZONE_ID, ChangeBatch=batch)
 
-    response_www = client.change_resource_record_sets(
-        HostedZoneId=zone_id, ChangeBatch=batch_www)
+    return response
+
+
+def deleteRecord(serviceName, ip):
+    client = boto3.client('route53')
+
+    record = {}
+    records = []
+
+    record['Value'] = ip
+    records.append(record)
+
+    name = serviceName + '.programmers.only.'
+
+    batch = {
+        'Changes': [
+            {
+                'Action': 'DELETE',
+                'ResourceRecordSet': {
+                    'Name': name,
+                    'Type': 'A',
+                    'SetIdentifier': 'Inserted with lambda ' + serviceName + '-' + ip,
+                    'MultiValueAnswer': True,
+                    'TTL': 300,
+                    'ResourceRecords': records
+                }
+            }
+        ]
+    }
+
+    response = client.change_resource_record_sets(
+        HostedZoneId=HOSTED_ZONE_ID, ChangeBatch=batch)
+
+    return response
 
 
 def lambda_handler(event, context):
+    message = event['Records'][0]['Sns']['Message']
+    messageSet = message.split()
+    response = "Nothing happened"
 
-    records = setIpRecords()
-    upsertRoute53(records)
+    if messageSet[0] == "create":
+        response = addRecord(messageSet[1], messageSet[2])
+    elif messageSet[0] == 'delete':
+        response = deleteRecord(messageSet[1], messageSet[2])
+
+    print(response)
