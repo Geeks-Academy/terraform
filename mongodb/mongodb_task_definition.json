@@ -1,0 +1,28 @@
+{
+    "family": "mongodb",
+    "containerDefinitions": [
+        {
+            "name": "mongodb",
+            "image": "",
+            "cpu": 10,
+            "memory": 128,
+            "portMappings": [
+                {
+                    "containerPort": 27017,
+                    "hostPort": 27017,
+                    "protocol": "tcp"
+                }
+            ],
+            "environment": [
+                {
+                    "name": "MONGO_INITDB_ROOT_USERNAME",
+                    "value": "root"
+                },
+                {
+                    "name": "MONGO_INITDB_ROOT_PASSWORD",
+                    "value": "root"
+                }
+            ]
+        }
+    ]
+}
