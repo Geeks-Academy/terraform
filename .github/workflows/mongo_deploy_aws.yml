@@ -50,9 +50,16 @@ jobs:
         aws-region: eu-central-1
 
     - name: Get service discovery Topic ARN
+      id: topic-arn
       run: |
         echo ::set-env name=TOPIC_ARN::$(aws --region eu-central-1 sns list-topics | jq '.Topics' | jq '.[1].TopicArn')
-    
+        echo ::set-output name=TOPIC_ARN::$(aws --region eu-central-1 sns list-topics | jq '.Topics' | jq '.[1].TopicArn')
+
+    - name: Sleep for 15s
+      uses: juliangruber/sleep-action@v1
+      with:
+        time: 15s
+  
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
@@ -68,7 +75,7 @@ jobs:
         # push it to ECR so that it can
         # be deployed to ECS.
         cd ./mongodb
-        docker build --build-arg TOPIC_ARN_ARG=${{ env.TOPIC_ARN }} -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker build --build-arg TOPIC_ARN_ARG=${{ steps.topic-arn.outputs.TOPIC_ARN }} -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
