@@ -72,7 +72,7 @@ jobs:
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
-        task-definition: ./mongodb/mongo_task_definition.json
+        task-definition: ./mongodb/mongodb_task_definition.json
         container-name: mongodb
         image: ${{ steps.build-image.outputs.image }}
 
