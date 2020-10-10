@@ -1,53 +1,60 @@
-# data "template_file" "mongodb" {
-#   template = "${file("ProgrammersOnly/task_definitions/mongodb_task_definition.json")}"
-# }
+### ECS SERVICES
 
-# resource "aws_ecs_task_definition" "mongodb" {
-#   family                = "mongodb"
-#   container_definitions = file("ProgrammersOnly/task_definitions/mongodb_task_definition.json")
-# }
+data "template_file" "mongodb" {
+  template = "${file("ProgrammersOnly/task_definitions/mongodb_task_definition.json")}"
+}
 
-# resource "aws_ecr_repository" "mongodb" {
-#   name = "mongodb"
-# }
+resource "aws_ecs_task_definition" "mongodb" {
+  family                = "mongodb"
+  container_definitions = file("ProgrammersOnly/task_definitions/mongodb_task_definition.json")
+}
 
-# resource "aws_ecr_repository_policy" "mongodb" {
-#   repository = aws_ecr_repository.mongodb.name
+data "aws_ecs_task_definition" "mongodb" {
+  task_definition = aws_ecs_task_definition.mongodb.family
+  depends_on      = [aws_ecs_task_definition.mongodb]
+}
 
-#   policy = <<EOF
-# {
-#     "Version": "2008-10-17",
-#     "Statement": [
-#         {
-#             "Sid": "MONGODB_ECR",
-#             "Effect": "Allow",
-#             "Principal": "*",
-#             "Action": [
-#                 "ecr:GetDownloadUrlForLayer",
-#                 "ecr:BatchGetImage",
-#                 "ecr:BatchCheckLayerAvailability",
-#                 "ecr:PutImage",
-#                 "ecr:InitiateLayerUpload",
-#                 "ecr:UploadLayerPart",
-#                 "ecr:CompleteLayerUpload",
-#                 "ecr:DescribeRepositories",
-#                 "ecr:GetRepositoryPolicy",
-#                 "ecr:ListImages",
-#                 "ecr:DeleteRepository",
-#                 "ecr:BatchDeleteImage",
-#                 "ecr:SetRepositoryPolicy",
-#                 "ecr:DeleteRepositoryPolicy"
-#             ]
-#         }
-#     ]
-# }
-# EOF
-# }
+resource "aws_ecr_repository" "mongodb" {
+  name = "mongodb"
+}
 
-# resource "aws_ecs_service" "mongodb" {
-#   name                               = "mongodb"
-#   cluster                            = aws_ecs_cluster.programmers_only.id
-#   task_definition                    = aws_ecs_task_definition.mongodb.arn
-#   desired_count                      = 1
-#   deployment_minimum_healthy_percent = 0
-# }
+resource "aws_ecr_repository_policy" "mongodb" {
+  repository = aws_ecr_repository.mongodb.name
+
+  policy = <<EOF
+{
+    "Version": "2008-10-17",
+    "Statement": [
+        {
+            "Sid": "MONGODB_ECR",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": [
+                "ecr:GetDownloadUrlForLayer",
+                "ecr:BatchGetImage",
+                "ecr:BatchCheckLayerAvailability",
+                "ecr:PutImage",
+                "ecr:InitiateLayerUpload",
+                "ecr:UploadLayerPart",
+                "ecr:CompleteLayerUpload",
+                "ecr:DescribeRepositories",
+                "ecr:GetRepositoryPolicy",
+                "ecr:ListImages",
+                "ecr:DeleteRepository",
+                "ecr:BatchDeleteImage",
+                "ecr:SetRepositoryPolicy",
+                "ecr:DeleteRepositoryPolicy"
+            ]
+        }
+    ]
+}
+EOF
+}
+
+resource "aws_ecs_service" "mongodb" {
+  name                               = "mongodb"
+  cluster                            = aws_ecs_cluster.programmers_only.id
+  task_definition                    = "mongodb:${data.aws_ecs_task_definition.mongodb.revision}"
+  desired_count                      = 1
+  deployment_minimum_healthy_percent = 0
+}
