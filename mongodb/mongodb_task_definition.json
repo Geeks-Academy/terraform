@@ -13,6 +13,10 @@
                     "protocol": "tcp"
                 }
             ],
+            "command": [
+                "mongod",
+                "--auth"
+            ],
             "environment": [
                 {
                     "name": "MONGO_INITDB_ROOT_USERNAME",
