@@ -1,6 +1,6 @@
 [
     {
-        "name": "mongo",
+        "name": "mongodb",
         "image": "mongo:latest",
         "cpu": 10,
         "memory": 256,
