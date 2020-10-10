@@ -10,3 +10,4 @@ COPY ./mongodb.sh /
 RUN chmod +x /mongodb.sh
 
 ENTRYPOINT [ "./mongodb.sh" ]
+CMD ["mongod", "--auth"]
