@@ -26,8 +26,12 @@
 name: Deploy to Amazon ECS
 
 on:
-  push:
-    branches: [ master ]
+  workflow_dispatch:
+    inputs:
+      project_name:
+        description: 'Dummy parameter.'
+        required: true
+        default: 'start-me'
   
 jobs:
   deploy:
