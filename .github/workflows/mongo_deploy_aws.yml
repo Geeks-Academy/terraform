@@ -57,7 +57,7 @@ jobs:
       id: build-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: mongo
+        ECR_REPOSITORY: mongodb
         IMAGE_TAG: ${{ github.sha }}
       run: |
         # Build a docker container and
@@ -73,14 +73,14 @@ jobs:
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
         task-definition: ./mongodb/mongo_task_definition.json
-        container-name: mongo
+        container-name: mongodb
         image: ${{ steps.build-image.outputs.image }}
 
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
-        service: mongo
+        service: mongodb
         cluster: ProgrammersOnly
         wait-for-service-stability: false
 
@@ -95,7 +95,7 @@ jobs:
             if [ ${#task} -gt 1 ]; then
                 task=`echo $task | tr -d '\"'`
                 name=`aws ecs describe-tasks --cluster ProgrammersOnly --tasks $task | jq '.tasks' | jq '.[0].overrides.containerOverrides' | jq '.[0].name' | tr -d '\"'`
-                if [[ $name == "mongo" ]]; then
+                if [[ $name == "mongodb" ]]; then
                     echo $name
                     aws ecs stop-task --cluster ProgrammersOnly --task $task
                 fi
