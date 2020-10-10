@@ -3,35 +3,35 @@
 module "Damklis" {
   source = "../modules/user"
 
-  username         = "Damklis"
-  group_membership = "administrator"
+  username               = "Damklis"
+  group_membership       = "administrator"
   policy_attachement_arn = module.roles.force_mfa_policy_arn
-  console_access = true
+  console_access         = true
 }
 
 module "Kuba" {
   source = "../modules/user"
 
-  username         = "Kuba"
-  group_membership = "administrator"
+  username               = "Kuba"
+  group_membership       = "administrator"
   policy_attachement_arn = module.roles.force_mfa_policy_arn
-  console_access = true
+  console_access         = true
 }
 
 module "Aleks_J" {
   source = "../modules/user"
 
-  username         = "AleksJ"
-  group_membership = "administrator"
+  username               = "AleksJ"
+  group_membership       = "administrator"
   policy_attachement_arn = module.roles.force_mfa_policy_arn
-  console_access = true
+  console_access         = true
 }
 
 module "ECS_Deployer" {
   source = "../modules/user"
 
-  username         = "ecs_deployer"
-  group_membership = "deployer"
+  username            = "ecs_deployer"
+  group_membership    = "deployer"
   programmatic_access = true
 }
 
@@ -68,7 +68,8 @@ resource "aws_iam_policy" "deployer_policy" {
             "Effect": "Allow",
             "Action": [
               "ecs:*",
-              "ecr:*"
+              "ecr:*",
+              "sns:List*"
             ],
             "Resource": "*"
         }
