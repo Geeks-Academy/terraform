@@ -41,15 +41,15 @@ resource "aws_iam_policy" "policy" {
             ],
             "Resource": "*"
         },
-          {
+        {
             "Effect": "Allow",
             "Action": [
-              "s3:GetObject",
-              "s3:GetBucketLocation"
+              "ssm:GetParameters",
+              "ssm:GetParameter",
+              "ssm:DescribeParameters"
             ],
             "Resource": [
-                "arn:aws:s3:::programmers-only-artifacts/*",
-                "arn:aws:s3:::programmers-only-artifacts"
+                "arn:aws:ssm:*:*:parameter/programmersonly/*"
             ]
         }
     ]
