@@ -110,28 +110,3 @@ resource "aws_autoscaling_lifecycle_hook" "instance_deleted" {
   notification_target_arn = var.sns_topic_arn
   role_arn                = var.asg_role
 }
-
-## ARTIFACTS ON S3
-
-resource "aws_kms_key" "artifacts_kms_key" {
-  description = "This key is used to encrypt bucket objects"
-}
-
-resource "aws_kms_alias" "artifacts_kms_key_alias" {
-  name          = "alias/artifacts_kms_key"
-  target_key_id = aws_kms_key.artifacts_kms_key.key_id
-}
-
-resource "aws_s3_bucket" "programmers_only_artifacts" {
-  bucket = "programmers-only-artifacts"
-  acl    = "private"
-
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        kms_master_key_id = aws_kms_key.artifacts_kms_key.arn
-        sse_algorithm     = "aws:kms"
-      }
-    }
-  }
-}
