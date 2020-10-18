@@ -43,21 +43,9 @@ resource "aws_ecr_repository_policy" "mongodb" {
                 "ecr:DeleteRepository",
                 "ecr:BatchDeleteImage",
                 "ecr:SetRepositoryPolicy",
-                "ecr:DeleteRepositoryPolicy",
-                "kms:*"
+                "ecr:DeleteRepositoryPolicy"
             ],
             "Resource": "*"
-        },
-          {
-            "Effect": "Allow",
-            "Action": [
-              "s3:GetObject",
-              "s3:GetBucketLocation"
-            ],
-            "Resource": [
-                "arn:aws:s3:::programmers-only-artifacts/*",
-                "arn:aws:s3:::programmers-only-artifacts"
-            ]
         }
     ]
 }
