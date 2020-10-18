@@ -19,7 +19,3 @@ module "users" {
 module "roles" {
   source = "./roles"
 }
-
-output "instance_profile_ec2" {
-  value = module.roles.ec2_instance_profile_name
-}

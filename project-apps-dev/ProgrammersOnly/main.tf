@@ -89,27 +89,24 @@ resource "aws_autoscaling_group" "programmers_only" {
 
 }
 
-## ARTIFACTS ON S3
+resource "aws_autoscaling_lifecycle_hook" "instance_added" {
+  name                   = "instance_added"
+  autoscaling_group_name = aws_autoscaling_group.programmers_only.name
+  default_result         = "CONTINUE"
+  heartbeat_timeout      = 30
+  lifecycle_transition   = "autoscaling:EC2_INSTANCE_LAUNCHING"
 
-resource "aws_kms_key" "artifacts_kms_key" {
-  description             = "This key is used to encrypt bucket objects"
+  notification_target_arn = var.sns_topic_arn
+  role_arn                = var.asg_role
 }
 
-resource "aws_kms_alias" "artifacts_kms_key_alias" {
-  name          = "alias/artifacts_kms_key"
-  target_key_id = aws_kms_key.artifacts_kms_key.key_id
-}
+resource "aws_autoscaling_lifecycle_hook" "instance_deleted" {
+  name                   = "instance_deleted"
+  autoscaling_group_name = aws_autoscaling_group.programmers_only.name
+  default_result         = "CONTINUE"
+  heartbeat_timeout      = 30
+  lifecycle_transition   = "autoscaling:EC2_INSTANCE_TERMINATING"
 
-resource "aws_s3_bucket" "programmers_only_artifacts" {
-  bucket = "programmers-only-artifacts"
-  acl    = "private"
-
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        kms_master_key_id = aws_kms_key.artifacts_kms_key.arn
-        sse_algorithm     = "aws:kms"
-      }
-    }
-  }
+  notification_target_arn = var.sns_topic_arn
+  role_arn                = var.asg_role
 }

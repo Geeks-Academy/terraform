@@ -1,6 +1,6 @@
 [
     {
-        "name": "mongo",
+        "name": "mongodb",
         "image": "mongo:latest",
         "cpu": 10,
         "memory": 256,
@@ -11,11 +11,18 @@
                 "protocol": "tcp"
             }
         ],
-        "command": ["mongod", "--auth"],
-        "environmentFiles": [
+        "command": [
+            "mongod",
+            "--auth"
+        ],
+        "environment": [
             {
-                "value": "arn:aws:s3:::programmers-only-artifacts/env-files/mongo.env",
-                "type": "s3"
+                "name": "MONGO_INITDB_ROOT_USERNAME",
+                "value": "root"
+            },
+            {
+                "name": "MONGO_INITDB_ROOT_PASSWORD",
+                "value": "root"
             }
         ]
     }
