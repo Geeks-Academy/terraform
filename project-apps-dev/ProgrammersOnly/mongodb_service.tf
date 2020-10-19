@@ -44,8 +44,7 @@ resource "aws_ecr_repository_policy" "mongodb" {
                 "ecr:BatchDeleteImage",
                 "ecr:SetRepositoryPolicy",
                 "ecr:DeleteRepositoryPolicy"
-            ],
-            "Resource": "*"
+            ]
         }
     ]
 }
