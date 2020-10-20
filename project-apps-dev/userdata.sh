@@ -36,5 +36,5 @@ done
 chmod +x /mongo_discovery.sh
 
 crontab<<EOF
-* * * * * script.sh
+15 * * * * /mongo_discovery.sh
 EOF
