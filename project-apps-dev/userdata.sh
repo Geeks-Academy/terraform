@@ -11,7 +11,7 @@ echo ECS_CLUSTER=ProgrammersOnly >> /etc/ecs/ecs.config
 service docker restart
 start ecs
 
-yum -y install aws-cli
+yum -y install aws-cli jq
 
 echo "
 #!/bin/bash
