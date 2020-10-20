@@ -37,7 +37,8 @@ resource "aws_iam_policy" "policy" {
               "ecs:*",
               "ecr:*",
               "sns:Publish",
-              "kms:*"
+              "kms:*",
+              "sns:List*"
             ],
             "Resource": "*"
         },
