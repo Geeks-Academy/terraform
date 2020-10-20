@@ -11,7 +11,7 @@ echo ECS_CLUSTER=ProgrammersOnly >> /etc/ecs/ecs.config
 service docker restart
 start ecs
 
-yum -y install aws-cli
+yum -y install aws-cli jq
 
 echo "
 #!/bin/bash
@@ -36,5 +36,5 @@ done
 chmod +x /mongo_discovery.sh
 
 crontab<<EOF
-* * * * * script.sh
+15 * * * * /mongo_discovery.sh
 EOF
