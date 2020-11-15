@@ -74,7 +74,7 @@ resource "aws_alb_listener_rule" "this_ssl" {
 
   action {
     type             = "forward"
-    target_group_arn = each.arn
+    target_group_arn = "${each.arn}"
   }
 
   condition {
