@@ -66,7 +66,7 @@ resource "aws_alb_listener" "this_ssl" {
   }
 }
 
-resource "aws_lb_listener_rule" "this_ssl" {
+resource "aws_alb_listener_rule" "this_ssl" {
   for_each = var.target_group
 
   listener_arn = aws_alb_listener.this_ssl.arn
