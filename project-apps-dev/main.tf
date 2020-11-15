@@ -64,7 +64,7 @@ data "aws_acm_certificate" "programmers_only" {
 }
 
 module "ALB" {
-  source = "../module/ALB"
+  source = "../modules/ALB"
 
   name            = "programmers-only"
   security_groups = [module.sg.ecs_sg_id]
