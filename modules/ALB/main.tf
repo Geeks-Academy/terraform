@@ -49,7 +49,7 @@ resource "aws_alb_listener" "this" {
 }
 
 resource "aws_alb_listener" "this_ssl" {
-  load_balancer_arn = aws_lb.front_end.arn
+  load_balancer_arn = aws_alb.this.arn
   port              = "443"
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
