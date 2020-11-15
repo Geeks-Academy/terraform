@@ -73,8 +73,7 @@ module "ALB" {
 
   target_group = [
     {
-      arn      = "arn:::sample"
-      hostname = "dummy.programmers-only.com"
+      "arn:::sample" = "dummy.programmers-only.com"
     }
   ]
 
