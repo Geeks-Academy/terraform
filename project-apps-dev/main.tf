@@ -56,3 +56,26 @@ module "ProgrammersOnly" {
   asg_role             = data.terraform_remote_state.project-iam.outputs.allow_posting_to_sns_arn
   sns_topic_arn        = module.lambda.sns_topic_arn
 }
+
+### ALB
+data "aws_acm_certificate" "programmers_only" {
+  domain   = "*.programmers-only.com"
+  statuses = ["ISSUED"]
+}
+
+module "ALB" {
+  source = "../module/ALB"
+
+  name            = "programmers-only"
+  security_groups = [module.sg.ecs_sg_id]
+  subnets         = data.terraform_remote_state.project-core.outputs.subnets
+  certificate_arn = data.aws_acm_certificate.programmers_only.arn
+
+  target_group = [
+    {
+      arn      = "arn:::sample"
+      hostname = "dummy.programmers-only.com"
+    }
+  ]
+
+}
