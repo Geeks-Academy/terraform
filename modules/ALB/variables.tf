@@ -15,8 +15,8 @@ variable "subnets" {
 }
 
 variable "target_group" {
-  description = "A list of target groups"
-  type        = list(map(string))
+  description = "A map of target groups and hostnames"
+  type        = map(string)
 }
 
 variable "certificate_arn" {

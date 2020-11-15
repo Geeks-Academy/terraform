@@ -71,10 +71,8 @@ module "ALB" {
   subnets         = data.terraform_remote_state.project-core.outputs.subnets
   certificate_arn = data.aws_acm_certificate.programmers_only.arn
 
-  target_group = [
-    {
-      "arn:::sample" = "dummy.programmers-only.com"
-    }
-  ]
+  target_group = {
+    "arn:::sample" = "dummy.programmers-only.com"
+  }
 
 }
