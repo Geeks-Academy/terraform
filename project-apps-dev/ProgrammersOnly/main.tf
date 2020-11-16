@@ -12,7 +12,7 @@ data "aws_ami" "amazon_linux" {
     name = "name"
 
     values = [
-      "amzn2-ami-ecs-gpu-hvm-*-x86_64-ecs",
+      "amzn2-ami-ecs-gpu-hvm-*-x86_64-ebs",
     ]
   }
 
