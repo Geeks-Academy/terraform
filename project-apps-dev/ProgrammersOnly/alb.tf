@@ -9,7 +9,7 @@ module "ALB" {
   source = "../../modules/ALB"
 
   name            = "programmers-only"
-  security_groups = var.security_groups
+  security_groups = var.alb_security_groups
   subnets         = var.public_subnets
   certificate_arn = data.aws_acm_certificate.programmers_only.arn
 

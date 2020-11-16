@@ -15,6 +15,16 @@ variable "security_groups" {
   type        = list
 }
 
+variable "ec2_security_groups" {
+  description = "This is security group list for provisioned instances in this ECS cluster."
+  type        = list
+}
+
+variable "alb_security_groups" {
+  description = "This is security group list for provisioned ALB."
+  type        = list
+}
+
 variable "public_subnets" {
   description = "This is public subnets list."
   type        = list
