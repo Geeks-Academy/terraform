@@ -12,7 +12,7 @@ data "aws_ami" "amazon_linux" {
     name = "name"
 
     values = [
-      "amzn-ami-*-amazon-ecs-optimized",
+      "amzn2-ami-*-ecs",
     ]
   }
 
