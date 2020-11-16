@@ -26,7 +26,7 @@ data "aws_ami" "amazon_linux" {
 }
 
 data "template_file" "user_data" {
-  template = "${file("userdata.sh")}"
+  template = file("userdata.sh")
 }
 
 data "template_cloudinit_config" "config" {
@@ -47,15 +47,14 @@ resource "aws_launch_configuration" "programmers_only" {
   user_data                   = data.template_cloudinit_config.config.rendered
   key_name                    = var.key_name
   iam_instance_profile        = var.iam_instance_profile
-  security_groups             = var.security_groups
+  security_groups             = var.ec2_security_groups
   associate_public_ip_address = true
 
   lifecycle {
     create_before_destroy = true
   }
 
-  ebs_block_device {
-    device_name = "/dev/xvdcz"
+  root_block_device {
     volume_size = 22
   }
 }
@@ -63,7 +62,7 @@ resource "aws_launch_configuration" "programmers_only" {
 resource "aws_autoscaling_group" "programmers_only" {
   availability_zones   = ["eu-central-1a", "eu-central-1b"]
   name                 = "programmers-only"
-  vpc_zone_identifier  = var.subnets
+  vpc_zone_identifier  = var.public_subnets
   launch_configuration = aws_launch_configuration.programmers_only.name
   min_size             = 0
   max_size             = 2
@@ -79,6 +78,11 @@ resource "aws_autoscaling_group" "programmers_only" {
       "key"                 = "EnvironmentType"
       "value"               = "dev"
       "propagate_at_launch" = true
+    },
+    {
+      "key"                 = "Managed by"
+      "value"               = "Terraform"
+      "propagate_at_launch" = true
     }
   ]
 
@@ -87,26 +91,4 @@ resource "aws_autoscaling_group" "programmers_only" {
     ignore_changes        = [desired_capacity]
   }
 
-}
-
-resource "aws_autoscaling_lifecycle_hook" "instance_added" {
-  name                   = "instance_added"
-  autoscaling_group_name = aws_autoscaling_group.programmers_only.name
-  default_result         = "CONTINUE"
-  heartbeat_timeout      = 30
-  lifecycle_transition   = "autoscaling:EC2_INSTANCE_LAUNCHING"
-
-  notification_target_arn = var.sns_topic_arn
-  role_arn                = var.asg_role
-}
-
-resource "aws_autoscaling_lifecycle_hook" "instance_deleted" {
-  name                   = "instance_deleted"
-  autoscaling_group_name = aws_autoscaling_group.programmers_only.name
-  default_result         = "CONTINUE"
-  heartbeat_timeout      = 30
-  lifecycle_transition   = "autoscaling:EC2_INSTANCE_TERMINATING"
-
-  notification_target_arn = var.sns_topic_arn
-  role_arn                = var.asg_role
 }

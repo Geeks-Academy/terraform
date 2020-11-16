@@ -1,7 +1,7 @@
 ### ECS SERVICES
 
 data "template_file" "frontend" {
-  template = "${file("ProgrammersOnly/task_definitions/frontend_task_definition.json")}"
+  template = file("ProgrammersOnly/task_definitions/frontend_task_definition.json")
 }
 
 resource "aws_ecs_task_definition" "frontend" {
@@ -57,4 +57,26 @@ resource "aws_ecs_service" "frontend" {
   task_definition                    = "frontend:${data.aws_ecs_task_definition.frontend.revision}"
   desired_count                      = 1
   deployment_minimum_healthy_percent = 0
+
+  load_balancer {
+    target_group_arn = aws_alb_target_group.frontend.arn
+    container_name   = "frontend"
+    container_port   = 3000
+  }
+}
+
+resource "aws_alb_target_group" "frontend" {
+  name_prefix = "po-"
+  port        = 3000
+  protocol    = "HTTP"
+  vpc_id      = var.vpc_id
+
+  health_check {
+    path     = "/"
+    port     = "traffic-port"
+    interval = 300
+    matcher  = "200-499"
+  }
+
+  tags = var.tags
 }
