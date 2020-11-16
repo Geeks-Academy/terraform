@@ -14,7 +14,7 @@ resource "aws_lambda_function" "update_private_route53" {
 
   environment {
     variables = {
-      HOSTED_ZONE_ID = "${var.private_zone_id}"
+      HOSTED_ZONE_ID = var.private_zone_id
     }
   }
 
