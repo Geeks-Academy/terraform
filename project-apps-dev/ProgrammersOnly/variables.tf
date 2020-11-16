@@ -47,8 +47,3 @@ variable "asg_role" {
   type        = string
   description = "ASG Role to publish to SNS"
 }
-
-variable "sns_topic_arn" {
-  type        = string
-  description = "SNS ARN for ASG events"
-}
