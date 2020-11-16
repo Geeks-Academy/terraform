@@ -9,7 +9,7 @@ resource "aws_route53_zone" "private" {
 resource "aws_route53_record" "www" {
   zone_id = aws_route53_zone.private.zone_id
   name    = "www.programmers.only"
-  type    = "A"
+  type    = "CNAME"
   ttl     = "300"
   records = [module.ALB.alb_dns_name]
 }

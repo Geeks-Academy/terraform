@@ -61,13 +61,13 @@ resource "aws_ecs_service" "frontend" {
   load_balancer {
     target_group_arn = aws_alb_target_group.frontend.arn
     container_name   = "frontend"
-    container_port   = 3000
+    container_port   = 80
   }
 }
 
 resource "aws_alb_target_group" "frontend" {
   name_prefix = "po-"
-  port        = 3000
+  port        = 80
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
 
