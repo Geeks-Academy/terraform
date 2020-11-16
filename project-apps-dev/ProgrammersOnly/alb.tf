@@ -10,7 +10,7 @@ module "ALB" {
 
   name            = "programmers-only"
   security_groups = var.alb_security_groups
-  subnets         = var.public_subnets
+  subnets         = join(", ", [element(var.public_subnets, 0), element(var.private_subnet, 0)])
   certificate_arn = data.aws_acm_certificate.programmers_only.arn
 
   target_groups = [
