@@ -1,17 +1,7 @@
 ### ECS SERVICES
-
-data "template_file" "mongodb" {
-  template = file("ProgrammersOnly/task_definitions/mongodb_task_definition.json")
-}
-
 resource "aws_ecs_task_definition" "mongodb" {
   family                = "mongodb"
   container_definitions = file("ProgrammersOnly/task_definitions/mongodb_task_definition.json")
-}
-
-data "aws_ecs_task_definition" "mongodb" {
-  task_definition = aws_ecs_task_definition.mongodb.family
-  depends_on      = [aws_ecs_task_definition.mongodb]
 }
 
 resource "aws_ecr_repository" "mongodb" {
@@ -54,7 +44,29 @@ EOF
 resource "aws_ecs_service" "mongodb" {
   name                               = "mongodb"
   cluster                            = aws_ecs_cluster.programmers_only.id
-  task_definition                    = "mongodb:${data.aws_ecs_task_definition.mongodb.revision}"
+  task_definition                    = aws_ecs_task_definition.mongodb.arn
   desired_count                      = 1
   deployment_minimum_healthy_percent = 0
+
+  load_balancer {
+    target_group_arn = aws_alb_target_group.mongodb.arn
+    container_name   = "mongodb"
+    container_port   = 27017
+  }
+}
+
+resource "aws_alb_target_group" "mongodb" {
+  name_prefix = "po-"
+  port        = 27017
+  protocol    = "HTTP"
+  vpc_id      = var.vpc_id
+
+  health_check {
+    path     = "/"
+    port     = "traffic-port"
+    interval = 300
+    matcher  = "200-499"
+  }
+
+  tags = var.tags
 }
