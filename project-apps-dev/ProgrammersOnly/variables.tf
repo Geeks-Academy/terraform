@@ -10,11 +10,6 @@ variable "vpc_id" {
   description = "VPC ID"
 }
 
-variable "security_groups" {
-  description = "This is security group list for provisioned instances in this ECS cluster."
-  type        = list
-}
-
 variable "ec2_security_groups" {
   description = "This is security group list for provisioned instances in this ECS cluster."
   type        = list
