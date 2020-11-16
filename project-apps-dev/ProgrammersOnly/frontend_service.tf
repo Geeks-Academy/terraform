@@ -1,7 +1,7 @@
 ### ECS SERVICES
 
 data "template_file" "frontend" {
-  template = "${file("ProgrammersOnly/task_definitions/frontend_task_definition.json")}"
+  template = file("ProgrammersOnly/task_definitions/frontend_task_definition.json")
 }
 
 resource "aws_ecs_task_definition" "frontend" {
