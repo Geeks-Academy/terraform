@@ -55,7 +55,7 @@ resource "aws_launch_configuration" "programmers_only" {
   }
 
   root_block_device {
-    volume_size = 22
+    volume_size = 30
   }
 }
 
