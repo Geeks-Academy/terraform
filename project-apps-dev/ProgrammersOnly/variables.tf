@@ -34,7 +34,8 @@ variable "tags" {
   type = map
 
   default = {
-    owner = "bwieckow"
+    owner        = "bwieckow"
+    "Managed by" = "Terraform"
   }
 }
 

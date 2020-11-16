@@ -78,6 +78,11 @@ resource "aws_autoscaling_group" "programmers_only" {
       "key"                 = "EnvironmentType"
       "value"               = "dev"
       "propagate_at_launch" = true
+    },
+    {
+      "key"                 = "Managed by"
+      "value"               = "Terraform"
+      "propagate_at_launch" = true
     }
   ]
 
