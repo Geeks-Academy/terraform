@@ -50,10 +50,11 @@ module "ProgrammersOnly" {
 
   prefix               = "programmers-only"
   key_name             = data.terraform_remote_state.project-core.outputs.key_name
+  sns_topic_arn        = module.lambda.sns_topic_arn
   iam_instance_profile = data.terraform_remote_state.project-iam.outputs.instance_profile_ec2
+  asg_role             = data.terraform_remote_state.project-iam.outputs.allow_posting_to_sns_arn
   security_groups      = [module.sg.ecs_sg_id]
   public_subnets       = data.terraform_remote_state.project-core.outputs.public_subnets
   private_subnets      = data.terraform_remote_state.project-core.outputs.private_subnets
-  asg_role             = data.terraform_remote_state.project-iam.outputs.allow_posting_to_sns_arn
-  sns_topic_arn        = module.lambda.sns_topic_arn
+  vpc_id               = data.terraform_remote_state.project-core.outputs.vpc_common_id
 }
