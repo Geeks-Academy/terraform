@@ -29,7 +29,7 @@ variable "public_subnets" {
 }
 
 variable "private_subnets" {
-  type        = string
+  type        = list
   description = "Private subnet CIDRs"
 }
 
