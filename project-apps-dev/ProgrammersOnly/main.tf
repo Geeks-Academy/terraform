@@ -62,7 +62,7 @@ resource "aws_launch_configuration" "programmers_only" {
 resource "aws_autoscaling_group" "programmers_only" {
   availability_zones   = ["eu-central-1a", "eu-central-1b"]
   name                 = "programmers-only"
-  vpc_zone_identifier  = var.public_subnets
+  vpc_zone_identifier  = list(element(var.public_subnets, 0), element(var.public_subnets, 1))
   launch_configuration = aws_launch_configuration.programmers_only.name
   min_size             = 0
   max_size             = 2
