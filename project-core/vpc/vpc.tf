@@ -42,7 +42,7 @@ resource "aws_subnet" "private_subnet" {
 
   map_public_ip_on_launch = "false"
   availability_zone       = element(var.azs, count.index)
-  cidr_block              = element(var.public_subnets, count.index)
+  cidr_block              = element(var.private_subnets, count.index)
 
   tags = {
     "Name"            = format("%s-Private-%d", local.name, count.index + 1)
