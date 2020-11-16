@@ -13,8 +13,13 @@ module "ALB" {
   subnets         = var.public_subnets
   certificate_arn = data.aws_acm_certificate.programmers_only.arn
 
-  target_groups = {
-    "www.programmers-only.com" = aws_alb_target_group.frontend.arn
-  }
+  target_groups = [
+    {
+      hostname     = "www.programmers-only.com"
+      target_group = aws_alb_target_group.frontend.arn
+      priority     = 100
+      path         = "/test"
+    }
+  ]
 
 }

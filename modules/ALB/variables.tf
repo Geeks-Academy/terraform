@@ -15,8 +15,13 @@ variable "subnets" {
 }
 
 variable "target_groups" {
-  description = "A map of target groups and hostnames"
-  type        = map(string)
+  type = list(map)
+  # type = map(object({
+  #   target_group = string
+  #   hostnames    = map(object({ target_group = string, path = string, priority = string }))
+  # }))
+  description = "A list of maps of target groups and hostnames"
+
 }
 
 variable "certificate_arn" {
