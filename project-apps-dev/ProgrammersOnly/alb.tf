@@ -18,7 +18,13 @@ module "ALB" {
       hostname     = "www.programmers-only.com"
       target_group = aws_alb_target_group.frontend.arn
       priority     = 100
-      path         = "/test"
+      path         = "/"
+    },
+    {
+      hostname     = "www.programmers.only"
+      target_group = aws_alb_target_group.frontend.arn
+      priority     = 300
+      path         = "/"
     }
   ]
 

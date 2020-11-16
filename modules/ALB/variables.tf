@@ -15,11 +15,7 @@ variable "subnets" {
 }
 
 variable "target_groups" {
-  type = list(map)
-  # type = map(object({
-  #   target_group = string
-  #   hostnames    = map(object({ target_group = string, path = string, priority = string }))
-  # }))
+  type        = list(map(string))
   description = "A list of maps of target groups and hostnames"
 
 }
