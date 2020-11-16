@@ -26,7 +26,7 @@ data "aws_ami" "amazon_linux" {
 }
 
 data "template_file" "user_data" {
-  template = "${file("userdata.sh")}"
+  template = file("userdata.sh")
 }
 
 data "template_cloudinit_config" "config" {
