@@ -52,27 +52,8 @@ module "ProgrammersOnly" {
   key_name             = data.terraform_remote_state.project-core.outputs.key_name
   iam_instance_profile = data.terraform_remote_state.project-iam.outputs.instance_profile_ec2
   security_groups      = [module.sg.ecs_sg_id]
-  subnets              = data.terraform_remote_state.project-core.outputs.subnets
+  public_subnets       = data.terraform_remote_state.project-core.outputs.public_subnets
+  private_subnets      = data.terraform_remote_state.project-core.outputs.private_subnets
   asg_role             = data.terraform_remote_state.project-iam.outputs.allow_posting_to_sns_arn
   sns_topic_arn        = module.lambda.sns_topic_arn
-}
-
-### ALB
-data "aws_acm_certificate" "programmers_only" {
-  domain   = "*.programmers-only.com"
-  statuses = ["ISSUED"]
-}
-
-module "ALB" {
-  source = "../modules/ALB"
-
-  name            = "programmers-only"
-  security_groups = [module.sg.ecs_sg_id]
-  subnets         = data.terraform_remote_state.project-core.outputs.subnets
-  certificate_arn = data.aws_acm_certificate.programmers_only.arn
-
-  target_group = {
-    "arn:::sample" = "dummy.programmers-only.com"
-  }
-
 }

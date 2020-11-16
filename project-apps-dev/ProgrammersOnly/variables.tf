@@ -11,8 +11,13 @@ variable "security_groups" {
   type        = list
 }
 
-variable "subnets" {
-  description = "This is subnets list."
+variable "public_subnets" {
+  description = "This is public subnets list."
+  type        = list
+}
+
+variable "private_subnets" {
+  description = "This is private subnets list."
   type        = list
 }
 

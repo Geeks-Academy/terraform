@@ -14,7 +14,7 @@ variable "subnets" {
   description = "List of subnet ids"
 }
 
-variable "target_group" {
+variable "target_groups" {
   description = "A map of target groups and hostnames"
   type        = map(string)
 }

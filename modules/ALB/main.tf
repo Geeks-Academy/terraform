@@ -67,19 +67,19 @@ resource "aws_alb_listener" "this_ssl" {
 }
 
 resource "aws_alb_listener_rule" "this_ssl" {
-  for_each = var.target_group
+  for_each = var.target_groups
 
   listener_arn = aws_alb_listener.this_ssl.arn
   # priority     = 100
 
   action {
     type             = "forward"
-    target_group_arn = "${each.key}"
+    target_group_arn = "${each.value}"
   }
 
   condition {
     host_header {
-      values = [each.value]
+      values = [each.key]
     }
   }
 }
