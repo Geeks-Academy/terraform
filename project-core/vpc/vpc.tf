@@ -37,14 +37,15 @@ resource "aws_subnet" "public_subnet" {
 }
 
 resource "aws_subnet" "private_subnet" {
+  count  = length(var.private_subnets)
   vpc_id = aws_vpc.vpc.id
 
   map_public_ip_on_launch = "false"
-  availability_zone       = "eu-central-1b"
-  cidr_block              = var.private_subnet_cidr
+  availability_zone       = element(var.azs, count.index)
+  cidr_block              = element(var.private_subnets, count.index)
 
   tags = {
-    "Name"            = format("%s-Private", local.name)
+    "Name"            = format("%s-Private-%d", local.name, count.index + 1)
     "EnvironmentType" = var.environment_type
     "Managed by"      = "Terraform"
   }
@@ -84,7 +85,9 @@ resource "aws_route_table" "private" {
 }
 
 resource "aws_route_table_association" "private" {
-  subnet_id      = aws_subnet.private_subnet.id
+  count = length(var.private_subnets)
+
+  subnet_id      = aws_subnet.private_subnet[count.index].id
   route_table_id = aws_route_table.private.id
 }
 
