@@ -10,6 +10,12 @@
                 "hostPort": 0,
                 "protocol": "tcp"
             }
+        ],
+        "secrets": [
+            {
+                "name": "MONGO_URL",
+                "valueFrom": "arn:aws:ssm:eu-central-1:318625651741:parameter/programmersonly/mongodb/MONGO_URL"
+            }
         ]
     }
 ]
