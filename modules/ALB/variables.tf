@@ -14,10 +14,14 @@ variable "subnets" {
   description = "List of subnet ids"
 }
 
+variable "ssl_target_groups" {
+  type        = list(map(string))
+  description = "A list of maps of target groups and hostnames that should be accessable with HTTPS"
+}
+
 variable "target_groups" {
   type        = list(map(string))
-  description = "A list of maps of target groups and hostnames"
-
+  description = "A list of maps of target groups and hostnames that should be accessable with HTTP"
 }
 
 variable "certificate_arn" {
@@ -32,12 +36,6 @@ variable "tags" {
   default = {
     owner = "bwieckow"
   }
-}
-
-variable "if_only_ssl" {
-  type        = bool
-  description = "Determines whether to redirect traffic from 80 to 443."
-  default     = true
 }
 
 variable "internal" {
