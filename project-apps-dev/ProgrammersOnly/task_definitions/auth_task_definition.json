@@ -14,19 +14,19 @@
         "secrets": [
             {
                 "name": "MONGOURL",
-                "valueFrom": "arn:aws:ssm:eu-central-1:318625651741:parameter/programmersonly/mongodb/MONGO_URL"
+                "valueFrom": "/programmersonly/mongodb/MONGO_URL"
             },
             {
                 "name": "GOOGLE_CALLBACKURL",
-                "valueFrom": "arn:aws:ssm:eu-central-1:318625651741:parameter/programmersonly/auth/GOOGLE_CALLBACKURL"
+                "valueFrom": "/programmersonly/auth/GOOGLE_CALLBACKURL"
             },
             {
                 "name": "GOOGLE_CLIENT_ID",
-                "valueFrom": "arn:aws:ssm:eu-central-1:318625651741:parameter/programmersonly/auth/GOOGLE_CLIENT_ID"
+                "valueFrom": "/programmersonly/auth/GOOGLE_CLIENT_ID"
             },
             {
                 "name": "GOOGLE_CLIENT_SECRET",
-                "valueFrom": "arn:aws:ssm:eu-central-1:318625651741:parameter/programmersonly/auth/GOOGLE_CLIENT_SECRET"
+                "valueFrom": "/programmersonly/auth/GOOGLE_CLIENT_SECRET"
             }
         ]
     }
