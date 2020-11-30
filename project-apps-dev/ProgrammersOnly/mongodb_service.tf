@@ -4,9 +4,51 @@ data "template_file" "mongodb" {
   template = file("ProgrammersOnly/task_definitions/mongodb_task_definition.json")
 }
 
+resource "aws_iam_role" "ecs_role" {
+  name               = "ecs_role"
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy" "ecs_service_role_policy" {
+  name     = "ecs_service_role_policy"
+  role     = aws_iam_role.ecs_role.id
+  policy   = <<-EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ssm:GetParameters",
+        "secretsmanager:GetSecretValue"
+      ],
+      "Resource": [
+        "*"
+      ]
+    }
+  ]
+}
+EOF
+}
+
 resource "aws_ecs_task_definition" "mongodb" {
   family                = "mongodb"
   container_definitions = file("ProgrammersOnly/task_definitions/mongodb_task_definition.json")
+  task_role_arn         = aws_iam_role.ecs_role.arn
 }
 
 data "aws_ecs_task_definition" "mongodb" {
