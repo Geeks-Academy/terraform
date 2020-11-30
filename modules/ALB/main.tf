@@ -30,7 +30,7 @@ resource "aws_alb_listener" "this" {
 resource "aws_alb_listener_rule" "this" {
   for_each = { for target in var.target_groups : target.hostname => target }
 
-  listener_arn = aws_alb_listener.this_ssl.arn
+  listener_arn = aws_alb_listener.this.arn
   priority     = each.value.priority
 
   action {
