@@ -65,7 +65,7 @@ resource "aws_ecs_service" "auth" {
   }
 }
 
-resource "aws_alb_target_group" "frontend" {
+resource "aws_alb_target_group" "auth" {
   name_prefix = "po-"
   port        = 3000
   protocol    = "HTTP"
