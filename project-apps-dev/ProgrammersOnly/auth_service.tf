@@ -57,4 +57,26 @@ resource "aws_ecs_service" "auth" {
   task_definition                    = "auth:${data.aws_ecs_task_definition.auth.revision}"
   desired_count                      = 1
   deployment_minimum_healthy_percent = 0
+
+  load_balancer {
+    target_group_arn = aws_alb_target_group.auth.arn
+    container_name   = "auth"
+    container_port   = 3000
+  }
+}
+
+resource "aws_alb_target_group" "frontend" {
+  name_prefix = "po-"
+  port        = 80
+  protocol    = "HTTP"
+  vpc_id      = var.vpc_id
+
+  health_check {
+    path     = "/"
+    port     = "traffic-port"
+    interval = 300
+    matcher  = "200-499"
+  }
+
+  tags = var.tags
 }
