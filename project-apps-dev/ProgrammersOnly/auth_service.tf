@@ -67,7 +67,7 @@ resource "aws_ecs_service" "auth" {
 
 resource "aws_alb_target_group" "frontend" {
   name_prefix = "po-"
-  port        = 80
+  port        = 3000
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
 
