@@ -8,7 +8,7 @@ resource "aws_ecs_task_definition" "auth" {
   family                = "auth"
   container_definitions = file("ProgrammersOnly/task_definitions/auth_task_definition.json")
   task_role_arn         = aws_iam_role.ecs_role.arn
-  executionRoleArn      = aws_iam_role.ecs_role.arn
+  execution_role_arn    = aws_iam_role.ecs_role.arn
 }
 
 data "aws_ecs_task_definition" "auth" {
