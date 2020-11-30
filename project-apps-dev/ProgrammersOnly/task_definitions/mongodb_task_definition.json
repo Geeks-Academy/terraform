@@ -12,17 +12,16 @@
             }
         ],
         "command": [
-            "mongod",
-            "--auth"
+            "mongod", "--auth"
         ],
-        "environment": [
+        "secrets": [
             {
                 "name": "MONGO_INITDB_ROOT_USERNAME",
-                "value": "root"
+                "valueFrom": "arn:aws:ssm:eu-central-1:318625651741:parameter/programmersonly/mongodb/MONGO_INITDB_ROOT_USERNAME"
             },
             {
                 "name": "MONGO_INITDB_ROOT_PASSWORD",
-                "value": "root"
+                "valueFrom": "arn:aws:ssm:eu-central-1:318625651741:parameter/programmersonly/mongodb/MONGO_INITDB_ROOT_PASSWORD"
             }
         ]
     }
