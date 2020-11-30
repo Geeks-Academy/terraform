@@ -11,9 +11,7 @@ resource "aws_alb" "this" {
   tags = var.tags
 }
 
-resource "aws_alb_listener" "this_only_ssl" {
-  count = var.if_only_ssl ? 1 : 0
-
+resource "aws_alb_listener" "this" {
   load_balancer_arn = aws_alb.this.arn
   port              = "80"
   protocol          = "HTTP"
@@ -29,21 +27,20 @@ resource "aws_alb_listener" "this_only_ssl" {
   }
 }
 
+resource "aws_alb_listener_rule" "this" {
+  for_each = { for target in var.target_groups : target.hostname => target }
 
-resource "aws_alb_listener" "this" {
-  count = var.if_only_ssl ? 0 : 1
+  listener_arn = aws_alb_listener.this_ssl.arn
+  priority     = each.value.priority
 
-  load_balancer_arn = aws_alb.this.arn
-  port              = "80"
-  protocol          = "HTTP"
+  action {
+    type             = "forward"
+    target_group_arn = each.value.target_group
+  }
 
-  default_action {
-    type = "fixed-response"
-
-    fixed_response {
-      content_type = "text/plain"
-      message_body = "Not found"
-      status_code  = "404"
+  condition {
+    host_header {
+      values = [each.value.hostname]
     }
   }
 }
@@ -67,7 +64,7 @@ resource "aws_alb_listener" "this_ssl" {
 }
 
 resource "aws_alb_listener_rule" "this_ssl" {
-  for_each = { for target in var.target_groups : target.hostname => target }
+  for_each = { for target in var.ssl_target_groups : target.hostname => target }
 
   listener_arn = aws_alb_listener.this_ssl.arn
   priority     = each.value.priority
