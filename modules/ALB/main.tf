@@ -82,10 +82,4 @@ resource "aws_alb_listener_rule" "this_ssl" {
       values = [each.value.hostname]
     }
   }
-
-  condition {
-    path_pattern {
-      values = [each.value.path]
-    }
-  }
 }
