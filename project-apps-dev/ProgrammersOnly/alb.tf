@@ -23,11 +23,6 @@ module "ALB" {
       hostname     = "www.programmers.only"
       target_group = aws_alb_target_group.frontend.arn
       priority     = 300
-    },
-    {
-      hostname     = "mongodb.programmers.only"
-      target_group = aws_alb_target_group.mongodb.arn
-      priority     = 310
     }
   ]
 
