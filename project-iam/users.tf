@@ -69,6 +69,7 @@ resource "aws_iam_policy" "deployer_policy" {
             "Action": [
               "ecs:*",
               "ecr:*",
+              "iam:PassRole",
               "sns:List*"
             ],
             "Resource": "*"
