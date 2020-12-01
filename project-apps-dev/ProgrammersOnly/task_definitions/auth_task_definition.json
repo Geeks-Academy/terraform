@@ -11,10 +11,28 @@
                 "protocol": "tcp"
             }
         ],
+        "environment": [
+            {
+                "name": "NODE_ENV",
+                "value": "development"
+            },
+            {
+                "name": "API_PORT",
+                "value": "3001"
+            },
+            {
+                "name": "TEST_ENV",
+                "value": "false"
+            }
+        ],
         "secrets": [
             {
-                "name": "MONGOURL",
+                "name": "MONGODBURL",
                 "valueFrom": "/programmersonly/mongodb/MONGO_URL"
+            },
+            {
+                "name": "APP_API_URL",
+                "valueFrom": "/programmersonly/auth/APP_API_URL"
             },
             {
                 "name": "GOOGLE_CALLBACKURL",
@@ -27,6 +45,18 @@
             {
                 "name": "GOOGLE_CLIENT_SECRET",
                 "valueFrom": "/programmersonly/auth/GOOGLE_CLIENT_SECRET"
+            },
+            {
+                "name": "GITHUB_CLIENT_ID",
+                "valueFrom": "/programmersonly/auth/GITHUB_CLIENT_ID"
+            },
+            {
+                "name": "GITHUB_CLIENT_SECRET",
+                "valueFrom": "/programmersonly/auth/GITHUB_CLIENT_SECRET"
+            },
+            {
+                "name": "GITHUB_CALLBACKURL",
+                "valueFrom": "/programmersonly/auth/GITHUB_CALLBACKURL"
             }
         ]
     }
