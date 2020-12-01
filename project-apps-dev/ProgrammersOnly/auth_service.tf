@@ -114,6 +114,7 @@ resource "aws_iam_role_policy" "ecs_service_role_policy" {
     {
       "Effect": "Allow",
       "Action": [
+        "ecr:*",
         "ssm:GetParameters",
         "ssm:GetParameter",
         "ssm:DescribeParameters",
