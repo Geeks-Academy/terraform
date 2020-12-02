@@ -32,12 +32,6 @@ module "sg" {
   vpc_id = data.terraform_remote_state.project-core.outputs.vpc_common_id
 }
 
-# module "route53" {
-#   source = "./route53"
-
-#   vpc_id = data.terraform_remote_state.project-core.outputs.vpc_common_id
-# }
-
 # module "lambda" {
 #   source = "./lambda"
 
