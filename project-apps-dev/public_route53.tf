@@ -7,7 +7,7 @@ data "aws_route53_zone" "public" {
 resource "aws_route53_record" "public" {
   for_each = local.public_dns_entries
 
-  zone_id = aws_route53_zone.private.zone_id
+  zone_id = data.aws_route53_zone.public.zone_id
   name    = each.value
   type    = "CNAME"
   ttl     = "300"
