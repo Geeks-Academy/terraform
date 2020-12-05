@@ -28,6 +28,16 @@ module "ALB" {
 
   target_groups = [
     {
+      hostname     = "www.programmers.only"
+      target_group = aws_alb_target_group.frontend.arn
+      priority     = 100
+    },
+    {
+      hostname     = "programmers.only"
+      target_group = aws_alb_target_group.frontend.arn
+      priority     = 110
+    },
+    {
       hostname     = "auth.programmers.only"
       target_group = aws_alb_target_group.auth.arn
       priority     = 120
