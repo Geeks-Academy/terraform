@@ -23,22 +23,27 @@ module "ALB" {
       hostname     = "programmers-only.com"
       target_group = aws_alb_target_group.frontend.arn
       priority     = 110
+    },
+    {
+      hostname     = "auth.programmers-only.com"
+      target_group = aws_alb_target_group.auth.arn
+      priority     = 120
     }
   ]
 
   target_groups = [
     {
-      hostname     = "www.programmers.only"
+      hostname     = "www.programmers-only.com"
       target_group = aws_alb_target_group.frontend.arn
       priority     = 100
     },
     {
-      hostname     = "programmers.only"
+      hostname     = "programmers-only.com"
       target_group = aws_alb_target_group.frontend.arn
       priority     = 110
     },
     {
-      hostname     = "auth.programmers.only"
+      hostname     = "auth.programmers-only.com"
       target_group = aws_alb_target_group.auth.arn
       priority     = 120
     }

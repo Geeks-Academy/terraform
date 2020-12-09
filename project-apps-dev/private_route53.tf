@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "private" {
-  name = "programmers.only"
+  name = "programmers-only.com"
 
   vpc {
     vpc_id = data.terraform_remote_state.project-core.outputs.vpc_common_id
