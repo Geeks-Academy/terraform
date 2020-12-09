@@ -5,8 +5,7 @@ locals {
   }
 
   private_dns_entries = {
-    "1" = "www.programmers.only"
-    "2" = "programmers.only"
-    "3" = "auth.programmers.only"
+    "1" = "www.programmers-only.com"
+    "2" = "auth.programmers-only.com"
   }
 }
