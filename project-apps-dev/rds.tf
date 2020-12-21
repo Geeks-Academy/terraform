@@ -6,7 +6,7 @@ data "aws_ssm_parameter" "password" {
   name = "/programmersonly/postgresql/password"
 }
 
-resource "aws_db_subnet_group" "postrgesql" {
+resource "aws_db_subnet_group" "postgresql" {
   name       = "postgresql12.4"
   subnet_ids = data.terraform_remote_state.project-core.outputs.public_subnets
 
