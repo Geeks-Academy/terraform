@@ -27,6 +27,15 @@ module "Aleks_J" {
   console_access         = true
 }
 
+module "Piotr" {
+  source = "../modules/user"
+
+  username               = "Piotr"
+  group_membership       = "administrator"
+  policy_attachement_arn = module.roles.force_mfa_policy_arn
+  console_access         = true
+}
+
 module "ECS_Deployer" {
   source = "../modules/user"
 
