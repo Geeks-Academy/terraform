@@ -46,6 +46,21 @@ module "ALB" {
       hostname     = "auth.programmers-only.com"
       target_group = aws_alb_target_group.auth.arn
       priority     = 120
+    },
+    {
+      hostname     = "www.geeks.academy"
+      target_group = aws_alb_target_group.geeks_frontend.arn
+      priority     = 130
+    },
+    {
+      hostname     = "new.geeks.academy"
+      target_group = aws_alb_target_group.geeks_frontend.arn
+      priority     = 140
+    },
+    {
+      hostname     = "www.geeks.academy"
+      target_group = aws_alb_target_group.geeks_frontend.arn
+      priority     = 150
     }
   ]
 
