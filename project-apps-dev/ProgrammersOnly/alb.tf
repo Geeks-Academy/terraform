@@ -56,11 +56,6 @@ module "ALB" {
       hostname     = "new.geeks.academy"
       target_group = aws_alb_target_group.geeks_frontend.arn
       priority     = 140
-    },
-    {
-      hostname     = "www.geeks.academy"
-      target_group = aws_alb_target_group.geeks_frontend.arn
-      priority     = 150
     }
   ]
 
