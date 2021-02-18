@@ -1,0 +1,26 @@
+name: sentinel-test-aws
+on:
+  # pull_request:
+  #   branches:
+  #     - master
+  workflow_dispatch:
+      inputs:
+        project_name:
+          description: 'description.'
+          required: false
+          default: 'dummy'
+          
+jobs:
+  sentinel-test-aws:
+    runs-on: ubuntu-latest
+    steps:
+      # This step checks out the repository's code
+      - name: checkout-code
+        uses: actions/checkout@v2
+      # This step runs `sentinel test` against the AWS policies
+      - name: sentinel-test-aws
+        uses: rberlind/sentinel-policy-sets-for-tfc/.github/actions/run-sentinel@master
+        with:
+          args: ./aws
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
