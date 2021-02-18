@@ -32,13 +32,8 @@ module "sg" {
   vpc_id = data.terraform_remote_state.project-core.outputs.vpc_common_id
 }
 
-<<<<<<< Updated upstream
 # module "lambda" {
 #   source = "./lambda"
-=======
-module "lambda" {
-  source = "./lambda"
->>>>>>> Stashed changes
 
 #   iam_for_lambda_arn = data.terraform_remote_state.project-iam.outputs.iam_update_route53_arn
 #   private_zone_id    = module.route53.private_zone_id
