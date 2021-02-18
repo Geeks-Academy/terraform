@@ -14,5 +14,7 @@ RUN apt update -y
 RUN apt-get install -y jq curl
 
 COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["."]
