@@ -1,0 +1,6 @@
+# action.yml
+name: 'Sentinel Test'
+description: 'Test Sentinel policies with the Sentinel Simulator'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'

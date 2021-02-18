@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v2
       # This step runs `sentinel test` against the AWS policies
       - name: sentinel-test-aws
-        uses: hashicorp/sentinel-github-actions/test@master
+        uses: Programmers-Only-Group/terraform/.github/actions/run-sentinel@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           STL_ACTION_WORKING_DIR: "./sentinel"
