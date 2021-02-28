@@ -12,6 +12,13 @@ resource "aws_lambda_function" "asg_manager" {
 
   runtime = "python3.7"
 
+  environment {
+    variables = {
+      UP_COUNT = "1"
+      DOWN_COUNT = "0"
+    }
+  }
+
   lifecycle {
     ignore_changes = [
       last_modified
