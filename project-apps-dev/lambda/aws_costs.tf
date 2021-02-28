@@ -3,7 +3,7 @@ resource "aws_lambda_function" "aws_costs" {
   function_name = "aws_costs"
   role          = var.iam_for_aws_costs_lambda_arn
   handler       = "aws_costs.lambda_handler"
-  timeout       = 9
+  timeout       = 90
 
   # The filebase64sha256() function is available in Terraform 0.11.12 and later
   # For Terraform 0.11.11 and earlier, use the base64sha256() function and the file() function:
