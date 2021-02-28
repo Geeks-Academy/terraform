@@ -13,3 +13,7 @@ output "allow_posting_to_sns_arn" {
 output "iam_aws_costs_lambda_arn" {
   value = module.roles.aws_costs_lambda_arn
 }
+
+output "iam_asg_manager_lambda_arn" {
+  value = module.roles.asg_manager_lambda_arn
+}
