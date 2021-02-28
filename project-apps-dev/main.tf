@@ -26,6 +26,10 @@ data "terraform_remote_state" "project-core" {
   }
 }
 
+resource "aws_kms_key" "programmers_only" {
+  description             = "Programmers Only Key"
+}
+
 module "sg" {
   source = "./security"
 
