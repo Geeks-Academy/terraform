@@ -9,3 +9,7 @@ output "iam_update_route53_arn" {
 output "allow_posting_to_sns_arn" {
   value = module.roles.allow_posting_to_sns_arn
 }
+
+output "iam_aws_costs_lambda_arn" {
+  value = module.roles.aws_costs_lambda_arn
+}
