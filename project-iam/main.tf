@@ -12,10 +12,6 @@ provider "aws" {
   profile = var.profile_name
 }
 
-module "users" {
-  source = "./users"
-}
-
 module "roles" {
   source = "./roles"
 }
