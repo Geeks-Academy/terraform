@@ -30,7 +30,7 @@ resource "aws_lambda_permission" "aws_costs_daily" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.aws_costs.function_name
   principal     = "events.amazonaws.com"
-  source_arn    = aws_cloudwatch_event_rule.event_rule.arn
+  source_arn    = aws_cloudwatch_event_rule.daily_event_rule.arn
 }
 
 resource "aws_cloudwatch_event_rule" "daily_event_rule" {
