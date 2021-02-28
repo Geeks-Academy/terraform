@@ -40,6 +40,7 @@ module "lambda" {
   source = "./lambda"
 
   iam_for_aws_costs_lambda_arn = data.terraform_remote_state.project-iam.outputs.iam_aws_costs_lambda_arn
+  iam_for_asg_manager_lambda_arn = data.terraform_remote_state.project-iam.outputs.iam_asg_manager_lambda_arn
 }
 
 module "ProgrammersOnly" {
