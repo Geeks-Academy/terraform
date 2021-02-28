@@ -13,28 +13,28 @@ start ecs
 
 yum -y install aws-cli jq
 
-echo "
-#!/bin/bash
+# echo "
+# #!/bin/bash
 
-CONTAINER_IDS=\$(docker ps | awk '{if (NR!=1) {print \$1}}')
-TOPIC_ARN=\$(aws --region eu-central-1 sns list-topics | jq '.Topics' | jq '.[1].TopicArn' | tr -d \"\\\"\")
+# CONTAINER_IDS=\$(docker ps | awk '{if (NR!=1) {print \$1}}')
+# TOPIC_ARN=\$(aws --region eu-central-1 sns list-topics | jq '.Topics' | jq '.[1].TopicArn' | tr -d \"\\\"\")
 
-echo \$CONTAINER_IDS
+# echo \$CONTAINER_IDS
 
-for CONTAINER in \$CONTAINER_IDS
-do
-  IP=\$(docker inspect \$CONTAINER | jq '.[0].NetworkSettings.IPAddress' | tr -d \"\\\"\")
-  SERVICE_NAME=\$(docker inspect \$CONTAINER | jq '.[0].Config.Labels.\"com.amazonaws.ecs.container-name\"' | tr -d \"\\\"\")
+# for CONTAINER in \$CONTAINER_IDS
+# do
+#   IP=\$(docker inspect \$CONTAINER | jq '.[0].NetworkSettings.IPAddress' | tr -d \"\\\"\")
+#   SERVICE_NAME=\$(docker inspect \$CONTAINER | jq '.[0].Config.Labels.\"com.amazonaws.ecs.container-name\"' | tr -d \"\\\"\")
 
-  if [ \$SERVICE_NAME == \"mongodb\" ]; then
-    echo \"MongoDB container ID: \$CONTAINER\"
-    aws --region eu-central-1 sns publish --topic-arn \$TOPIC_ARN --message \"create \$CONTAINER_NAME \$IP\"
-  fi
-done
-" > /mongo_discovery.sh
+#   if [ \$SERVICE_NAME == \"mongodb\" ]; then
+#     echo \"MongoDB container ID: \$CONTAINER\"
+#     aws --region eu-central-1 sns publish --topic-arn \$TOPIC_ARN --message \"create \$CONTAINER_NAME \$IP\"
+#   fi
+# done
+# " > /mongo_discovery.sh
 
-chmod +x /mongo_discovery.sh
+# chmod +x /mongo_discovery.sh
 
-crontab<<EOF
-15 * * * * /mongo_discovery.sh
-EOF
+# crontab<<EOF
+# 15 * * * * /mongo_discovery.sh
+# EOF
