@@ -41,6 +41,8 @@ resource "aws_cloudwatch_event_rule" "daily_event_rule" {
 resource "aws_cloudwatch_event_target" "check_at_rate_daily" {
   rule = aws_cloudwatch_event_rule.daily_event_rule.name
   arn = aws_lambda_function.aws_costs.arn
+
+  input = "{\"type\":[\"DAILY\"]}"
 }
 
 resource "aws_lambda_permission" "aws_costs_monthly" {
@@ -59,4 +61,6 @@ resource "aws_cloudwatch_event_rule" "monthly_event_rule" {
 resource "aws_cloudwatch_event_target" "check_at_rate_monthly" {
   rule = aws_cloudwatch_event_rule.monthly_event_rule.name
   arn = aws_lambda_function.aws_costs.arn
+
+  input = "{\"type\":[\"MONTHLY\"]}"
 }
