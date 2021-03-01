@@ -65,7 +65,7 @@ resource "aws_alb_listener" "this_ssl" {
 
 resource "aws_lb_listener_certificate" "this" {
   for_each        = toset(var.certificate_arns)
-  listener_arn    = aws_lb_listener.this_ssl.arn
+  listener_arn    = aws_alb_listener.this_ssl.arn
   certificate_arn = each.key
 }
 
