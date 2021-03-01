@@ -10,5 +10,6 @@ locals {
 
   public_geeks_academy_dns_entries = {
     "1" = "www.geeks.academy"
+    "2" = "new.geeks.academy"
   }
 }
