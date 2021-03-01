@@ -61,3 +61,9 @@ variable "deletion_protection_enabled" {
   description = "Deletion protaction"
   default     = false
 }
+
+variable "certificate_arns" {
+  type        = list(string)
+  description = "ARNs of additional SSL certificates"
+  default     = []
+}
