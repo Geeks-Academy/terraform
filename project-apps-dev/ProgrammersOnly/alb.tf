@@ -4,14 +4,20 @@ data "aws_acm_certificate" "programmers_only" {
   statuses = ["ISSUED"]
 }
 
+data "aws_acm_certificate" "geeks_academy" {
+  domain   = "*.geeks.academy"
+  statuses = ["ISSUED"]
+}
+
 
 module "ALB" {
   source = "../../modules/ALB"
 
-  name            = "programmers-only"
-  security_groups = var.alb_security_groups
-  subnets         = list(element(var.public_subnets, 0), element(var.public_subnets, 1))
-  certificate_arn = data.aws_acm_certificate.programmers_only.arn
+  name             = "programmers-only"
+  security_groups  = var.alb_security_groups
+  subnets          = list(element(var.public_subnets, 0), element(var.public_subnets, 1))
+  certificate_arn  = data.aws_acm_certificate.programmers_only.arn
+  certificate_arns = [data.aws_acm_certificate.geeks_academy.arn]
 
   ssl_target_groups = [
     {
