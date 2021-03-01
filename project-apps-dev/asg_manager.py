@@ -13,9 +13,9 @@ def lambda_handler(event, context):
     client = boto3.client('autoscaling')
     
     if event['type'] == 'UP':
-        DESIRED_CAPACITY = UP_DESIRED_CAPACITY
+        DESIRED_CAPACITY = int(UP_DESIRED_CAPACITY)
     elif event['type'] == 'DOWN':
-        DESIRED_CAPACITY = DOWN_DESIRED_CAPACITY
+        DESIRED_CAPACITY = int(DOWN_DESIRED_CAPACITY)
     
     response = client.set_desired_capacity(
                     AutoScalingGroupName='programmers-only',
