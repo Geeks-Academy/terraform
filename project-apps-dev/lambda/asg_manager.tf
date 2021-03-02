@@ -56,7 +56,7 @@ resource "aws_lambda_permission" "asg_manager_down" {
 
 resource "aws_cloudwatch_event_rule" "down_event_rule" {
   name = "down_event_rule"
-  schedule_expression = "cron(0 1 * * ? *)"
+  schedule_expression = "cron(0 22 * * ? *)"
 }
 
 resource "aws_cloudwatch_event_target" "check_at_rate_down" {
