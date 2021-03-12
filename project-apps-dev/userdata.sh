@@ -1,8 +1,4 @@
 #!/bin/bash
-echo "export LOCAL_IP=`curl -s http://169.254.169.254/latest/meta-data/local-ipv4`" >> /etc/profile
-
-echo "export PUBLIC_IP=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`"
-
 echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf
 echo "net.ipv6.conf.default.disable_ipv6 = 1" >> /etc/sysctl.conf
 
@@ -20,8 +16,7 @@ yum install -y zabbix-agent vim
 
 sed -i 's/Server=.*/Server=77.55.217.23/' /etc/zabbix/zabbix_agentd.conf
 sed -i 's/ServerActive=.*/ServerActive=77.55.217.23/' /etc/zabbix/zabbix_agentd.conf
-echo "Hostname=system.hostname" >> /etc/zabbix/zabbix_agentd.conf
-echo "HostnameItem=system.hostname" >> /etc/zabbix/zabbix_agentd.conf
+curl http://169.254.169.254/latest/meta-data/public-ipv4 | xargs -I % sh -c "sed -i 's/Hostname=.*/Hostname=%/' /etc/zabbix/zabbix_agentd.conf" %
 echo "HostMetadataItem=system.uname" >> /etc/zabbix/zabbix_agentd.conf
 
 systemctl restart zabbix-agent
