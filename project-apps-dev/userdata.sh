@@ -20,7 +20,7 @@ yum install -y zabbix-agent vim
 
 sed -i 's/Server=.*/Server=77.55.217.23/' /etc/zabbix/zabbix_agentd.conf
 sed -i 's/ServerActive=.*/ServerActive=77.55.217.23/' /etc/zabbix/zabbix_agentd.conf
-echo "Hostname=GeeksAcademyServer-${PUBLIC_IP}" >> /etc/zabbix/zabbix_agentd.conf
+echo "Hostname=system.hostname" >> /etc/zabbix/zabbix_agentd.conf
 echo "HostnameItem=system.hostname" >> /etc/zabbix/zabbix_agentd.conf
 echo "HostMetadataItem=system.uname" >> /etc/zabbix/zabbix_agentd.conf
 
