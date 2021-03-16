@@ -1,6 +1,6 @@
 ### ECS CLUSTER
-resource "aws_ecs_cluster" "programmers_only" {
-  name = "ProgrammersOnly"
+resource "aws_ecs_cluster" "geeks_academy" {
+  name = "GeeksAcademy"
 }
 
 ### ASG
@@ -40,8 +40,8 @@ data "template_cloudinit_config" "config" {
   }
 }
 
-resource "aws_launch_configuration" "programmers_only" {
-  name_prefix                 = "programmers-only"
+resource "aws_launch_configuration" "geeks_academy" {
+  name_prefix                 = "geeks-academy"
   image_id                    = data.aws_ami.amazon_linux.id
   instance_type               = "t2.medium"
   spot_price                  = "0.0161"
@@ -60,11 +60,11 @@ resource "aws_launch_configuration" "programmers_only" {
   }
 }
 
-resource "aws_autoscaling_group" "programmers_only" {
+resource "aws_autoscaling_group" "geeks_academy" {
   availability_zones   = ["eu-central-1a", "eu-central-1b"]
-  name                 = "programmers-only"
+  name                 = "geeks-academy"
   vpc_zone_identifier  = list(element(var.public_subnets, 0), element(var.public_subnets, 1))
-  launch_configuration = aws_launch_configuration.programmers_only.name
+  launch_configuration = aws_launch_configuration.geeks_academy.name
   min_size             = 0
   max_size             = 2
   desired_capacity     = 0
