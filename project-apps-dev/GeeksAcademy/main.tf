@@ -43,8 +43,8 @@ data "template_cloudinit_config" "config" {
 resource "aws_launch_configuration" "geeks_academy" {
   name_prefix                 = "geeks-academy"
   image_id                    = data.aws_ami.amazon_linux.id
-  instance_type               = "t2.medium"
-  spot_price                  = "0.0161"
+  instance_type               = "t2.micro"
+#  spot_price                  = "0.0161"
   user_data                   = data.template_cloudinit_config.config.rendered
   key_name                    = var.key_name
   iam_instance_profile        = var.iam_instance_profile
