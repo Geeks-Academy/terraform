@@ -1,4 +1,9 @@
 ### MANDATORY
+variable "account_number" {
+  description = "AWS account number."
+  type        = string
+}
+
 variable "service_name" {
   description = "Name of the service."
   type        = string
@@ -14,8 +19,8 @@ variable "ecs_role_arn" {
   type        = string
 }
 
-variable "cluster_id" {
-  description = "ID of ECS cluster."
+variable "cluster_name" {
+  description = "Name of ECS cluster."
   type        = string
 }
 
@@ -36,6 +41,12 @@ variable "tags" {
 
 
 ### OPTIONAL
+variable "region" {
+  description = "AWS region name."
+  type        = string
+  default     = "eu-central-1"
+}
+
 variable "desired_count" {
   description = "Count of tasks."
   type        = string
