@@ -1,32 +1,32 @@
 ### ECS SERVICES
 
-data "template_file" "frontend" {
-  template = file("ProgrammersOnly/task_definitions/frontend_task_definition.json")
+data "template_file" "geeks_frontend" {
+  template = file("GeeksAcademy/task_definitions/geeks_frontend_task_definition.json")
 }
 
-resource "aws_ecs_task_definition" "frontend" {
-  family                = "frontend"
-  container_definitions = file("ProgrammersOnly/task_definitions/frontend_task_definition.json")
+resource "aws_ecs_task_definition" "geeks_frontend" {
+  family                = "geeks_frontend"
+  container_definitions = file("GeeksAcademy/task_definitions/geeks_frontend_task_definition.json")
 }
 
-data "aws_ecs_task_definition" "frontend" {
-  task_definition = aws_ecs_task_definition.frontend.family
-  depends_on      = [aws_ecs_task_definition.frontend]
+data "aws_ecs_task_definition" "geeks_frontend" {
+  task_definition = aws_ecs_task_definition.geeks_frontend.family
+  depends_on      = [aws_ecs_task_definition.geeks_frontend]
 }
 
-resource "aws_ecr_repository" "frontend" {
-  name = "frontend"
+resource "aws_ecr_repository" "geeks_frontend" {
+  name = "geeks_frontend"
 }
 
-resource "aws_ecr_repository_policy" "frontend" {
-  repository = aws_ecr_repository.frontend.name
+resource "aws_ecr_repository_policy" "geeks_frontend" {
+  repository = aws_ecr_repository.geeks_frontend.name
 
   policy = <<EOF
 {
     "Version": "2008-10-17",
     "Statement": [
         {
-            "Sid": "FRONTEND_ECR",
+            "Sid": "geeks_frontend_ECR",
             "Effect": "Allow",
             "Principal": "*",
             "Action": [
@@ -51,21 +51,21 @@ resource "aws_ecr_repository_policy" "frontend" {
 EOF
 }
 
-resource "aws_ecs_service" "frontend" {
-  name                               = "frontend"
-  cluster                            = aws_ecs_cluster.programmers_only.id
-  task_definition                    = "frontend:${data.aws_ecs_task_definition.frontend.revision}"
+resource "aws_ecs_service" "geeks_frontend" {
+  name                               = "geeks_frontend"
+  cluster                            = aws_ecs_cluster.geeks_academy.id
+  task_definition                    = "geeks_frontend:${data.aws_ecs_task_definition.geeks_frontend.revision}"
   desired_count                      = 1
   deployment_minimum_healthy_percent = 0
 
   load_balancer {
-    target_group_arn = aws_alb_target_group.frontend.arn
-    container_name   = "frontend"
+    target_group_arn = aws_alb_target_group.geeks_frontend.arn
+    container_name   = "geeks_frontend"
     container_port   = 80
   }
 }
 
-resource "aws_alb_target_group" "frontend" {
+resource "aws_alb_target_group" "geeks_frontend" {
   name_prefix = "po-"
   port        = 80
   protocol    = "HTTP"

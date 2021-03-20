@@ -2,7 +2,7 @@ locals {
   tags = merge(
     map(
       "Layer", "ECS",
-      "Name", "ProgrammersOnly",
+      "Name", "geeks-academy",
       "Managed by", "terraform",
       "EnvironmentType", "dev",
     ),
