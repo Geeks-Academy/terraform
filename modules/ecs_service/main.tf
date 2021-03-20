@@ -49,7 +49,7 @@ EOF
 
 resource "aws_ecs_service" "service" {
   name                               = var.service_name
-  cluster                            = var.cluster_id
+  cluster                            = local.geeks_cluster_arn
   task_definition                    = "service:${data.aws_ecs_task_definition.service.revision}"
   desired_count                      = var.desired_count
   deployment_minimum_healthy_percent = var.deployment_minimum_healthy_percent
