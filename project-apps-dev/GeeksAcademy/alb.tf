@@ -13,7 +13,7 @@ data "aws_acm_certificate" "geeks_academy" {
 module "ALB" {
   source = "../../modules/ALB"
 
-  name             = "programmers-only"
+  name             = "geeks-academy"
   security_groups  = var.alb_security_groups
   subnets          = list(element(var.public_subnets, 0), element(var.public_subnets, 1))
   certificate_arn  = data.aws_acm_certificate.programmers_only.arn

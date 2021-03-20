@@ -13,5 +13,5 @@ resource "aws_route53_record" "private" {
   name    = each.value
   type    = "CNAME"
   ttl     = "300"
-  records = [module.ProgrammersOnly.alb_dns_name]
+  records = [module.GeeksAcademy.alb_dns_name]
 }

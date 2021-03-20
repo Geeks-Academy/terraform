@@ -29,4 +29,11 @@ resource "aws_db_instance" "programmers_only" {
   db_subnet_group_name   = aws_db_subnet_group.postgresql.id
   publicly_accessible    = true
   vpc_security_group_ids = [module.sg.rds_sg_id]
+
+  lifecycle {
+    ignore_changes = [
+      engine_version
+    ]
+  }
+
 }

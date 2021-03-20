@@ -1,12 +1,12 @@
 ### ECS SERVICES
 
 data "template_file" "auth" {
-  template = file("ProgrammersOnly/task_definitions/auth_task_definition.json")
+  template = file("GeeksAcademy/task_definitions/auth_task_definition.json")
 }
 
 resource "aws_ecs_task_definition" "auth" {
   family                = "auth"
-  container_definitions = file("ProgrammersOnly/task_definitions/auth_task_definition.json")
+  container_definitions = file("GeeksAcademy/task_definitions/auth_task_definition.json")
   task_role_arn         = aws_iam_role.ecs_role.arn
   execution_role_arn    = aws_iam_role.ecs_role.arn
 }
@@ -55,7 +55,7 @@ EOF
 
 resource "aws_ecs_service" "auth" {
   name                               = "auth"
-  cluster                            = aws_ecs_cluster.programmers_only.id
+  cluster                            = aws_ecs_cluster.geeks_academy.id
   task_definition                    = "auth:${data.aws_ecs_task_definition.auth.revision}"
   desired_count                      = 1
   deployment_minimum_healthy_percent = 0

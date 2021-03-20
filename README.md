@@ -16,7 +16,7 @@ This repository contains our AWS cloud infrastructure described in Terraform.
 
 ## Features
 
-Deploying Programmers-Only AWS infrastructure.
+Deploying Geeks Academy AWS infrastructure.
 
 
 ## Requirements
@@ -51,11 +51,10 @@ Run ```terraform APPLY``` action with proper input according to [First run](#fir
 
 ## Contribution
 
-If you want to take part in creating this tool join us on [Facebook](https://www.facebook.com/groups/programmersonlyapp/).
+If you want to take part in creating this tool join us on [Facebook](https://www.facebook.com/groups/geeksacademy).
 
 ## Acknowledgements
 
 * [bwieckow](https://github.com/bwieckow)
-* [Aleks J](https://github.com/Cosikowy)
+* [PiotrWachulec](https://github.com/PiotrWachulec)
 * [damklis](https://github.com/damklis)
-* [Kubuś Bagiński](https://github.com/kubusiek)

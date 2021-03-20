@@ -18,7 +18,7 @@ def lambda_handler(event, context):
         DESIRED_CAPACITY = int(DOWN_DESIRED_CAPACITY)
     
     response = client.set_desired_capacity(
-                    AutoScalingGroupName='programmers-only',
+                    AutoScalingGroupName='geeks-academy',
                     DesiredCapacity=DESIRED_CAPACITY,
                     HonorCooldown=False
                 )

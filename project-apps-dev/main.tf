@@ -2,7 +2,7 @@
 terraform {
   backend "s3" {
     profile = "default"
-    bucket  = "programmers-only-states"
+    bucket  = "trstates"
     region  = "eu-central-1"
     key     = "states/apps/terraform.tfstate"
   }
@@ -11,7 +11,7 @@ terraform {
 data "terraform_remote_state" "project-iam" {
   backend = "s3"
   config = {
-    bucket = "programmers-only-states"
+    bucket = "trstates"
     region = "eu-central-1"
     key    = "states/iam/terraform.tfstate"
   }
@@ -20,12 +20,13 @@ data "terraform_remote_state" "project-iam" {
 data "terraform_remote_state" "project-core" {
   backend = "s3"
   config = {
-    bucket = "programmers-only-states"
+    bucket = "trstates"
     region = "eu-central-1"
     key    = "states/core/terraform.tfstate"
   }
 }
 
+### AWS Costs lambda uses this. Needs to be migrated together.
 resource "aws_kms_key" "programmers_only" {
   description             = "Programmers Only Key"
 }
@@ -43,10 +44,10 @@ module "lambda" {
   iam_for_asg_manager_lambda_arn = data.terraform_remote_state.project-iam.outputs.iam_asg_manager_lambda_arn
 }
 
-module "ProgrammersOnly" {
-  source = "./ProgrammersOnly"
+module "GeeksAcademy" {
+  source = "./GeeksAcademy"
 
-  prefix               = "programmers-only"
+  prefix               = "geeks-academy"
   key_name             = data.terraform_remote_state.project-core.outputs.key_name
   iam_instance_profile = data.terraform_remote_state.project-iam.outputs.instance_profile_ec2
   asg_role             = data.terraform_remote_state.project-iam.outputs.allow_posting_to_sns_arn
