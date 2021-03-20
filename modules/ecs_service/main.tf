@@ -1,12 +1,8 @@
-data "template_file" "service" {
-  template = file("ProgrammersOnly/task_definitions/service_task_definition.json")
-}
-
 resource "aws_ecs_task_definition" "service" {
-  family                = "service"
-  container_definitions = file("ProgrammersOnly/task_definitions/service_task_definition.json")
-  task_role_arn         = aws_iam_role.ecs_role.arn
-  execution_role_arn    = aws_iam_role.ecs_role.arn
+  family                = var.service_name
+  container_definitions = file(var.task_def_file_path)
+  task_role_arn         = var.ecs_role_arn
+  execution_role_arn    = var.ecs_role_arn
 }
 
 data "aws_ecs_task_definition" "service" {
@@ -15,7 +11,7 @@ data "aws_ecs_task_definition" "service" {
 }
 
 resource "aws_ecr_repository" "service" {
-  name = "service"
+  name = var.service_name
 }
 
 resource "aws_ecr_repository_policy" "service" {
@@ -52,22 +48,22 @@ EOF
 }
 
 resource "aws_ecs_service" "service" {
-  name                               = "service"
-  cluster                            = aws_ecs_cluster.programmers_only.id
+  name                               = var.service_name
+  cluster                            = var.cluster_id
   task_definition                    = "service:${data.aws_ecs_task_definition.service.revision}"
-  desired_count                      = 1
-  deployment_minimum_healthy_percent = 0
+  desired_count                      = var.desired_count
+  deployment_minimum_healthy_percent = var.deployment_minimum_healthy_percent
 
   load_balancer {
     target_group_arn = aws_alb_target_group.service.arn
-    container_name   = "service"
-    container_port   = 3000
+    container_name   = var.service_name
+    container_port   = var.container_port
   }
 }
 
 resource "aws_alb_target_group" "service" {
-  name_prefix = "po-"
-  port        = 3000
+  name_prefix = var.name_prefix
+  port        = var.container_port
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
 
