@@ -10,7 +10,7 @@ data "template_file" "service" {
 
 resource "aws_ecs_task_definition" "service" {
   family                = var.service_name
-  container_definitions = data.template_file.service.rendered
+  container_definitions = jsonencode(data.template_file.service.rendered)
   task_role_arn         = local.task_role_arn
   execution_role_arn    = local.task_role_arn
 }
