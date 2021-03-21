@@ -6,7 +6,7 @@
         "memory": ${memoryReservation},
         "portMappings": [
             {
-                "containerPort": "${containerPort}",
+                "containerPort": ${containerPort},
                 "hostPort": 0,
                 "protocol": "tcp"
             }
