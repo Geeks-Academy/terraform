@@ -52,7 +52,8 @@ resource "aws_iam_policy" "deployer_policy" {
               "ecs:*",
               "ecr:*",
               "iam:PassRole",
-              "sns:List*"
+              "sns:List*",
+              "s3:*"
             ],
             "Resource": "*"
         }
