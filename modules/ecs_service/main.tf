@@ -1,11 +1,4 @@
 data "template_file" "service" {
-  template = "${file("${path.module}/init.tpl")}"
-  vars = {
-    consul_address = "${aws_instance.consul.private_ip}"
-  }
-}
-
-data "template_file" "service" {
   template = file("${path.module}/service_task_definition.json")
   vars = {
     service_name      = "${var.service_name}"
