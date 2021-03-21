@@ -33,7 +33,8 @@ jobs:
       run: |
         cd ./project-iam
         terraform init
-        terraform plan -var-file=frankfurt.tfvars
+        terraform plan -var 'account_number=${{ secrets.AWS_ACCOUNT_NUMBER }}' \
+                       -var-file=frankfurt.tfvars
 
     # Should be commented out on first deployment
     - name: Run terraform PLAN for project-core
