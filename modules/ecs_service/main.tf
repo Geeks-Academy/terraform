@@ -1,3 +1,19 @@
+data "template_file" "service" {
+  template = "${file("${path.module}/init.tpl")}"
+  vars = {
+    consul_address = "${aws_instance.consul.private_ip}"
+  }
+}
+
+data "template_file" "service" {
+  template = file("${path.module}/service_task_definition.json")
+  vars = {
+    service_name      = "${var.service_name}"
+    cpu               = "${var.cpu}"
+    memoryReservation = ""
+  }
+}
+
 resource "aws_ecs_task_definition" "service" {
   family                = var.service_name
   container_definitions = file(var.task_def_file_path)

@@ -1,0 +1,18 @@
+{
+    "family": "${service_name}",
+    "containerDefinitions": [
+        {
+            "name": "${service_name}",
+            "image": "",
+            "cpu": "${cpu}",
+            "memoryReservation": "${memoryReservation}",
+            "portMappings": [
+                {
+                    "containerPort": "${containerPort}",
+                    "hostPort": 0,
+                    "protocol": "tcp"
+                }
+            ]
+        }
+    ]
+}
