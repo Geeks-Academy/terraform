@@ -10,7 +10,13 @@ data "template_file" "service" {
 
 resource "aws_ecs_task_definition" "service" {
   family                = var.service_name
-  container_definitions = jsonencode(data.template_file.service.rendered)
+  container_definitions = templatefile("${path.module}/container_definitions.json", {
+    service_name      = "${var.service_name}"
+    cpu               = "${var.cpu}"
+    memoryReservation = "${var.memoryReservation}"
+    containerPort     = "${var.container_port}"
+  })
+
   task_role_arn         = local.task_role_arn
   execution_role_arn    = local.task_role_arn
 }
