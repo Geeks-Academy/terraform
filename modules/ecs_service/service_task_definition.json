@@ -2,7 +2,7 @@
     {
         "name": "${service_name}",
         "image": "nodejscn/node:latest",
-        "cpu": "${cpu}",
+        "cpu": 10,
         "memory": "${memoryReservation}",
         "portMappings": [
             {
