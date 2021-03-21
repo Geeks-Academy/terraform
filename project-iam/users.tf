@@ -57,7 +57,7 @@ resource "aws_iam_policy" "deployer_policy" {
               "s3:List*"
             ],
             "Resource": "*"
-        }
+        },
         {
             "Effect": "Allow",
             "Action": [
