@@ -9,11 +9,6 @@ variable "service_name" {
   type        = string
 }
 
-variable "image" {
-  description = "Docker image URI."
-  type        = string
-}
-
 variable "ecs_role_name" {
   description = "Role name for services/tasks."
   type        = string
@@ -51,6 +46,12 @@ variable "region" {
   description = "AWS region name."
   type        = string
   default     = "eu-central-1"
+}
+
+variable "image" {
+  description = "Docker image URI."
+  type        = string
+  default     = "nginx:latest"
 }
 
 variable "desired_count" {
