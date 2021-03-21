@@ -14,8 +14,8 @@ variable "task_def_file_path" {
   type        = string
 }
 
-variable "ecs_role_arn" {
-  description = "Role ARN for services/tasks."
+variable "ecs_role_name" {
+  description = "Role name for services/tasks."
   type        = string
 }
 

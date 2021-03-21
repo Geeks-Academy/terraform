@@ -1,8 +1,8 @@
 resource "aws_ecs_task_definition" "service" {
   family                = var.service_name
   container_definitions = file(var.task_def_file_path)
-  task_role_arn         = var.ecs_role_arn
-  execution_role_arn    = var.ecs_role_arn
+  task_role_arn         = local.ecs_role_arn
+  execution_role_arn    = local.ecs_role_arn
 }
 
 data "aws_ecs_task_definition" "service" {
