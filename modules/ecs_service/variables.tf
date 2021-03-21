@@ -26,7 +26,7 @@ variable "cluster_name" {
 
 variable "container_port" {
   description = "Port exposed by container."
-  type        = string
+  type        = number
 }
 
 variable "vpc_id" {
