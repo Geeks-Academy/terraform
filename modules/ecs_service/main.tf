@@ -10,7 +10,7 @@ data "template_file" "service" {
 
 resource "aws_ecs_task_definition" "service" {
   family                = var.service_name
-  container_definitions = templatefile("${path.module}/container_definitions.json", {
+  container_definitions = templatefile("${path.module}/service_task_definition.json", {
     service_name      = "${var.service_name}"
     cpu               = "${var.cpu}"
     memoryReservation = "${var.memoryReservation}"
