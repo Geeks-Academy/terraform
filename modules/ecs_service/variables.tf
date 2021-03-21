@@ -14,11 +14,6 @@ variable "image" {
   type        = string
 }
 
-variable "task_def_file_path" {
-  description = "Path to file where Task Definition JSON file is."
-  type        = string
-}
-
 variable "ecs_role_name" {
   description = "Role name for services/tasks."
   type        = string
