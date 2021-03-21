@@ -41,6 +41,12 @@ variable "tags" {
 
 
 ### OPTIONAL
+variable "name_prefix" {
+  description = "Name prefix."
+  type        = string
+  default     = "ga-"
+}
+
 variable "region" {
   description = "AWS region name."
   type        = string
@@ -59,8 +65,14 @@ variable "deployment_minimum_healthy_percent" {
   default     = "0"
 }
 
-variable "name_prefix" {
-  description = "Name prefix."
+variable "cpu" {
+  description = "How many cpu to be reserved."
   type        = string
-  default     = "ga-"
+  default     = "10"
+}
+
+variable "memoryReservation" {
+  description = "How many memory to be reserved."
+  type        = string
+  default     = "128"
 }

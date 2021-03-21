@@ -53,9 +53,17 @@ resource "aws_iam_policy" "deployer_policy" {
               "ecr:*",
               "iam:PassRole",
               "sns:List*",
-              "s3:*"
+              "s3:Get*",
+              "s3:List*"
             ],
             "Resource": "*"
+        }
+        {
+            "Effect": "Allow",
+            "Action": [
+              "s3:*"
+            ],
+            "Resource": "arn:aws:s3:::trstates/states/apps/dev/*"
         }
     ]
 }

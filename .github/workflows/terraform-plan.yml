@@ -47,4 +47,5 @@ jobs:
       run: |
         cd ./project-apps-dev
         terraform init
-        terraform plan -var-file=frankfurt.tfvars
+        terraform plan -var 'account_number=${{ secrets.AWS_ACCOUNT_NUMBER }}' \
+                       -var-file=frankfurt.tfvars
