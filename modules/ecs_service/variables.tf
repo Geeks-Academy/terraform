@@ -67,8 +67,8 @@ variable "deployment_minimum_healthy_percent" {
 
 variable "cpu" {
   description = "How many cpu to be reserved."
-  type        = string
-  default     = "10"
+  type        = number
+  default     = 10
 }
 
 variable "memoryReservation" {
