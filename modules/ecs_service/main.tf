@@ -4,7 +4,7 @@ data "template_file" "service" {
     service_name      = "${var.service_name}"
     cpu               = "${var.cpu}"
     memoryReservation = "${var.memoryReservation}"
-    containerPort     = "${var.containerPort}"
+    containerPort     = "${var.container_port}"
   }
 }
 
