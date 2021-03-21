@@ -1,18 +1,15 @@
-{
-    "family": "${service_name}",
-    "containerDefinitions": [
-        {
-            "name": "${service_name}",
-            "image": "",
-            "cpu": "${cpu}",
-            "memoryReservation": "${memoryReservation}",
-            "portMappings": [
-                {
-                    "containerPort": "${containerPort}",
-                    "hostPort": 0,
-                    "protocol": "tcp"
-                }
-            ]
-        }
-    ]
-}
+[
+    {
+        "name": "${service_name}",
+        "image": "nodejscn/node:latest",
+        "cpu": "${cpu}",
+        "memory": "${memoryReservation}",
+        "portMappings": [
+            {
+                "containerPort": "${containerPort}",
+                "hostPort": 0,
+                "protocol": "tcp"
+            }
+        ]
+    }
+]
