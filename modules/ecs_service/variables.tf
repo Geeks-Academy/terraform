@@ -9,6 +9,11 @@ variable "service_name" {
   type        = string
 }
 
+variable "image" {
+  description = "Docker image URI."
+  type        = string
+}
+
 variable "task_def_file_path" {
   description = "Path to file where Task Definition JSON file is."
   type        = string

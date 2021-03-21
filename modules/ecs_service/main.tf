@@ -1,6 +1,7 @@
 data "template_file" "service" {
   template = file("${path.module}/service_task_definition.json")
   vars = {
+    image             = "${var.image}"
     service_name      = "${var.service_name}"
     cpu               = "${var.cpu}"
     memoryReservation = "${var.memoryReservation}"
