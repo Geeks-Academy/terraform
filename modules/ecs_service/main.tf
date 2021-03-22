@@ -8,7 +8,7 @@ data "template_file" "service" {
     containerPort     = "${var.container_port}"
   }
 
-  depends_on = [aws_ecr_repository]
+  depends_on = [aws_ecr_repository.service]
 }
 
 resource "aws_ecs_task_definition" "service" {
@@ -63,7 +63,7 @@ EOF
 resource "aws_ecs_service" "service" {
   name                               = var.service_name
   cluster                            = local.geeks_cluster_arn
-  task_definition                    = "${service_name}:${data.aws_ecs_task_definition.service.revision}"
+  task_definition                    = "${var.service_name}:${data.aws_ecs_task_definition.service.revision}"
   desired_count                      = var.desired_count
   deployment_minimum_healthy_percent = var.deployment_minimum_healthy_percent
 
