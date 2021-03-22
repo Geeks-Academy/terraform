@@ -1,7 +1,7 @@
 data "template_file" "service" {
   template = file("${path.module}/service_task_definition.json")
   vars = {
-    image             = "${aws_ecr_repository.repository_url}"
+    image             = "${var.image}"
     service_name      = "${var.service_name}"
     cpu               = "${var.cpu}"
     memoryReservation = "${var.memoryReservation}"
@@ -18,10 +18,10 @@ resource "aws_ecs_task_definition" "service" {
   execution_role_arn    = local.task_role_arn
 }
 
-# data "aws_ecs_task_definition" "service" {
-#   task_definition = aws_ecs_task_definition.service.family
-#   depends_on      = [aws_ecs_task_definition.service]
-# }
+data "aws_ecs_task_definition" "service" {
+  task_definition = aws_ecs_task_definition.service.family
+  depends_on      = [aws_ecs_task_definition.service]
+}
 
 resource "aws_ecr_repository" "service" {
   name = var.service_name
@@ -63,7 +63,7 @@ EOF
 resource "aws_ecs_service" "service" {
   name                               = var.service_name
   cluster                            = local.geeks_cluster_arn
-  task_definition                    = aws_ecr_repository.service.arn
+  task_definition                    = "${service_name}:${data.aws_ecs_task_definition.service.revision}"
   desired_count                      = var.desired_count
   deployment_minimum_healthy_percent = var.deployment_minimum_healthy_percent
 
