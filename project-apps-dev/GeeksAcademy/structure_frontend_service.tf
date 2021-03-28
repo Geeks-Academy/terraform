@@ -3,7 +3,8 @@
 data "template_file" "structure_frontend" {
   template = file("GeeksAcademy/task_definitions/task_definition_sample.json")
   vars = {
-    service_name = "structure_frontend"
+    service_name   = "structure_frontend"
+    container_port = 3000
   }
 }
 

@@ -6,7 +6,7 @@
         "memory": 256,
         "portMappings": [
             {
-                "containerPort": 80,
+                "containerPort": ${container_port},
                 "hostPort": 0,
                 "protocol": "tcp"
             }
