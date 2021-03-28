@@ -17,3 +17,7 @@ output "iam_aws_costs_lambda_arn" {
 output "iam_asg_manager_lambda_arn" {
   value = module.roles.asg_manager_lambda_arn
 }
+
+output "iam_ecs_service_role_arn" {
+  value = module.roles.ecs_service_role_arn
+}
