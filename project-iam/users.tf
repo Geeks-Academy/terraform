@@ -52,6 +52,7 @@ resource "aws_iam_policy" "deployer_policy" {
               "ecs:*",
               "elasticloadbalancing:AddTags",
               "elasticloadbalancing:CreateTargetGroup",
+              "elasticloadbalancing:DeleteTargetGroup",
               "elasticloadbalancing:Describe*",
               "ecr:*",
               "iam:PassRole",
