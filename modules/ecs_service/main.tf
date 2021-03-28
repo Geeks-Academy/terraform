@@ -1,28 +1,3 @@
-data "template_file" "service" {
-  template = file("${path.module}/service_task_definition.json")
-  vars = {
-    image             = "${var.image}"
-    service_name      = "${var.service_name}"
-    cpu               = "${var.cpu}"
-    memoryReservation = "${var.memoryReservation}"
-    containerPort     = "${var.container_port}"
-  }
-
-  depends_on = [aws_ecr_repository.service]
-}
-
-resource "aws_ecs_task_definition" "service" {
-  family                = var.service_name
-  container_definitions = data.template_file.service.rendered
-  task_role_arn         = local.task_role_arn
-  execution_role_arn    = local.task_role_arn
-}
-
-data "aws_ecs_task_definition" "service" {
-  task_definition = aws_ecs_task_definition.service.family
-  depends_on      = [aws_ecs_task_definition.service]
-}
-
 resource "aws_ecr_repository" "service" {
   name = var.service_name
 }

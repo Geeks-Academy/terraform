@@ -9,10 +9,10 @@ variable "service_name" {
   type        = string
 }
 
-variable "ecs_role_name" {
-  description = "Role name for services/tasks."
-  type        = string
-}
+# variable "ecs_role_name" {
+#   description = "Role name for services/tasks."
+#   type        = string
+# }
 
 variable "cluster_name" {
   description = "Name of ECS cluster."
