@@ -84,8 +84,8 @@ module "ALB" {
       priority     = 140
     },
     {
-      hostname     = "structure.geeks.academy"
-      path         = "/api/*"
+      hostname     = "structure-api.geeks.academy"
+      path         = "/"
       target_group = aws_alb_target_group.structure_backend.arn
       priority     = 150
     },
