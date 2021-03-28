@@ -50,6 +50,7 @@ resource "aws_iam_policy" "deployer_policy" {
             "Effect": "Allow",
             "Action": [
               "ecs:*",
+              "elasticloadbalancing:CreateTargetGroup",
               "ecr:*",
               "iam:PassRole",
               "sns:List*",
