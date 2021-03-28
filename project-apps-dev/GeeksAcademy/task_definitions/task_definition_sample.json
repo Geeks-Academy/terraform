@@ -1,0 +1,15 @@
+[
+    {
+        "name": "${service_name}",
+        "image": "nodejscn/node:latest",
+        "cpu": 10,
+        "memory": 256,
+        "portMappings": [
+            {
+                "containerPort": 80,
+                "hostPort": 0,
+                "protocol": "tcp"
+            }
+        ]
+    }
+]
