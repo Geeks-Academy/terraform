@@ -13,3 +13,7 @@ output "iam_update_route53_arn" {
 output "allow_posting_to_sns_arn" {
   value = aws_iam_role.allow_posting_to_sns.arn
 }
+
+output "ecs_service_role_arn" {
+  value = aws_iam_role.ecs_role.arn
+}
