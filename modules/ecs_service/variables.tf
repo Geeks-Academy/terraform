@@ -29,6 +29,11 @@ variable "vpc_id" {
   type        = string
 }
 
+variable "task_definition_arn" {
+  description = "Full ARN (including family and revision) of Task Definition."
+  type        = string
+}
+
 variable "tags" {
   description = "Tags"
   type        = map(string)
@@ -48,11 +53,11 @@ variable "region" {
   default     = "eu-central-1"
 }
 
-variable "image" {
-  description = "Docker image URI."
-  type        = string
-  default     = "nginx:latest"
-}
+# variable "image" {
+#   description = "Docker image URI."
+#   type        = string
+#   default     = "nginx:latest"
+# }
 
 variable "desired_count" {
   description = "Count of tasks."
