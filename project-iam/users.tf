@@ -50,8 +50,9 @@ resource "aws_iam_policy" "deployer_policy" {
             "Effect": "Allow",
             "Action": [
               "ecs:*",
-              "elasticloadbalancing:CreateTargetGroup",
               "elasticloadbalancing:AddTags",
+              "elasticloadbalancing:CreateTargetGroup",
+              "elasticloadbalancing:Describe*",
               "ecr:*",
               "iam:PassRole",
               "sns:List*",
