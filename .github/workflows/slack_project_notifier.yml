@@ -1,0 +1,16 @@
+name: Slack Project Notifier
+
+on:
+  project_card:
+      types: [moved]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Magical Slack Notifier
+        uses: goodroot/github-action-slack-project-notifier@1.2
+        with:
+          SLACK_WEBHOOK_URL: ${{ secrets.DEVOPS_SLACK_WEBHOOK }}
+          PROJECT: DevOps
+          TOKEN: ${{ secrets.READ_PROJECTS_GITHUB_TOKEN }}
