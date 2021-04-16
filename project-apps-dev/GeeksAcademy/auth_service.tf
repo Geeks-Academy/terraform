@@ -53,6 +53,28 @@ resource "aws_ecr_repository_policy" "auth" {
 EOF
 }
 
+resource "aws_ecr_lifecycle_policy" "auth" {
+  repository = aws_ecr_repository.auth.name
+
+  policy = <<EOF
+{
+    "rules": [
+        {
+            "rulePriority": 1,
+            "description": "Keep last 5 images",
+            "selection": {
+                "countType": "imageCountMoreThan",
+                "countNumber": 5
+            },
+            "action": {
+                "type": "expire"
+            }
+        }
+    ]
+}
+EOF
+}
+
 resource "aws_ecs_service" "auth" {
   name                               = "auth"
   cluster                            = aws_ecs_cluster.geeks_academy.id
