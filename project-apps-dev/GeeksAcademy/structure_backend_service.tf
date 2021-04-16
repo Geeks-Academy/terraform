@@ -55,6 +55,28 @@ resource "aws_ecr_repository_policy" "structure_backend" {
 EOF
 }
 
+resource "aws_ecr_lifecycle_policy" "structure_backend" {
+  repository = aws_ecr_repository.structure_backend.name
+
+  policy = <<EOF
+{
+    "rules": [
+        {
+            "rulePriority": 1,
+            "description": "Keep last 5 images",
+            "selection": {
+                "countType": "imageCountMoreThan",
+                "countNumber": 5
+            },
+            "action": {
+                "type": "expire"
+            }
+        }
+    ]
+}
+EOF
+}
+
 resource "aws_ecs_service" "structure_backend" {
   name                               = "structure_backend"
   cluster                            = aws_ecs_cluster.geeks_academy.id
