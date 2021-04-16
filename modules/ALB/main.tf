@@ -70,7 +70,7 @@ resource "aws_lb_listener_certificate" "this" {
 }
 
 resource "aws_alb_listener_rule" "this_ssl" {
-  count = var.ssl_target_groups ? length(var.ssl_target_groups) : 0
+  count = var.create_ssl ? length(var.ssl_target_groups) : 0
 
   listener_arn = aws_alb_listener.this_ssl.arn
   priority     = lookup(var.ssl_target_groups[count.index], "priority", null)
