@@ -65,6 +65,7 @@ resource "aws_ecr_lifecycle_policy" "structure_frontend" {
             "rulePriority": 1,
             "description": "Keep last 5 images",
             "selection": {
+                "tagStatus": "untagged",
                 "countType": "imageCountMoreThan",
                 "countNumber": 5
             },
