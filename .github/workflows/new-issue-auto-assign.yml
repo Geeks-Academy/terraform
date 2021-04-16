@@ -8,9 +8,9 @@ jobs:
   automate-project-columns:
     runs-on: ubuntu-latest
     steps:
-      - name: Move to To do
+      - name: Move to Backlog
         uses: alex-page/github-project-automation-plus@v0.5.1
         with:
           project: DevOps
-          column: To do
+          column: Backlog
           repo-token: ${{ secrets.READ_PROJECTS_GITHUB_TOKEN }}
