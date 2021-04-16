@@ -15,12 +15,12 @@ variable "subnets" {
 }
 
 variable "ssl_target_groups" {
-  type        = list(map(string))
+  type        = any
   description = "A list of maps of target groups and hostnames that should be accessable with HTTPS"
 }
 
 variable "target_groups" {
-  type        = list(map(string))
+  type        = any
   description = "A list of maps of target groups and hostnames that should be accessable with HTTP"
 }
 
@@ -59,6 +59,12 @@ variable "http2_enabled" {
 variable "deletion_protection_enabled" {
   type        = bool
   description = "Deletion protaction"
+  default     = false
+}
+
+variable "create_ssl" {
+  type        = bool
+  description = "If you want to create HTTPS listener"
   default     = false
 }
 

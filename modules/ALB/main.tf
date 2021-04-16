@@ -70,25 +70,49 @@ resource "aws_lb_listener_certificate" "this" {
 }
 
 resource "aws_alb_listener_rule" "this_ssl" {
-  for_each = { for target in var.ssl_target_groups : target.hostname => target }
+  count = var.create_ssl ? length(var.ssl_target_groups) : 0
 
   listener_arn = aws_alb_listener.this_ssl.arn
-  priority     = each.value.priority
+  priority     = lookup(var.ssl_target_groups[count.index], "priority", null)
 
-  action {
-    type             = "forward"
-    target_group_arn = each.value.target_group
-  }
+  dynamic "action" {
+    for_each = [
+      for action_rule in var.ssl_target_groups[count.index].actions :
+      action_rule
+      if action_rule.type == "forward"
+    ]
 
-  condition {
-    host_header {
-      values = [each.value.hostname]
+    content {
+      type             = action.value["type"]
+      target_group_arn = action.value["target_group"]
     }
   }
-  
-  condition {
-    path_pattern {
-      values = [each.value.path]
+
+  dynamic "condition" {
+    for_each = [
+      for condition_rule in var.ssl_target_groups[count.index].conditions :
+      condition_rule
+      if length(lookup(condition_rule, "hostname", [])) > 0
+    ]
+
+    content {
+      host_header {
+        values = condition.value["hostname"]
+      }
+    }
+  }
+
+  dynamic "condition" {
+    for_each = [
+      for condition_rule in var.ssl_target_groups[count.index].conditions :
+      condition_rule
+      if length(lookup(condition_rule, "path", [])) > 0
+    ]
+
+    content {
+      path_pattern {
+        values = condition.value["path"]
+      }
     }
   }
 }

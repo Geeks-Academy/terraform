@@ -18,49 +18,92 @@ module "ALB" {
   subnets          = list(element(var.public_subnets, 0), element(var.public_subnets, 1))
   certificate_arn  = data.aws_acm_certificate.programmers_only.arn
   certificate_arns = [data.aws_acm_certificate.geeks_academy.arn]
+  create_ssl       = true
 
   ssl_target_groups = [
     {
-      hostname     = "www.programmers-only.com"
-      path         = "/"
-      target_group = aws_alb_target_group.frontend.arn
       priority     = 100
+
+      actions = [{
+        type         = "forward"
+        target_group = aws_alb_target_group.frontend.arn
+      }]
+
+      conditions = [{
+        hostname = ["www.programmers-only.com"]
+      }]
     },
     {
-      hostname     = "programmers-only.com"
-      path         = "/"
-      target_group = aws_alb_target_group.frontend.arn
       priority     = 110
+
+      actions = [{
+        type         = "forward"
+        target_group = aws_alb_target_group.frontend.arn
+      }]
+
+      conditions = [{
+        hostname = ["programmers-only.com"]
+      }]
     },
     {
-      hostname     = "auth.programmers-only.com"
-      path         = "/"
-      target_group = aws_alb_target_group.auth.arn
       priority     = 120
+
+      actions = [{
+        type         = "forward"
+        target_group = aws_alb_target_group.auth.arn
+      }]
+
+      conditions = [{
+        hostname = ["auth.programmers-only.com"]
+      }]
     },
     {
-      hostname     = "www.geeks.academy"
-      path         = "/"
-      target_group = aws_alb_target_group.geeks_frontend.arn
       priority     = 130
+
+      actions = [{
+        type         = "forward"
+        target_group = aws_alb_target_group.geeks_frontend.arn
+      }]
+
+      conditions = [{
+        hostname = ["www.geeks.academy"]
+      }]
     },
     {
-      hostname     = "new.geeks.academy"
-      path         = "/"
-      target_group = aws_alb_target_group.geeks_frontend.arn
       priority     = 140
+
+      actions = [{
+        type         = "forward"
+        target_group = aws_alb_target_group.geeks_frontend.arn
+      }]
+
+      conditions = [{
+        hostname = ["geeks.academy"]
+      }]
     },
     {
-      hostname     = "structure-api.geeks.academy"
-      path         = "/"
-      target_group = aws_alb_target_group.structure_backend.arn
       priority     = 150
+
+      actions = [{
+        type         = "forward"
+        target_group = aws_alb_target_group.structure_backend.arn
+      }]
+
+      conditions = [{
+        hostname = ["structure-api.geeks.academy"]
+      }]
     },
     {
-      hostname     = "structure.geeks.academy"
-      path         = "/"
-      target_group = aws_alb_target_group.structure_frontend.arn
       priority     = 160
+
+      actions = [{
+        type         = "forward"
+        target_group = aws_alb_target_group.structure_frontend.arn
+      }]
+
+      conditions = [{
+        hostname = ["structure.geeks.academy"]
+      }]
     }
   ]
 
