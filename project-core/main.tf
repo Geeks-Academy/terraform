@@ -1,8 +1,9 @@
 terraform {
   backend "s3" {
-    bucket = "trstates"
-    region = "eu-central-1"
-    key    = "states/core/terraform.tfstate"
+    bucket         = "trstates"
+    region         = "eu-central-1"
+    key            = "states/core/terraform.tfstate"
+    dynamodb_table = "trlock"
   }
 }
 
