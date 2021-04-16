@@ -1,4 +1,4 @@
-name: Move new issues into Todo
+name: Auto Assign to Project DevOps
 
 on:
   issues:
@@ -8,7 +8,8 @@ jobs:
   automate-project-columns:
     runs-on: ubuntu-latest
     steps:
-      - uses: alex-page/github-project-automation-plus@v0.5.1
+      - name: Move to To do
+        uses: alex-page/github-project-automation-plus@v0.5.1
         with:
           project: DevOps
           column: To do
