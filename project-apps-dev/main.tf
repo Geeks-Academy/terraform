@@ -57,3 +57,12 @@ module "GeeksAcademy" {
   private_subnets      = data.terraform_remote_state.project-core.outputs.private_subnets
   vpc_id               = data.terraform_remote_state.project-core.outputs.vpc_common_id
 }
+
+module "secrets" {
+  source = "../modules/secrets_sharing_service"
+
+  secrets_location    = "westeurope"
+  secrets_rg_name     = "GA-MGMT-SECRETS"
+  secrets_asp_name    = "GA-MGMT-SECRETS-ASP"
+  secrets_as_name     = "geeks-academy-secrets"
+} 
