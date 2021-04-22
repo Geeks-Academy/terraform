@@ -15,7 +15,7 @@ module "ALB" {
 
   name             = "geeks-academy"
   security_groups  = var.alb_security_groups
-  subnets          = tolist(element(var.public_subnets, 0), element(var.public_subnets, 1))
+  subnets          = tolist([element(var.public_subnets, 0), element(var.public_subnets, 1)])
   certificate_arn  = data.aws_acm_certificate.programmers_only.arn
   certificate_arns = [data.aws_acm_certificate.geeks_academy.arn]
   create_ssl       = true
