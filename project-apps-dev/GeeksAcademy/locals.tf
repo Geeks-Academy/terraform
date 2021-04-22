@@ -1,6 +1,6 @@
 locals {
   tags = merge(
-    map(
+    tomap(
       "Layer", "ECS",
       "Name", "geeks-academy",
       "Managed by", "terraform",
