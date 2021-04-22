@@ -14,6 +14,10 @@ resource "azurerm_app_service_plan" "secrets_asp" {
     tier = "Free"
     size = "F1"
   }
+
+  depends_on = [
+    azurerm_resource_group.rg
+  ]
 }
 
 resource "azurerm_app_service" "secrets_as" {
