@@ -43,5 +43,8 @@ jobs:
       run: |
         cd ./${{ github.event.inputs.project_name }}
         terraform init
-        terraform plan -var-file=frankfurt.tfvars
-        terraform apply -var-file=frankfurt.tfvars -auto-approve
+        terraform plan -var 'account_number=${{ secrets.AWS_ACCOUNT_NUMBER }}' \
+                       -var-file=frankfurt.tfvars
+        terraform apply -var 'account_number=${{ secrets.AWS_ACCOUNT_NUMBER }}' \
+                        -var-file=frankfurt.tfvars \
+                        -auto-approve
