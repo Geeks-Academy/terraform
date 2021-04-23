@@ -11,19 +11,7 @@ resource "aws_iam_role" "ecs_role" {
         "Service": "ecs-tasks.amazonaws.com"
       },
       "Action": "sts:AssumeRole"
-    },
-    {
-            "Effect": "Allow",
-            "Action": [
-                "logs:CreateLogGroup",
-                "logs:CreateLogStream",
-                "logs:PutLogEvents",
-                "logs:DescribeLogStreams"
-            ],
-            "Resource": [
-                "arn:aws:logs:*:*:*"
-            ]
-        }
+    }
   ]
 }
 EOF
@@ -48,6 +36,18 @@ resource "aws_iam_role_policy" "ecs_service_role_policy" {
       "Resource": [
         "*"
       ]
+    },
+    {
+        "Effect": "Allow",
+        "Action": [
+            "logs:CreateLogGroup",
+            "logs:CreateLogStream",
+            "logs:PutLogEvents",
+            "logs:DescribeLogStreams"
+        ],
+        "Resource": [
+            "arn:aws:logs:*:*:*"
+        ]
     }
   ]
 }
