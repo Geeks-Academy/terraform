@@ -4,7 +4,7 @@ terraform {
     profile        = "default"
     bucket         = "trstates"
     region         = "eu-central-1"
-    key            = "states/apps/terraform.tfstate"
+    key            = "states/apps/dev/terraform.tfstate"
     dynamodb_table = "trlock"
   }
 }
