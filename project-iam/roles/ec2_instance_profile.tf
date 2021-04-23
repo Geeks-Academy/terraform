@@ -52,6 +52,18 @@ resource "aws_iam_policy" "policy" {
             "Resource": [
                 "arn:aws:ssm:*:*:parameter/programmersonly/*"
             ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+                "logs:DescribeLogStreams"
+            ],
+            "Resource": [
+                "arn:aws:logs:*:*:*"
+            ]
         }
     ]
 }
