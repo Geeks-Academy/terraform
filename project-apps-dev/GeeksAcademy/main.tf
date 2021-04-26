@@ -93,3 +93,21 @@ resource "aws_autoscaling_group" "geeks_academy" {
   }
 
 }
+
+resource "aws_autoscaling_schedule" "geeks_academy_down" {
+  scheduled_action_name  = "geeks-academy-night-night"
+  min_size               = 0
+  max_size               = 1
+  desired_capacity       = 0
+  recurrence             = "00 23 * * MON-SUN"
+  autoscaling_group_name = aws_autoscaling_group.geeks_academy.name
+}
+
+resource "aws_autoscaling_schedule" "geeks_academy_up" {
+  scheduled_action_name  = "geeks-academy-morning"
+  min_size               = 0
+  max_size               = 1
+  desired_capacity       = 1
+  recurrence             = "00 5 * * MON-SUN"
+  autoscaling_group_name = aws_autoscaling_group.geeks_academy.name
+}
