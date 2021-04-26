@@ -27,6 +27,18 @@ module "vpc_common" {
   azs              = var.azs
 }
 
+module "bastion" {
+  source = "./bastion"
+
+  prefix               = "geeks-academy"
+  key_name             = aws_key_pair.deployer.key_name
+  iam_instance_profile = data.terraform_remote_state.project-iam.outputs.instance_profile_ec2
+  public_subnets       = module.vpc_common.public_subnets
+  private_subnets      = module.vpc_common.private_subnets
+  vpc_id               = module.vpc_common.vpc_id
+}
+
+
 output "key_name" {
   value = aws_key_pair.deployer.key_name
 }
