@@ -38,3 +38,8 @@ variable "azs" {
   description = "Availability zones"
 }
 
+variable "account_number" {
+  type        = string
+  description = "AWS account number"
+}
+
