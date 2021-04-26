@@ -31,7 +31,7 @@ module "bastion" {
   source = "./bastion"
 
   prefix               = "geeks-academy"
-  key_name             = data.terraform_remote_state.project-core.outputs.key_name
+  key_name             = aws_key_pair.deployer.key_name
   iam_instance_profile = data.terraform_remote_state.project-iam.outputs.instance_profile_ec2
   public_subnets       = module.vpc_common.public_subnets
   private_subnets      = module.vpc_common.private_subnets
