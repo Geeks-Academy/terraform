@@ -41,10 +41,10 @@ data "template_cloudinit_config" "config" {
 }
 
 resource "aws_launch_configuration" "geeks_academy" {
-  name_prefix                 = "geeks-academy"
-  image_id                    = data.aws_ami.amazon_linux.id
-  instance_type               = "t2.micro"
-#  spot_price                  = "0.0161"
+  name_prefix   = "geeks-academy"
+  image_id      = data.aws_ami.amazon_linux.id
+  instance_type = "t2.micro"
+  #  spot_price                  = "0.0161"
   user_data                   = data.template_cloudinit_config.config.rendered
   key_name                    = var.key_name
   iam_instance_profile        = var.iam_instance_profile
@@ -63,7 +63,7 @@ resource "aws_launch_configuration" "geeks_academy" {
 resource "aws_autoscaling_group" "geeks_academy" {
   availability_zones   = ["eu-central-1a", "eu-central-1b"]
   name                 = "geeks-academy"
-  vpc_zone_identifier  = tolist([element(var.private_subnets, 0), element(var.private_subnets, 1)])
+  vpc_zone_identifier  = tolist([element(var.public_subnets, 0), element(var.public_subnets, 1)])
   launch_configuration = aws_launch_configuration.geeks_academy.name
   min_size             = 0
   max_size             = 2
