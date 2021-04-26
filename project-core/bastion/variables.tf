@@ -33,8 +33,3 @@ variable "prefix" {
   type        = string
   description = "Instance name prefix"
 }
-
-variable "account_number" {
-  type        = string
-  description = "AWS account number"
-}
