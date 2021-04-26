@@ -1,5 +1,5 @@
 resource "aws_security_group" "bastion" {
-  name   = "allow_ec2_traffic"
+  name   = "allow_ec2_bastion_traffic"
   vpc_id = var.vpc_id
 }
 
