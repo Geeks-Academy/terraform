@@ -49,7 +49,7 @@ resource "aws_launch_configuration" "geeks_academy" {
   key_name                    = var.key_name
   iam_instance_profile        = var.iam_instance_profile
   security_groups             = var.ec2_security_groups
-  associate_public_ip_address = false
+  associate_public_ip_address = true
 
   lifecycle {
     create_before_destroy = true
