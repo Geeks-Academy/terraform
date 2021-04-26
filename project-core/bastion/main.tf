@@ -43,7 +43,7 @@ resource "aws_launch_configuration" "bastion_geeks_academy" {
   user_data                   = data.template_cloudinit_config.config.rendered
   key_name                    = var.key_name
   iam_instance_profile        = var.iam_instance_profile
-  security_groups             = aws_security_group.bastion.id
+  security_groups             = tolist([aws_security_group.bastion.id])
   associate_public_ip_address = true
 
   lifecycle {
