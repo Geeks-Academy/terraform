@@ -39,8 +39,25 @@ module "bastion" {
 }
 
 resource "azurerm_resource_group" "mgmt_rg" {
-  name = var.mgmt_rg_name
+  name     = var.mgmt_rg_name
   location = var.location
+}
+
+resource "azurerm_monitor_action_group" "name" {
+  name                = var.budget_ag_name
+  location            = var.location
+  resource_group_name = var.mgmt_rg_name
+
+  email_receiver {
+    name          = var.budget_credit_card_owner_name
+    email_address = var.budget_credit_card_owner_email
+  }
+
+  webhook_receiver {
+    name = var.budget_slack_webhook_notification_name
+    service_uri = var.budget_slack_webhook_notification_service_uri
+    use_common_alert_schema = false
+  }
 }
 
 output "key_name" {

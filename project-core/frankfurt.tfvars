@@ -8,5 +8,10 @@ private_subnets     = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
 azs                 = ["eu-central-1a", "eu-central-1b"]
 
 # Azure
-mgmt_rg_name    = "GA-MGMT"
-location        = "westeurope"
+mgmt_rg_name                                  = "GA-MGMT"
+location                                      = "westeurope"
+budget_ag_name                                = "GA-Budget-AG"
+budget_credit_card_owner_name                 = "PWachulec"
+budget_credit_card_owner_email                = "p.wachulec@gmail.com"
+budget_slack_webhook_notification_name        = ""
+budget_slack_webhook_notification_service_uri = "https://hooks.slack.com/services/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"
