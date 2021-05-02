@@ -62,8 +62,9 @@ module "GeeksAcademy" {
 module "secrets" {
   source = "../modules/secrets_sharing_service"
 
-  secrets_location    = "westeurope"
-  secrets_rg_name     = "GA-MGMT-SECRETS"
-  secrets_asp_name    = "GA-MGMT-SECRETS-ASP"
-  secrets_as_name     = "geeks-academy-secrets"
+  secrets_location     = "westeurope"
+  secrets_rg_name      = "GA-MGMT-SECRETS"
+  secrets_rg_lock_name = "GA-MGMT-SECRETS-Lock"
+  secrets_asp_name     = "GA-MGMT-SECRETS-ASP"
+  secrets_as_name      = "geeks-academy-secrets"
 } 
