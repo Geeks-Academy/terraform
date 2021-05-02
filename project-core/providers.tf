@@ -7,3 +7,7 @@ provider "aws" {
   region  = var.aws_region
   profile = var.profile_name
 }
+
+provider "azurerm" {
+  features {}
+}
