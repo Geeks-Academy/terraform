@@ -25,6 +25,7 @@ resource "azurerm_app_service" "secrets_as" {
   location              = var.secrets_location
   resource_group_name   = var.secrets_rg_name
   app_service_plan_id   = azurerm_app_service_plan.secrets_asp.id
+  https_only = true
 
   site_config {
     linux_fx_version = "DOCKER|privatebin/nginx-fpm-alpine"
