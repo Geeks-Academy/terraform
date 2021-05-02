@@ -8,8 +8,9 @@ private_subnets     = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
 azs                 = ["eu-central-1a", "eu-central-1b"]
 
 # Azure
-mgmt_rg_name                                  = "GA-MGMT"
 location                                      = "westeurope"
+mgmt_rg_name                                  = "GA-MGMT"
+mgmt_rg_lock_name                             = "GA-MGMT-RG-Lock"
 budget_ag_name                                = "GA-Budget-AG"
 budget_credit_card_owner_name                 = "PWachulec"
 budget_credit_card_owner_email                = "p.wachulec@gmail.com"

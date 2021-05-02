@@ -46,14 +46,19 @@ variable "account_number" {
 
 # Azure
 
+variable "location" {
+  type        = string
+  description = "Location of the Azure resources"
+}
+
 variable "mgmt_rg_name" {
   type        = string
   description = "RG for common resources"
 }
 
-variable "location" {
+variable "mgmt_rg_lock_name" {
   type        = string
-  description = "Location of the Azure resources"
+  description = "Lock prevents before accidentaly removing the resource group."
 }
 
 variable "budget_ag_name" {
