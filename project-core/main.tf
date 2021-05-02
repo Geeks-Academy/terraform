@@ -38,6 +38,10 @@ module "bastion" {
   vpc_id               = module.vpc_common.vpc_id
 }
 
+resource "azurerm_resource_group" "mgmt_rg" {
+  name = var.mgmt_rg_name
+  location = var.location
+}
 
 output "key_name" {
   value = aws_key_pair.deployer.key_name
