@@ -43,3 +43,12 @@ variable "account_number" {
   description = "AWS account number"
 }
 
+variable "mgmt_rg_name" {
+  type        = string
+  description = "RG for common resources"
+}
+
+variable "location" {
+  type        = string
+  description = "Location of the Azure resources"
+}
