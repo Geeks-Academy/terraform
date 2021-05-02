@@ -45,7 +45,7 @@ resource "azurerm_resource_group" "mgmt_rg" {
 
 resource "azurerm_management_lock" "mgmt_rg_lock" {
   name       = var.mgmt_rg_lock_name
-  scope      = var.mgmt_rg_name.id
+  scope      = azurerm_resource_group.mgmt_rg.id
   lock_level = "CanNotDelete"
   notes      = "This lock prevents before accidentaly removing the resource group with important resources, i.e. action group used for alarms in budget definition."
 }
