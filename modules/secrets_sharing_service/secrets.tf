@@ -3,6 +3,13 @@ resource "azurerm_resource_group" "rg" {
   location  = var.secrets_location
 }
 
+resource "azurerm_management_lock" "rg_lock" {
+  name  = var.secrets_rg_lock_name
+  scope = azurerm_resource_group.rg.id
+  lock_level = "ReadOnly"
+  notes = "This lock prevents before accident removal the resource group or before manual changes in resource configuration."
+}
+
 resource "azurerm_app_service_plan" "secrets_asp" {
   name                  = var.secrets_asp_name
   location              = var.secrets_location
