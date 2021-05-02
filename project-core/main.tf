@@ -45,7 +45,6 @@ resource "azurerm_resource_group" "mgmt_rg" {
 
 resource "azurerm_monitor_action_group" "name" {
   name                = var.budget_ag_name
-  location            = var.location
   resource_group_name = var.mgmt_rg_name
 
   email_receiver {
