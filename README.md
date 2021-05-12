@@ -5,6 +5,7 @@
 - [Introduction](#introduction)
 - [Features](#features)
 - [Requirements](#requirements)
+- [Infrastructure deployment](#Infrastructure-deployment)
 - [First run](#First-run)
 - [Contribution](#Contribution)
 - [Acknowledgements](#acknowledgements)
@@ -12,7 +13,7 @@
 
 ## Introduction
 
-This repository contains our AWS cloud infrastructure described in Terraform.
+This repository contains our AWS and Azure infrastructure described in Terraform.
 
 ## Features
 
@@ -20,13 +21,22 @@ Deploying Geeks Academy AWS infrastructure.
 
 
 ## Requirements
-The AWS credentials must be configured on running/deploying host.
+The AWS credentials and Azure Service Principal must be configured on running/deploying host.
 
-### Setting up AWS credentials
 
-[AWS](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html)
+## Infrastructure deployment
+Most of the infrastructure is defined as a Code with Terraform, so this is the basic tool which you need to install before you will try to deploy the infrastructure. [Here](https://www.terraform.io/downloads.html) you can find the Terraform CLI.
+
+State file is stored on AWS S3 bucket.
+
+### Setting up AWS credentials and Azure Service Principal
+
+* [AWS](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html)
 
 > NOTE: It is highly recommanded to use role-based configuration rather than storing aws credentials in your on-premis host.
+
+* [Azure](https://docs.microsoft.com/en-us/azure/developer/terraform/get-started-cloud-shell)
+> NOTE: In the documentation, the process is described with usage of the Azure Cloud Shell, but of course you can use *azure cli* on your localhost. You don't need to create service principal too. Please contact with the DevOps team to get required ID and secret.
 
 
 ## First run
