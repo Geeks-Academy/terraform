@@ -22,7 +22,8 @@ resource "aws_iam_user_policy_attachment" "assign_force_mfa_policy_to_users" {
 }
 
 resource "aws_iam_user_group_membership" "group_membership" {
-  user = aws_iam_user.user.name
+  count = var.group_membership == "" ? 0 : length(var.group_membership)
+  user  = aws_iam_user.user.name
 
   groups = var.group_membership
 }
