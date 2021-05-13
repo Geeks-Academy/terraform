@@ -5,7 +5,7 @@ variable "username" {
 
 variable "group_membership" {
   description = "Group name to which to assign user"
-  type        = string
+  type        = list(string)
 }
 
 variable "policy_attachement_arn" {
