@@ -39,14 +39,39 @@ jobs:
         aws-region: eu-central-1
 
     # Runs a `terraform apply` command for project-* using the runners shell
-    - name: Run terraform APPLY for ${{ github.event.inputs.project_name }}
+    - name: Run terraform APPLY for project-iam
+      if: ${{ github.event.inputs.project_name }} == 'project-iam'
       run: |
-        cd ./${{ github.event.inputs.project_name }}
+        cd ./project-iam
+        terraform init
+        terraform plan -var 'account_number=${{ secrets.AWS_ACCOUNT_NUMBER }}' \
+                       -var-file=frankfurt.tfvars
+        terraform apply -var 'account_number=${{ secrets.AWS_ACCOUNT_NUMBER }}' \
+                        -var-file=frankfurt.tfvars \
+                        -auto-approve
+
+    # Should be commented out on first deployment
+    - name: Run terraform APPLY for project-core
+      if: ${{ github.event.inputs.project_name }} == 'project-core'
+      run: |
+        cd ./project-core
         terraform init
         terraform plan -var 'account_number=${{ secrets.AWS_ACCOUNT_NUMBER }}' \
                        -var 'budget_slack_webhook_notification_service_uri=${{ secrets.SLACK_WEBHOOK }}' \
                        -var-file=frankfurt.tfvars
         terraform apply -var 'account_number=${{ secrets.AWS_ACCOUNT_NUMBER }}' \
                         -var 'budget_slack_webhook_notification_service_uri=${{ secrets.SLACK_WEBHOOK }}' \
+                        -var-file=frankfurt.tfvars \
+                        -auto-approve
+
+    # Should be commented out on first and second deployment
+    - name: Run terraform APPLY for project-apps-dev
+      if: ${{ github.event.inputs.project_name }} == 'project-apps-dev'
+      run: |
+        cd ./project-apps-dev
+        terraform init
+        terraform plan -var 'account_number=${{ secrets.AWS_ACCOUNT_NUMBER }}' \
+                       -var-file=frankfurt.tfvars
+        terraform apply -var 'account_number=${{ secrets.AWS_ACCOUNT_NUMBER }}' \
                         -var-file=frankfurt.tfvars \
                         -auto-approve
