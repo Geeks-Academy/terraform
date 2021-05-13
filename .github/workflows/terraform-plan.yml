@@ -28,6 +28,28 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
+    # Checks changes on specific paths
+    - uses: dorny/paths-filter@v2
+      id: project-iam
+      with:
+        filters: |
+          src:
+            - 'project-iam/**'
+
+    - uses: dorny/paths-filter@v2
+      id: project-core
+      with:
+        filters: |
+          src:
+            - 'project-core/**'
+    
+    - uses: dorny/paths-filter@v2
+      id: project-apps-dev
+      with:
+        filters: |
+          src:
+            - 'project-apps-dev/**'
+
     # Set AWS credentials
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -38,6 +60,7 @@ jobs:
 
     # Runs a `terraform plan` command for project-* using the runners shell
     - name: Run terraform PLAN for project-iam
+      if: steps.project-iam.outputs.src == 'true'
       run: |
         cd ./project-iam
         terraform init
@@ -46,6 +69,7 @@ jobs:
 
     # Should be commented out on first deployment
     - name: Run terraform PLAN for project-core
+      if: steps.project-core.outputs.src == 'true'
       run: |
         cd ./project-core
         terraform init
@@ -55,6 +79,7 @@ jobs:
 
     # Should be commented out on first and second deployment
     - name: Run terraform PLAN for project-apps-dev
+      if: steps.project-apps-dev.outputs.src == 'true'
       run: |
         cd ./project-apps-dev
         terraform init
