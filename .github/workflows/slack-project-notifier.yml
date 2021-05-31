@@ -2,7 +2,7 @@ name: Slack Project Notifier
 
 on:
   project_card:
-      types: [moved]
+      types: [created, moved, converted, edited]
 
 jobs:
   notify:
