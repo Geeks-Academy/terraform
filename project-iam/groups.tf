@@ -49,7 +49,10 @@ resource "aws_iam_policy" "deployer_policy" {
             "Action": [
               "s3:*"
             ],
-            "Resource": "arn:aws:s3:::trstates/states/apps/dev/*"
+            "Resource": [
+              "arn:aws:s3:::trstates/states/apps/dev/*",
+              "arn:aws:s3:::s3.geeks.academy/*"
+            ]
         }
     ]
 }
