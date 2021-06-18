@@ -1,0 +1,12 @@
+name: Deploy AAD B2C policies
+
+on: push
+
+jobs:
+  curl:
+    runs-on: ubuntu-latest
+    steps:
+    - name: curl
+      shell: pwsh
+      run: |
+        Write-Output "Hello world"
