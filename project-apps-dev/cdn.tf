@@ -27,14 +27,6 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
       }
     }
 
-    forwarded_values {
-      query_string = false
-
-      cookies {
-        forward = "none"
-      }
-    }
-
     viewer_protocol_policy = "redirect-to-https"
     min_ttl                = 0
     default_ttl            = 3600
