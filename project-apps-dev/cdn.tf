@@ -47,8 +47,6 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     viewer_protocol_policy = "redirect-to-https"
   }
 
-  tags = var.tags
-
   viewer_certificate {
     cloudfront_default_certificate = true
     acm_certificate_arn            = data.aws_acm_certificate.geeks_academy.arn
