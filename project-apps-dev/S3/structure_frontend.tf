@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "structure_frontend" {
-  bucket = "structure_frontend.geeks.academy"
+  bucket = "structure-frontend.geeks.academy"
   acl    = "public-read"
 
   website {
