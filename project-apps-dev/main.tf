@@ -68,3 +68,7 @@ module "secrets" {
   secrets_asp_name     = "GA-MGMT-SECRETS-ASP"
   secrets_as_name      = "geeks-academy-secrets"
 } 
+
+module "S3" {
+  source = "./S3"
+}
