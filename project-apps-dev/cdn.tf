@@ -3,15 +3,21 @@ data "aws_acm_certificate" "geeks_academy" {
   statuses = ["ISSUED"]
 }
 
-resource "aws_cloudfront_distribution" "s3_distribution" {
+resource "aws_cloudfront_origin_access_identity" "geeks_academy" {
+  comment = "Geeks Academy Access ID"
+}
+
+resource "aws_cloudfront_distribution" "structure_frontend" {
   origin {
     domain_name = module.S3.structure_frontend_domain_name
     origin_id   = "S3-structure_frontend.geeks.academy"
+
+    s3_origin_config {
+      origin_access_identity = aws_cloudfront_origin_access_identity.geeks_academy.cloudfront_access_identity_path
+    }
   }
 
-  enabled             = false
-  default_root_object = "index.html"
-
+  enabled             = true
   aliases = ["*.geeks.academy", "structure.geeks.academy"]
 
   default_cache_behavior {
@@ -31,20 +37,6 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     min_ttl                = 0
     default_ttl            = 3600
     max_ttl                = 86400
-  }
-
-  # Cache behavior with precedence 0
-  ordered_cache_behavior {
-    path_pattern     = "*"
-    allowed_methods  = ["GET", "HEAD"]
-    cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "S3-structure_frontend.geeks.academy"
-
-    min_ttl                = 0
-    default_ttl            = 86400
-    max_ttl                = 31536000
-    compress               = true
-    viewer_protocol_policy = "redirect-to-https"
   }
 
   restrictions {
