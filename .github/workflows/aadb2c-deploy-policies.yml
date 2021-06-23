@@ -6,7 +6,6 @@ jobs:
   curl:
     runs-on: ubuntu-latest
     steps:
-    - name: curl
+    - name: Deploy AAD B2C custom policies
       shell: pwsh
-      run: |
-        Write-Output "Hello world"
+      run: ./aadb2c-auth-policies/Set-AADB2CCustomPolicies.ps1 -ClientID ${{secrets.AADB2C_POLICIES_DEPLOY_SPN_ID}} -ClientSecret ${{secrets.AADB2C_POLICIES_DEPLOY_SPN_SECRET}} -TenantId ${{secrets.AADB2C_TENANT_ID}}
