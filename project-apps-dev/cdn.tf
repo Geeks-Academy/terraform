@@ -49,6 +49,6 @@ resource "aws_cloudfront_distribution" "structure_frontend" {
     acm_certificate_arn      = data.aws_acm_certificate.geeks_academy.arn
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1"
-    cloudfront_default_certificate = data.aws_acm_certificate.geeks_academy.arn
+    cloudfront_default_certificate = false
   }
 }
