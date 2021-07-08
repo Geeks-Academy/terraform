@@ -46,6 +46,7 @@ resource "aws_cloudfront_distribution" "structure_frontend" {
   }
 
   viewer_certificate {
-    acm_certificate_arn            = data.aws_acm_certificate.geeks_academy.arn
+    acm_certificate_arn = data.aws_acm_certificate.geeks_academy.arn
+    ssl_support_method  = "sni-only"
   }
 }
