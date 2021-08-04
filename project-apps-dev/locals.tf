@@ -1,4 +1,5 @@
 locals {
+  s3_origin_id = "structureS3Origin"
   public_dns_entries = {
     "1" = "www.programmers-only.com"
   }
@@ -10,7 +11,6 @@ locals {
 
   public_geeks_academy_dns_entries = {
     "1" = "www.geeks.academy"
-    "3" = "structure.geeks.academy"
     "4" = "structure-api.geeks.academy"
   }
 }
