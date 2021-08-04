@@ -61,7 +61,6 @@ resource "aws_launch_configuration" "geeks_academy" {
 }
 
 resource "aws_autoscaling_group" "geeks_academy" {
-  availability_zones   = ["eu-central-1a", "eu-central-1b"]
   name                 = "geeks-academy"
   vpc_zone_identifier  = tolist([element(var.public_subnets, 0), element(var.public_subnets, 1)])
   launch_configuration = aws_launch_configuration.geeks_academy.name
