@@ -4,6 +4,14 @@ data "aws_acm_certificate" "geeks_academy" {
   provider = aws.virginia
 }
 
+data "aws_cloudfront_origin_request_policy" "all_viewers" {
+  name = "Managed-AllViewer"
+}
+
+data "aws_cloudfront_cache_policy" "caching_optimized" {
+  name = "Managed-CachingOptimized"
+}
+
 resource "aws_cloudfront_origin_access_identity" "structure" {
   comment = "Origin Access Identity for structure frontend"
 }
@@ -26,9 +34,11 @@ resource "aws_cloudfront_distribution" "structure" {
   aliases = ["structure.geeks.academy"]
 
   default_cache_behavior {
-    allowed_methods  = ["GET", "HEAD"]
-    cached_methods   = ["GET", "HEAD"]
-    target_origin_id = local.s3_origin_id
+    allowed_methods          = ["GET", "HEAD"]
+    cached_methods           = ["GET", "HEAD"]
+    target_origin_id         = local.s3_origin_id
+    origin_request_policy_id = data.aws_cloudfront_origin_request_policy.all_viewers.id
+    cache_policy_id          = data.aws_cloudfront_cache_policy.caching_optimized.id
 
     forwarded_values {
       query_string = false
@@ -45,10 +55,12 @@ resource "aws_cloudfront_distribution" "structure" {
   }
 
   ordered_cache_behavior {
-    path_pattern     = "/admin"
-    allowed_methods  = ["GET", "HEAD"]
-    cached_methods   = ["GET", "HEAD"]
-    target_origin_id = local.s3_origin_id
+    path_pattern             = "admin"
+    allowed_methods          = ["GET", "HEAD"]
+    cached_methods           = ["GET", "HEAD"]
+    target_origin_id         = local.s3_origin_id
+    origin_request_policy_id = data.aws_cloudfront_origin_request_policy.all_viewers.id
+    cache_policy_id          = data.aws_cloudfront_cache_policy.caching_optimized.id
 
     forwarded_values {
       query_string = false
@@ -74,9 +86,7 @@ resource "aws_cloudfront_distribution" "structure" {
     }
   }
 
-  tags = {
-    Environment = "sandbox"
-  }
+  tags = var.tags
 
   viewer_certificate {
     acm_certificate_arn      = data.aws_acm_certificate.geeks_academy.arn
