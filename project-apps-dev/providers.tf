@@ -3,7 +3,7 @@ provider "tls" {
 }
 
 provider "aws" {
-  version = "~> 2.39"
+  version = "~> 3.0"
   region  = var.aws_region
   profile = var.profile_name
 }

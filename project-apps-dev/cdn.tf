@@ -86,7 +86,10 @@ resource "aws_cloudfront_distribution" "structure" {
     }
   }
 
-  tags = var.tags
+  tags = {
+    owner        = "bwieckow"
+    "Managed by" = "Terraform"
+  }
 
   viewer_certificate {
     acm_certificate_arn      = data.aws_acm_certificate.geeks_academy.arn
