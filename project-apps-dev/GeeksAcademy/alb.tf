@@ -92,18 +92,6 @@ module "ALB" {
       conditions = [{
         hostname = ["structure-api.geeks.academy"]
       }]
-    },
-    {
-      priority     = 160
-
-      actions = [{
-        type         = "forward"
-        target_group = aws_alb_target_group.structure_frontend.arn
-      }]
-
-      conditions = [{
-        hostname = ["structure.geeks.academy"]
-      }]
     }
   ]
 
