@@ -59,16 +59,6 @@ module "GeeksAcademy" {
   vpc_id               = data.terraform_remote_state.project-core.outputs.vpc_common_id
 }
 
-module "secrets" {
-  source = "../modules/secrets_sharing_service"
-
-  secrets_location     = "westeurope"
-  secrets_rg_name      = "GA-MGMT-SECRETS"
-  secrets_rg_lock_name = "GA-MGMT-SECRETS-Lock"
-  secrets_asp_name     = "GA-MGMT-SECRETS-ASP"
-  secrets_as_name      = "geeks-academy-secrets"
-}
-
 module "S3" {
   source = "./S3"
 }
