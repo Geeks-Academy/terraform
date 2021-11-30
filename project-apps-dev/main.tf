@@ -2,7 +2,7 @@
 terraform {
   backend "s3" {
     profile        = "default"
-    bucket         = "trstates"
+    bucket         = "statestf"
     region         = "eu-central-1"
     key            = "states/apps/dev/terraform.tfstate"
     dynamodb_table = "trlock"
@@ -29,7 +29,7 @@ data "terraform_remote_state" "project-core" {
 
 ### AWS Costs lambda uses this. Needs to be migrated together.
 resource "aws_kms_key" "programmers_only" {
-  description             = "Programmers Only Key"
+  description = "Programmers Only Key"
 }
 
 module "sg" {
@@ -41,7 +41,7 @@ module "sg" {
 module "lambda" {
   source = "./lambda"
 
-  iam_for_aws_costs_lambda_arn = data.terraform_remote_state.project-iam.outputs.iam_aws_costs_lambda_arn
+  iam_for_aws_costs_lambda_arn   = data.terraform_remote_state.project-iam.outputs.iam_aws_costs_lambda_arn
   iam_for_asg_manager_lambda_arn = data.terraform_remote_state.project-iam.outputs.iam_asg_manager_lambda_arn
 }
 
@@ -67,7 +67,7 @@ module "secrets" {
   secrets_rg_lock_name = "GA-MGMT-SECRETS-Lock"
   secrets_asp_name     = "GA-MGMT-SECRETS-ASP"
   secrets_as_name      = "geeks-academy-secrets"
-} 
+}
 
 module "S3" {
   source = "./S3"

@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket         = "trstates"
+    bucket         = "statestf"
     region         = "eu-central-1"
     key            = "states/core/terraform.tfstate"
     dynamodb_table = "trlock"
@@ -61,8 +61,8 @@ resource "azurerm_monitor_action_group" "name" {
   }
 
   webhook_receiver {
-    name = var.budget_slack_webhook_notification_name
-    service_uri = var.budget_slack_webhook_notification_service_uri
+    name                    = var.budget_slack_webhook_notification_name
+    service_uri             = var.budget_slack_webhook_notification_service_uri
     use_common_alert_schema = false
   }
 }
