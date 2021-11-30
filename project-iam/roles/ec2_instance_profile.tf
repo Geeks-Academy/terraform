@@ -50,7 +50,7 @@ resource "aws_iam_policy" "policy" {
               "ssm:DescribeParameters"
             ],
             "Resource": [
-                "arn:aws:ssm:*:*:parameter/programmersonly/*"
+                "arn:aws:ssm:*:*:parameter/geeksacademy/*"
             ]
         },
         {

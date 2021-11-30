@@ -2,7 +2,7 @@
 terraform {
   backend "s3" {
     profile        = "default"
-    bucket         = "trstates"
+    bucket         = "statestf"
     region         = "eu-central-1"
     key            = "states/apps/dev/terraform.tfstate"
     dynamodb_table = "trlock"
@@ -12,7 +12,7 @@ terraform {
 data "terraform_remote_state" "project-iam" {
   backend = "s3"
   config = {
-    bucket = "trstates"
+    bucket = "statestf"
     region = "eu-central-1"
     key    = "states/iam/terraform.tfstate"
   }
@@ -21,15 +21,15 @@ data "terraform_remote_state" "project-iam" {
 data "terraform_remote_state" "project-core" {
   backend = "s3"
   config = {
-    bucket = "trstates"
+    bucket = "statestf"
     region = "eu-central-1"
     key    = "states/core/terraform.tfstate"
   }
 }
 
 ### AWS Costs lambda uses this. Needs to be migrated together.
-resource "aws_kms_key" "programmers_only" {
-  description             = "Programmers Only Key"
+resource "aws_kms_key" "geeks_academy" {
+  description = "Geeks Academy Only Key"
 }
 
 module "sg" {
@@ -41,7 +41,7 @@ module "sg" {
 module "lambda" {
   source = "./lambda"
 
-  iam_for_aws_costs_lambda_arn = data.terraform_remote_state.project-iam.outputs.iam_aws_costs_lambda_arn
+  iam_for_aws_costs_lambda_arn   = data.terraform_remote_state.project-iam.outputs.iam_aws_costs_lambda_arn
   iam_for_asg_manager_lambda_arn = data.terraform_remote_state.project-iam.outputs.iam_asg_manager_lambda_arn
 }
 
@@ -58,16 +58,6 @@ module "GeeksAcademy" {
   private_subnets      = data.terraform_remote_state.project-core.outputs.private_subnets
   vpc_id               = data.terraform_remote_state.project-core.outputs.vpc_common_id
 }
-
-module "secrets" {
-  source = "../modules/secrets_sharing_service"
-
-  secrets_location     = "westeurope"
-  secrets_rg_name      = "GA-MGMT-SECRETS"
-  secrets_rg_lock_name = "GA-MGMT-SECRETS-Lock"
-  secrets_asp_name     = "GA-MGMT-SECRETS-ASP"
-  secrets_as_name      = "geeks-academy-secrets"
-} 
 
 module "S3" {
   source = "./S3"
