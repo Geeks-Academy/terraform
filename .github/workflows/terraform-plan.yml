@@ -74,7 +74,6 @@ jobs:
         cd ./project-core
         terraform init
         terraform plan -var 'account_number=${{ secrets.AWS_ACCOUNT_NUMBER }}' \
-                       -var 'budget_slack_webhook_notification_service_uri=${{ secrets.SLACK_WEBHOOK }}' \
                        -var-file=frankfurt.tfvars
 
     # Should be commented out on first and second deployment
