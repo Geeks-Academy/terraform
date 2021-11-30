@@ -49,7 +49,7 @@ resource "aws_iam_policy" "aws_costs" {
             "Action": [
                 "ssm:*"
             ],
-            "Resource": "arn:aws:ssm:*:*:parameter/programmersonly/devops/*"
+            "Resource": "arn:aws:ssm:*:*:parameter/geeksacademy/devops/*"
         }
     ]
 }

@@ -1,9 +1,4 @@
 ### ALB
-data "aws_acm_certificate" "programmers_only" {
-  domain   = "*.programmers-only.com"
-  statuses = ["ISSUED"]
-}
-
 data "aws_acm_certificate" "geeks_academy" {
   domain   = "*.geeks.academy"
   statuses = ["ISSUED"]
@@ -16,49 +11,13 @@ module "ALB" {
   name             = "geeks-academy"
   security_groups  = var.alb_security_groups
   subnets          = tolist([element(var.public_subnets, 0), element(var.public_subnets, 1)])
-  certificate_arn  = data.aws_acm_certificate.programmers_only.arn
-  certificate_arns = [data.aws_acm_certificate.geeks_academy.arn]
+  certificate_arn  = data.aws_acm_certificate.geeks_academy.arn
+  certificate_arns = []
   create_ssl       = true
 
   ssl_target_groups = [
     {
-      priority     = 100
-
-      actions = [{
-        type         = "forward"
-        target_group = aws_alb_target_group.frontend.arn
-      }]
-
-      conditions = [{
-        hostname = ["www.programmers-only.com"]
-      }]
-    },
-    {
-      priority     = 110
-
-      actions = [{
-        type         = "forward"
-        target_group = aws_alb_target_group.frontend.arn
-      }]
-
-      conditions = [{
-        hostname = ["programmers-only.com"]
-      }]
-    },
-    {
-      priority     = 120
-
-      actions = [{
-        type         = "forward"
-        target_group = aws_alb_target_group.auth.arn
-      }]
-
-      conditions = [{
-        hostname = ["auth.programmers-only.com"]
-      }]
-    },
-    {
-      priority     = 130
+      priority = 130
 
       actions = [{
         type         = "forward"
@@ -70,7 +29,7 @@ module "ALB" {
       }]
     },
     {
-      priority     = 140
+      priority = 140
 
       actions = [{
         type         = "forward"
@@ -82,7 +41,7 @@ module "ALB" {
       }]
     },
     {
-      priority     = 150
+      priority = 150
 
       actions = [{
         type         = "forward"

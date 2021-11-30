@@ -12,7 +12,7 @@ terraform {
 data "terraform_remote_state" "project-iam" {
   backend = "s3"
   config = {
-    bucket = "trstates"
+    bucket = "statestf"
     region = "eu-central-1"
     key    = "states/iam/terraform.tfstate"
   }
@@ -21,15 +21,15 @@ data "terraform_remote_state" "project-iam" {
 data "terraform_remote_state" "project-core" {
   backend = "s3"
   config = {
-    bucket = "trstates"
+    bucket = "statestf"
     region = "eu-central-1"
     key    = "states/core/terraform.tfstate"
   }
 }
 
 ### AWS Costs lambda uses this. Needs to be migrated together.
-resource "aws_kms_key" "programmers_only" {
-  description = "Programmers Only Key"
+resource "aws_kms_key" "geeks_academy" {
+  description = "Geeks Academy Only Key"
 }
 
 module "sg" {

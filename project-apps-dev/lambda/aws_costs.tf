@@ -14,7 +14,7 @@ resource "aws_lambda_function" "aws_costs" {
 
   environment {
     variables = {
-      SLACKWEBHOOK = "/programmersonly/devops/slackwebhook"
+      SLACKWEBHOOK = "/geeksacademy/devops/slackwebhook"
     }
   }
 
@@ -34,13 +34,13 @@ resource "aws_lambda_permission" "aws_costs_daily" {
 }
 
 resource "aws_cloudwatch_event_rule" "daily_event_rule" {
-  name = "daily_event_rule"
+  name                = "daily_event_rule"
   schedule_expression = "cron(0 9 * * ? *)"
 }
 
 resource "aws_cloudwatch_event_target" "check_at_rate_daily" {
   rule = aws_cloudwatch_event_rule.daily_event_rule.name
-  arn = aws_lambda_function.aws_costs.arn
+  arn  = aws_lambda_function.aws_costs.arn
 
   input = "{\"type\":\"DAILY\"}"
 }
@@ -54,13 +54,13 @@ resource "aws_lambda_permission" "aws_costs_monthly" {
 }
 
 resource "aws_cloudwatch_event_rule" "monthly_event_rule" {
-  name = "monthly_event_rule"
+  name                = "monthly_event_rule"
   schedule_expression = "cron(0 13 4 * ? *)"
 }
 
 resource "aws_cloudwatch_event_target" "check_at_rate_monthly" {
   rule = aws_cloudwatch_event_rule.monthly_event_rule.name
-  arn = aws_lambda_function.aws_costs.arn
+  arn  = aws_lambda_function.aws_costs.arn
 
   input = "{\"type\":\"MONTHLY\"}"
 }
