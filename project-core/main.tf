@@ -38,35 +38,6 @@ module "bastion" {
   vpc_id               = module.vpc_common.vpc_id
 }
 
-resource "azurerm_resource_group" "mgmt_rg" {
-  name     = var.mgmt_rg_name
-  location = var.location
-}
-
-resource "azurerm_management_lock" "mgmt_rg_lock" {
-  name       = var.mgmt_rg_lock_name
-  scope      = azurerm_resource_group.mgmt_rg.id
-  lock_level = "CanNotDelete"
-  notes      = "This lock prevents before accidentaly removing the resource group with important resources, i.e. action group used for alarms in budget definition."
-}
-
-resource "azurerm_monitor_action_group" "name" {
-  name                = var.budget_ag_name
-  short_name          = var.budget_ag_name
-  resource_group_name = var.mgmt_rg_name
-
-  email_receiver {
-    name          = var.budget_credit_card_owner_name
-    email_address = var.budget_credit_card_owner_email
-  }
-
-  webhook_receiver {
-    name                    = var.budget_slack_webhook_notification_name
-    service_uri             = var.budget_slack_webhook_notification_service_uri
-    use_common_alert_schema = false
-  }
-}
-
 output "key_name" {
   value = aws_key_pair.deployer.key_name
 }
