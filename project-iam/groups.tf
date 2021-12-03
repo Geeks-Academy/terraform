@@ -50,7 +50,7 @@ resource "aws_iam_policy" "deployer_policy" {
               "s3:*"
             ],
             "Resource": [
-              "arn:aws:s3:::trstates/states/apps/dev/*",
+              "arn:aws:s3:::statestf/states/apps/dev/*",
               "arn:aws:s3:::structure.geeks.academy/*"
             ]
         }
